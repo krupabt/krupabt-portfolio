@@ -1,0 +1,77 @@
+// Premium Dark Software Engineer Portfolio Atmospheres
+// 80% deep dark (#080A0F, #0D1118), 15% navy (#111827), 5% blue accent (#5B8CFF)
+
+export const SECTION_ATMOSPHERES = {
+  welcome: {
+    baseColor: '#080A0F',
+    meshGradient: 'radial-gradient(circle at 65% 30%, #111827 0%, #0D1118 45%, #080A0F 100%)',
+    primaryGradient: 'radial-gradient(ellipse 90% 70% at 75% 20%, rgba(91, 140, 255, 0.14) 0%, rgba(17, 24, 39, 0.5) 45%, transparent 80%)',
+    secondaryGradient: 'radial-gradient(ellipse 75% 55% at 20% 75%, rgba(122, 162, 255, 0.08) 0%, rgba(13, 17, 24, 0.6) 50%, transparent 75%)',
+    accentLight: 'rgba(91, 140, 255, 0.15)',
+    vignette: 'radial-gradient(ellipse 85% 80% at 50% 50%, transparent 50%, rgba(8, 10, 15, 0.65) 80%, #080A0F 100%)',
+  },
+  home: {
+    baseColor: '#080A0F',
+    meshGradient: 'radial-gradient(circle at 75% 35%, #111827 0%, #0D1118 45%, #080A0F 100%)',
+    primaryGradient: 'radial-gradient(ellipse 85% 65% at 72% 30%, rgba(91, 140, 255, 0.16) 0%, rgba(17, 24, 39, 0.55) 42%, transparent 80%)',
+    secondaryGradient: 'radial-gradient(ellipse 75% 55% at 20% 70%, rgba(122, 162, 255, 0.09) 0%, rgba(13, 17, 24, 0.6) 48%, transparent 75%)',
+    accentLight: 'rgba(91, 140, 255, 0.16)',
+    vignette: 'radial-gradient(ellipse 85% 80% at 50% 50%, transparent 50%, rgba(8, 10, 15, 0.65) 80%, #080A0F 100%)',
+  },
+  about: {
+    baseColor: '#080A0F',
+    meshGradient: 'radial-gradient(circle at 35% 45%, #111827 0%, #0D1118 45%, #080A0F 100%)',
+    primaryGradient: 'radial-gradient(ellipse 90% 70% at 30% 40%, rgba(91, 140, 255, 0.14) 0%, rgba(17, 24, 39, 0.5) 45%, transparent 80%)',
+    secondaryGradient: 'radial-gradient(ellipse 75% 55% at 80% 65%, rgba(122, 162, 255, 0.08) 0%, rgba(13, 17, 24, 0.6) 48%, transparent 75%)',
+    accentLight: 'rgba(91, 140, 255, 0.14)',
+    vignette: 'radial-gradient(ellipse 85% 80% at 50% 50%, transparent 50%, rgba(8, 10, 15, 0.65) 80%, #080A0F 100%)',
+  },
+  work: {
+    baseColor: '#080A0F',
+    meshGradient: 'radial-gradient(circle at 60% 40%, #111827 0%, #0D1118 45%, #080A0F 100%)',
+    primaryGradient: 'radial-gradient(ellipse 85% 65% at 75% 35%, rgba(91, 140, 255, 0.15) 0%, rgba(17, 24, 39, 0.5) 42%, transparent 80%)',
+    secondaryGradient: 'radial-gradient(ellipse 75% 55% at 20% 65%, rgba(122, 162, 255, 0.09) 0%, rgba(13, 17, 24, 0.6) 48%, transparent 75%)',
+    accentLight: 'rgba(91, 140, 255, 0.15)',
+    vignette: 'radial-gradient(ellipse 85% 80% at 50% 50%, transparent 50%, rgba(8, 10, 15, 0.65) 80%, #080A0F 100%)',
+  },
+  skills: {
+    baseColor: '#080A0F',
+    meshGradient: 'radial-gradient(circle at 50% 45%, #111827 0%, #0D1118 45%, #080A0F 100%)',
+    primaryGradient: 'radial-gradient(ellipse 85% 65% at 50% 35%, rgba(91, 140, 255, 0.14) 0%, rgba(17, 24, 39, 0.5) 45%, transparent 80%)',
+    secondaryGradient: 'radial-gradient(ellipse 75% 55% at 80% 60%, rgba(122, 162, 255, 0.08) 0%, rgba(13, 17, 24, 0.6) 48%, transparent 75%)',
+    accentLight: 'rgba(91, 140, 255, 0.14)',
+    vignette: 'radial-gradient(ellipse 85% 80% at 50% 50%, transparent 50%, rgba(8, 10, 15, 0.65) 80%, #080A0F 100%)',
+  },
+  experience: {
+    baseColor: '#080A0F',
+    meshGradient: 'radial-gradient(circle at 40% 45%, #111827 0%, #0D1118 45%, #080A0F 100%)',
+    primaryGradient: 'radial-gradient(ellipse 90% 70% at 65% 50%, rgba(91, 140, 255, 0.15) 0%, rgba(17, 24, 39, 0.5) 42%, transparent 80%)',
+    secondaryGradient: 'radial-gradient(ellipse 75% 55% at 20% 35%, rgba(122, 162, 255, 0.08) 0%, rgba(13, 17, 24, 0.6) 48%, transparent 75%)',
+    accentLight: 'rgba(91, 140, 255, 0.15)',
+    vignette: 'radial-gradient(ellipse 85% 80% at 50% 50%, transparent 50%, rgba(8, 10, 15, 0.65) 80%, #080A0F 100%)',
+  },
+  education: {
+    baseColor: '#080A0F',
+    meshGradient: 'radial-gradient(circle at 50% 40%, #111827 0%, #0D1118 45%, #080A0F 100%)',
+    primaryGradient: 'radial-gradient(ellipse 85% 65% at 35% 30%, rgba(91, 140, 255, 0.14) 0%, rgba(17, 24, 39, 0.5) 45%, transparent 80%)',
+    secondaryGradient: 'radial-gradient(ellipse 75% 55% at 75% 70%, rgba(122, 162, 255, 0.08) 0%, rgba(13, 17, 24, 0.6) 48%, transparent 75%)',
+    accentLight: 'rgba(91, 140, 255, 0.14)',
+    vignette: 'radial-gradient(ellipse 85% 80% at 50% 50%, transparent 50%, rgba(8, 10, 15, 0.65) 80%, #080A0F 100%)',
+  },
+  certifications: {
+    baseColor: '#080A0F',
+    meshGradient: 'radial-gradient(circle at 60% 45%, #111827 0%, #0D1118 45%, #080A0F 100%)',
+    primaryGradient: 'radial-gradient(ellipse 85% 65% at 60% 40%, rgba(91, 140, 255, 0.15) 0%, rgba(17, 24, 39, 0.5) 45%, transparent 80%)',
+    secondaryGradient: 'radial-gradient(ellipse 75% 55% at 25% 65%, rgba(122, 162, 255, 0.08) 0%, rgba(13, 17, 24, 0.6) 48%, transparent 75%)',
+    accentLight: 'rgba(91, 140, 255, 0.15)',
+    vignette: 'radial-gradient(ellipse 85% 80% at 50% 50%, transparent 50%, rgba(8, 10, 15, 0.65) 80%, #080A0F 100%)',
+  },
+  contact: {
+    baseColor: '#080A0F',
+    meshGradient: 'radial-gradient(circle at 50% 50%, #111827 0%, #0D1118 45%, #080A0F 100%)',
+    primaryGradient: 'radial-gradient(ellipse 90% 70% at 50% 45%, rgba(91, 140, 255, 0.18) 0%, rgba(17, 24, 39, 0.55) 45%, transparent 80%)',
+    secondaryGradient: 'radial-gradient(ellipse 75% 55% at 30% 75%, rgba(122, 162, 255, 0.10) 0%, rgba(13, 17, 24, 0.6) 48%, transparent 75%)',
+    accentLight: 'rgba(91, 140, 255, 0.18)',
+    vignette: 'radial-gradient(ellipse 85% 80% at 50% 50%, transparent 50%, rgba(8, 10, 15, 0.65) 80%, #080A0F 100%)',
+  },
+};
