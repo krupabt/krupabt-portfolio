@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Terminal, Database, Sparkles, Layers, CheckCircle2 } from 'lucide-react';
+import { Terminal, Database, Cpu, CheckCircle2 } from 'lucide-react';
 
 export default function AboutSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -9,26 +9,17 @@ export default function AboutSection() {
   useEffect(() => {
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setIsReducedMotion(motionQuery.matches);
-
     const handleMotionChange = (e) => setIsReducedMotion(e.matches);
     motionQuery.addEventListener('change', handleMotionChange);
 
-    if (motionQuery.matches) {
-      setIsVisible(true);
-      return () => motionQuery.removeEventListener('change', handleMotionChange);
-    }
-
-    // Trigger when 20-30% of the section enters the viewport
+    // Triggers when 20% of section enters viewport
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
         }
       },
-      {
-        threshold: 0.22,
-        rootMargin: '0px 0px -10% 0px',
-      }
+      { threshold: 0.18, rootMargin: '0px 0px -10% 0px' }
     );
 
     if (sectionRef.current) {
@@ -42,10 +33,9 @@ export default function AboutSection() {
   }, []);
 
   const whatIBuild = [
-    { title: 'Python development', icon: Terminal },
-    { title: 'AI / ML applications', icon: Sparkles },
-    { title: 'Full-stack systems', icon: Layers },
-    { title: 'Data-driven solutions', icon: Database },
+    { icon: Terminal, title: 'Python Applications', desc: 'Backend systems & automation workflows' },
+    { icon: Database, title: 'Data Pipelines', desc: 'ETL, preprocessing, & clean dataset architecture' },
+    { icon: Cpu, title: 'Practical AI Models', desc: 'Classification, deepfake detection & NLP search' },
   ];
 
   const howIWork = [
@@ -66,7 +56,7 @@ export default function AboutSection() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative py-28 sm:py-36 lg:py-44 text-[#F2FDF7] overflow-hidden"
+      className="relative py-28 sm:py-36 lg:py-44 bg-[#EDE4D8] text-[#292522] overflow-hidden"
       role="region"
       aria-label="About Krupa B T"
     >
@@ -74,40 +64,22 @@ export default function AboutSection() {
       <div className="section-divider absolute top-0 left-0 right-0" />
 
       {/* ─────────────────────────────────────────────────────────────
-          CINEMATIC BACKGROUND ATMOSPHERE (Emerald & Deep Moss Obsidian)
+          CINEMATIC BACKGROUND ATMOSPHERE (Warm Champagne & Bronze)
       ───────────────────────────────────────────────────────────── */}
       <div
         className="absolute top-1/6 left-1/4 w-[600px] sm:w-[750px] h-[600px] sm:h-[750px] rounded-full blur-[160px] pointer-events-none"
         style={{
-          background: 'radial-gradient(circle, rgba(16, 185, 129, 0.14) 0%, rgba(17, 28, 24, 0.40) 50%, transparent 80%)',
+          background: 'radial-gradient(circle, rgba(168, 135, 90, 0.08) 0%, rgba(222, 211, 197, 0.40) 50%, transparent 80%)',
         }}
         aria-hidden="true"
       />
       <div
         className="absolute bottom-1/4 -left-20 w-[500px] h-[500px] rounded-full blur-[150px] pointer-events-none"
         style={{
-          background: 'radial-gradient(circle, rgba(52, 211, 153, 0.08) 0%, rgba(11, 19, 16, 0.45) 50%, transparent 75%)',
+          background: 'radial-gradient(circle, rgba(196, 166, 123, 0.06) 0%, rgba(247, 243, 237, 0.5) 50%, transparent 75%)',
         }}
         aria-hidden="true"
       />
-
-      {/* About Section Visual Depth Portrait Element */}
-      <div
-        className="absolute top-12 right-0 lg:right-12 w-80 sm:w-96 h-96 sm:h-[480px] pointer-events-none overflow-hidden mix-blend-screen opacity-10"
-        style={{
-          transition: 'opacity 1100ms cubic-bezier(0.22, 1, 0.36, 1), transform 1100ms cubic-bezier(0.22, 1, 0.36, 1), filter 1100ms cubic-bezier(0.22, 1, 0.36, 1)',
-          opacity: isVisible || isReducedMotion ? 0.07 : 0,
-          transform: isVisible || isReducedMotion ? 'scale(1) translateX(0px)' : 'scale(1.08) translateX(-24px)',
-          filter: isVisible || isReducedMotion ? 'blur(0px)' : 'blur(8px)',
-        }}
-        aria-hidden="true"
-      >
-        <img
-          src="/profile.jpeg"
-          alt=""
-          className="w-full h-full object-cover object-top"
-        />
-      </div>
 
       <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-12 relative z-10 font-sans">
         
@@ -118,25 +90,24 @@ export default function AboutSection() {
           
           {/* Eyebrow: ABOUT ME */}
           <div
-            className="inline-flex items-center gap-2.5 mb-5"
+            className="inline-flex items-center gap-2.5 mb-5 px-3.5 py-1.5 rounded-full bg-[#FFFCF7] border border-[#DED3C5] shadow-sm"
             style={{
               transition: 'opacity 700ms cubic-bezier(0.22, 1, 0.36, 1), transform 700ms cubic-bezier(0.22, 1, 0.36, 1)',
               opacity: isVisible || isReducedMotion ? 1 : 0,
               transform: isVisible || isReducedMotion ? 'translateY(0px)' : 'translateY(25px)',
             }}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse" />
-            <span className="text-xs font-serif tracking-[0.24em] uppercase text-[#34D399] font-bold">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A] animate-pulse" />
+            <span className="text-xs font-serif tracking-[0.24em] uppercase text-[#A8875A] font-bold">
               ABOUT ME
             </span>
           </div>
 
-          {/* Main Statement (Masked Upward Reveal with blur: 8px -> 0px) */}
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold tracking-[-0.03em] leading-[1.15] text-[#F2FDF7] mb-6">
-            {/* Line 1: I LIKE TURNING */}
+          {/* Main Statement */}
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold tracking-[-0.03em] leading-[1.15] text-[#292522] mb-6">
             <div className="overflow-hidden py-1">
               <span
-                className="block text-[#F2FDF7]"
+                className="block text-[#292522]"
                 style={{
                   transition: 'opacity 850ms cubic-bezier(0.22, 1, 0.36, 1), transform 850ms cubic-bezier(0.22, 1, 0.36, 1), filter 850ms cubic-bezier(0.22, 1, 0.36, 1)',
                   opacity: isVisible || isReducedMotion ? 1 : 0,
@@ -148,10 +119,9 @@ export default function AboutSection() {
               </span>
             </div>
 
-            {/* Line 2: IDEAS INTO THINGS */}
             <div className="overflow-hidden py-1">
               <span
-                className="block text-[#F2FDF7]"
+                className="block text-[#292522]"
                 style={{
                   transition: 'opacity 850ms cubic-bezier(0.22, 1, 0.36, 1) 140ms, transform 850ms cubic-bezier(0.22, 1, 0.36, 1) 140ms, filter 850ms cubic-bezier(0.22, 1, 0.36, 1) 140ms',
                   opacity: isVisible || isReducedMotion ? 1 : 0,
@@ -163,10 +133,9 @@ export default function AboutSection() {
               </span>
             </div>
 
-            {/* Line 3: THAT ACTUALLY WORK. */}
             <div className="overflow-hidden py-1">
               <span
-                className="block text-[#10B981]"
+                className="block text-[#A8875A]"
                 style={{
                   transition: 'opacity 850ms cubic-bezier(0.22, 1, 0.36, 1) 280ms, transform 850ms cubic-bezier(0.22, 1, 0.36, 1) 280ms, filter 850ms cubic-bezier(0.22, 1, 0.36, 1) 280ms',
                   opacity: isVisible || isReducedMotion ? 1 : 0,
@@ -179,9 +148,9 @@ export default function AboutSection() {
             </div>
           </h2>
 
-          {/* Intro statement with staggered fade */}
+          {/* Intro statement */}
           <p
-            className="text-base sm:text-lg text-[#93A79E] font-normal leading-relaxed"
+            className="text-base sm:text-lg text-[#5F5750] font-normal leading-relaxed"
             style={{
               transition: 'opacity 800ms cubic-bezier(0.22, 1, 0.36, 1) 420ms, transform 800ms cubic-bezier(0.22, 1, 0.36, 1) 420ms',
               opacity: isVisible || isReducedMotion ? 1 : 0,
@@ -196,7 +165,7 @@ export default function AboutSection() {
             EDITORIAL ABSTRACT VISUAL: CODE → DATA → AI → SOFTWARE
         ───────────────────────────────────────────────────────────── */}
         <div
-          className="mb-16 sm:mb-20 p-6 sm:p-8 rounded-[20px] bg-[#0B1310]/85 border border-white/[0.08] shadow-[0_12px_30px_-8px_rgba(0,0,0,0.6)]"
+          className="mb-16 sm:mb-20 p-6 sm:p-8 rounded-[20px] bg-[#FFFCF7] border border-[#DED3C5] shadow-[0_6px_24px_-4px_rgba(41,37,34,0.06)]"
           style={{
             transition: 'opacity 800ms cubic-bezier(0.22, 1, 0.36, 1) 300ms, transform 800ms cubic-bezier(0.22, 1, 0.36, 1) 300ms',
             opacity: isVisible || isReducedMotion ? 1 : 0,
@@ -205,41 +174,41 @@ export default function AboutSection() {
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             
-            <div className="text-xs font-serif tracking-[0.22em] text-[#93A79E] uppercase font-bold">
+            <div className="text-xs font-serif tracking-[0.22em] text-[#7D736A] uppercase font-bold">
               ENGINEERING PIPELINE
             </div>
 
             {/* Flow line connecting CODE → DATA → AI → SOFTWARE */}
-            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-5 text-xs sm:text-sm font-serif font-medium text-[#F2FDF7]">
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-5 text-xs sm:text-sm font-serif font-medium text-[#292522]">
               
               {/* CODE */}
-              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] pill-hover-effect">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
-                <span className="tracking-wide">CODE</span>
+              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EDE4D8] border border-[#DED3C5] pill-hover-effect">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A]" />
+                <span className="tracking-wide text-[#292522]">CODE</span>
               </div>
 
-              <span className="text-[#10B981]/50 text-xs">→</span>
+              <span className="text-[#A8875A] text-xs">→</span>
 
               {/* DATA */}
-              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] pill-hover-effect">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#34D399]" />
-                <span className="tracking-wide">DATA</span>
+              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EDE4D8] border border-[#DED3C5] pill-hover-effect">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#C4A67B]" />
+                <span className="tracking-wide text-[#292522]">DATA</span>
               </div>
 
-              <span className="text-[#10B981]/50 text-xs">→</span>
+              <span className="text-[#A8875A] text-xs">→</span>
 
               {/* AI */}
-              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#10B981]/15 border border-[#10B981]/30 text-[#34D399] pill-hover-effect">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse" />
-                <span className="tracking-wide font-semibold">AI</span>
+              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#A8875A]/15 border border-[#A8875A]/40 text-[#292522] pill-hover-effect">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A] animate-pulse" />
+                <span className="tracking-wide font-semibold text-[#A8875A]">AI</span>
               </div>
 
-              <span className="text-[#10B981]/50 text-xs">→</span>
+              <span className="text-[#A8875A] text-xs">→</span>
 
               {/* SOFTWARE */}
-              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] pill-hover-effect">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                <span className="tracking-wide">SOFTWARE</span>
+              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EDE4D8] border border-[#DED3C5] pill-hover-effect">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A]" />
+                <span className="tracking-wide text-[#292522]">SOFTWARE</span>
               </div>
 
             </div>
@@ -253,34 +222,34 @@ export default function AboutSection() {
           
           {/* 1. WHO I AM */}
           <div
-            className="p-7 rounded-[20px] bg-[rgba(17,28,24,0.65)] border border-white/[0.08] hover:border-[#10B981]/45 card-hover-subtle transition-all duration-300 ease-out"
+            className="p-7 rounded-[20px] bg-[#FFFCF7] border border-[#DED3C5] hover:border-[#A8875A] card-hover-subtle transition-all duration-300 ease-out shadow-[0_6px_24px_-4px_rgba(41,37,34,0.06)]"
             style={{
               transition: 'opacity 750ms cubic-bezier(0.22, 1, 0.36, 1) 320ms, transform 750ms cubic-bezier(0.22, 1, 0.36, 1) 320ms',
               opacity: isVisible || isReducedMotion ? 1 : 0,
               transform: isVisible || isReducedMotion ? 'translateY(0px)' : 'translateY(40px)',
             }}
           >
-            <div className="text-xs font-serif tracking-[0.18em] uppercase text-[#34D399] font-bold mb-4 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
+            <div className="text-xs font-serif tracking-[0.18em] uppercase text-[#A8875A] font-bold mb-4 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A]" />
               WHO I AM
             </div>
 
-            <p className="text-sm sm:text-base text-[#93A79E] font-normal leading-relaxed">
+            <p className="text-sm sm:text-base text-[#5F5750] font-normal leading-relaxed">
               I am Krupa, an Information Science Engineering student at Garden City University in Bengaluru with a 9.17 GPA. My focus centers on Python development, artificial intelligence, and full-stack systems, taking ideas from concept to production.
             </p>
           </div>
 
           {/* 2. WHAT I BUILD */}
           <div
-            className="p-7 rounded-[20px] bg-[rgba(17,28,24,0.65)] border border-white/[0.08] hover:border-[#10B981]/45 card-hover-subtle transition-all duration-300 ease-out"
+            className="p-7 rounded-[20px] bg-[#FFFCF7] border border-[#DED3C5] hover:border-[#A8875A] card-hover-subtle transition-all duration-300 ease-out shadow-[0_6px_24px_-4px_rgba(41,37,34,0.06)]"
             style={{
               transition: 'opacity 750ms cubic-bezier(0.22, 1, 0.36, 1) 440ms, transform 750ms cubic-bezier(0.22, 1, 0.36, 1) 440ms',
               opacity: isVisible || isReducedMotion ? 1 : 0,
               transform: isVisible || isReducedMotion ? 'translateY(0px)' : 'translateY(40px)',
             }}
           >
-            <div className="text-xs font-serif tracking-[0.18em] uppercase text-[#34D399] font-bold mb-4 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
+            <div className="text-xs font-serif tracking-[0.18em] uppercase text-[#A8875A] font-bold mb-4 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A]" />
               WHAT I BUILD
             </div>
 
@@ -290,9 +259,9 @@ export default function AboutSection() {
                 return (
                   <div
                     key={idx}
-                    className="flex items-center gap-3 text-sm sm:text-base text-[#CFDDD6]"
+                    className="flex items-center gap-3 text-sm sm:text-base text-[#292522]"
                   >
-                    <div className="w-6 h-6 rounded-lg bg-[#111C18] border border-white/[0.08] flex items-center justify-center flex-shrink-0 text-[#10B981]">
+                    <div className="w-6 h-6 rounded-lg bg-[#EDE4D8] border border-[#DED3C5] flex items-center justify-center flex-shrink-0 text-[#A8875A]">
                       <IconComponent className="w-3.5 h-3.5" />
                     </div>
                     <span>{item.title}</span>
@@ -304,15 +273,15 @@ export default function AboutSection() {
 
           {/* 3. HOW I WORK */}
           <div
-            className="p-7 rounded-[20px] bg-[rgba(17,28,24,0.65)] border border-white/[0.08] hover:border-[#10B981]/45 card-hover-subtle transition-all duration-300 ease-out"
+            className="p-7 rounded-[20px] bg-[#FFFCF7] border border-[#DED3C5] hover:border-[#A8875A] card-hover-subtle transition-all duration-300 ease-out shadow-[0_6px_24px_-4px_rgba(41,37,34,0.06)]"
             style={{
               transition: 'opacity 750ms cubic-bezier(0.22, 1, 0.36, 1) 560ms, transform 750ms cubic-bezier(0.22, 1, 0.36, 1) 560ms',
               opacity: isVisible || isReducedMotion ? 1 : 0,
               transform: isVisible || isReducedMotion ? 'translateY(0px)' : 'translateY(40px)',
             }}
           >
-            <div className="text-xs font-serif tracking-[0.18em] uppercase text-[#34D399] font-bold mb-4 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
+            <div className="text-xs font-serif tracking-[0.18em] uppercase text-[#A8875A] font-bold mb-4 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A]" />
               HOW I WORK
             </div>
 
@@ -322,10 +291,10 @@ export default function AboutSection() {
                   key={idx}
                   className="flex items-start gap-2.5 text-sm sm:text-base"
                 >
-                  <CheckCircle2 className="w-4 h-4 text-[#10B981] mt-0.5 flex-shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#A8875A] mt-0.5 flex-shrink-0" />
                   <div>
-                    <span className="text-[#F2FDF7] font-medium">{item.title}</span>
-                    <span className="text-xs text-[#93A79E] block mt-0.5">{item.desc}</span>
+                    <span className="text-[#292522] font-medium">{item.title}</span>
+                    <span className="text-xs text-[#7D736A] block mt-0.5">{item.desc}</span>
                   </div>
                 </div>
               ))}
@@ -338,14 +307,14 @@ export default function AboutSection() {
             SUPPORTING PERSONAL PARAGRAPH
         ───────────────────────────────────────────────────────────── */}
         <div
-          className="p-8 rounded-[20px] bg-[#0B1310]/80 border border-white/[0.08] shadow-[0_12px_30px_-8px_rgba(0,0,0,0.6)] mb-16 sm:mb-20"
+          className="p-8 rounded-[20px] bg-[#FFFCF7] border border-[#DED3C5] shadow-[0_6px_24px_-4px_rgba(41,37,34,0.06)] mb-16 sm:mb-20"
           style={{
             transition: 'opacity 800ms cubic-bezier(0.22, 1, 0.36, 1) 600ms, transform 800ms cubic-bezier(0.22, 1, 0.36, 1) 600ms',
             opacity: isVisible || isReducedMotion ? 1 : 0,
             transform: isVisible || isReducedMotion ? 'translateY(0px)' : 'translateY(30px)',
           }}
         >
-          <p className="text-sm sm:text-base md:text-lg text-[#CFDDD6] font-normal leading-relaxed max-w-4xl">
+          <p className="text-sm sm:text-base md:text-lg text-[#5F5750] font-normal leading-relaxed max-w-4xl">
             From engineering conversational customer support powered by RAG and e-commerce revenue intelligence using association rule mining, to facial deepfake media detection across video frame sequences and NLP candidate matching, my focus is straightforward: pairing clean data with practical machine learning to solve real user challenges, while continuously improving my Data Structures & Algorithms, problem-solving, and software development skills.
           </p>
         </div>
@@ -354,24 +323,24 @@ export default function AboutSection() {
             HORIZONTAL METRIC BAR (AT A GLANCE)
         ───────────────────────────────────────────────────────────── */}
         <div
-          className="pt-8 border-t border-white/[0.08]"
+          className="pt-8 border-t border-[#DED3C5]"
           style={{
             transition: 'opacity 800ms cubic-bezier(0.22, 1, 0.36, 1) 700ms, transform 800ms cubic-bezier(0.22, 1, 0.36, 1) 700ms',
             opacity: isVisible || isReducedMotion ? 1 : 0,
             transform: isVisible || isReducedMotion ? 'translateY(0px)' : 'translateY(25px)',
           }}
         >
-          <div className="text-xs font-serif tracking-[0.25em] uppercase text-[#34D399] font-bold mb-6 sm:mb-8">
+          <div className="text-xs font-serif tracking-[0.25em] uppercase text-[#A8875A] font-bold mb-6 sm:mb-8">
             AT A GLANCE
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 lg:gap-12">
             {personalDetails.map((detail) => (
               <div key={detail.label} className="space-y-1">
-                <div className="text-[11px] font-serif tracking-[0.16em] uppercase text-[#647870] font-medium">
+                <div className="text-[11px] font-serif tracking-[0.16em] uppercase text-[#7D736A] font-medium">
                   {detail.label}
                 </div>
-                <div className="text-sm sm:text-base font-semibold text-[#F2FDF7] tracking-tight">
+                <div className="text-sm sm:text-base font-semibold text-[#292522] tracking-tight">
                   {detail.value}
                 </div>
               </div>

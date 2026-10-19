@@ -25,7 +25,7 @@ function ProjectImageLightbox({ activeImage, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10 bg-[#040806]/95 backdrop-blur-xl transition-all duration-300 animate-in fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10 bg-[#292522]/95 backdrop-blur-xl transition-all duration-300 animate-in fade-in"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -38,7 +38,7 @@ function ProjectImageLightbox({ activeImage, onClose }) {
       >
         <button
           onClick={onClose}
-          className="p-3 rounded-full bg-white/[0.08] hover:bg-white/[0.18] text-[#F2FDF7] hover:text-white border border-white/10 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#10B981]"
+          className="p-3 rounded-full bg-[#FFFCF7]/10 hover:bg-[#FFFCF7]/20 text-[#F7F3ED] border border-[#DED3C5]/20 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#A8875A]"
           aria-label="Close Preview (Esc)"
           title="Close Preview (Esc)"
         >
@@ -51,7 +51,7 @@ function ProjectImageLightbox({ activeImage, onClose }) {
         className="relative max-w-6xl max-h-[88vh] w-full flex flex-col items-center justify-center"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative rounded-2xl overflow-hidden border border-emerald-950 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] bg-[#07100C]">
+        <div className="relative rounded-2xl overflow-hidden border border-[#DED3C5] shadow-2xl bg-[#FFFCF7]">
           <img
             src={activeImage.src}
             alt={`${activeImage.title} Screenshot Preview`}
@@ -61,11 +61,11 @@ function ProjectImageLightbox({ activeImage, onClose }) {
 
         {/* Caption */}
         <div className="mt-4 text-center">
-          <h4 className="text-base sm:text-lg font-bold text-[#F2FDF7] tracking-tight">
+          <h4 className="text-base sm:text-lg font-bold text-[#F7F3ED] tracking-tight">
             {activeImage.title}
           </h4>
           {activeImage.subtitle && (
-            <p className="text-xs sm:text-sm text-[#93A79E] font-normal mt-0.5">
+            <p className="text-xs sm:text-sm text-[#DED3C5] font-normal mt-0.5">
               {activeImage.subtitle}
             </p>
           )}
@@ -88,7 +88,7 @@ function ProjectImageCard({ project, onOpenLightbox }) {
   }, [primaryImage]);
 
   return (
-    <div className="relative w-full aspect-[16/10] rounded-[22px] bg-[#0B1310] border border-white/[0.08] shadow-2xl overflow-hidden group hover:border-[#10B981]/45 card-hover-subtle transition-all duration-300">
+    <div className="relative w-full aspect-[16/10] rounded-[22px] bg-[#FFFCF7] border border-[#DED3C5] shadow-[0_12px_36px_-6px_rgba(41,37,34,0.08)] overflow-hidden group hover:border-[#A8875A] card-hover-subtle transition-all duration-300">
       {hasImages && !imgError ? (
         <div
           className="relative w-full h-full cursor-pointer overflow-hidden"
@@ -114,58 +114,60 @@ function ProjectImageCard({ project, onOpenLightbox }) {
 
           {/* Hover Overlay Hint & Lighting Accent */}
           {imgLoaded && (
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-250 flex items-end justify-center pb-6 pointer-events-none">
-              <span className="px-4 py-2 rounded-xl bg-[#060A08]/95 border border-white/[0.1] text-xs font-serif text-[#CFDDD6] tracking-wider flex items-center gap-2 shadow-lg">
-                <Maximize2 className="w-3.5 h-3.5 text-[#10B981]" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#292522]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-250 flex items-end justify-center pb-6 pointer-events-none">
+              <span className="px-4 py-2 rounded-xl bg-[#292522]/90 border border-[#DED3C5]/30 text-xs font-serif text-[#F7F3ED] tracking-wider flex items-center gap-2 shadow-lg">
+                <Maximize2 className="w-3.5 h-3.5 text-[#A8875A]" />
                 EXPAND PREVIEW
               </span>
             </div>
           )}
-        </div>
-      ) : null}
 
-      {/* Clean Fallback Placeholder when image doesn't exist yet */}
-      {(!hasImages || imgError || !imgLoaded) && (
-        <div className={`absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-gradient-to-b from-[#0B1310] via-[#080E0C] to-[#060A08] ${hasImages && !imgError && imgLoaded ? 'hidden' : 'flex'}`}>
-          <div className="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center mb-3 text-[#10B981]">
-            <ImageIcon className="w-6 h-6 opacity-80" />
+          {!imgLoaded && (
+            <div className="absolute inset-0 flex items-center justify-center bg-[#EDE4D8] animate-pulse">
+              <ImageIcon className="w-10 h-10 text-[#A8875A]/40" />
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="w-full h-full flex flex-col items-center justify-center gap-3 p-8 text-center bg-[#EDE4D8]">
+          <div className="w-12 h-12 rounded-2xl bg-[#FFFCF7] border border-[#DED3C5] flex items-center justify-center text-[#A8875A]">
+            <ImageIcon className="w-6 h-6" />
           </div>
-          <span className="text-xs font-serif font-bold tracking-[0.22em] text-[#F2FDF7] uppercase">
-            PROJECT PREVIEW
-          </span>
-          <span className="text-[14px] font-serif text-[#CFDDD6] mt-1.5 max-w-xs font-medium">
-            {project.title}
-          </span>
-          <span className="text-xs font-serif text-[#647870] mt-3 px-3 py-1 rounded-lg bg-white/[0.03] border border-white/[0.06]">
-            Place screenshot in public{project.images?.[0] || `/projects/${project.id}/home.png`}
-          </span>
+          <div>
+            <span className="text-sm font-semibold text-[#292522] block font-serif">
+              {project.title}
+            </span>
+            <span className="text-xs text-[#7D736A] mt-1 block">
+              Architectural implementation active
+            </span>
+          </div>
         </div>
       )}
     </div>
   );
 }
 
-// Custom Project Item Component with Alternating Layout & Staggered Viewport Animation
+// Single Project Scene Row
 function ProjectSceneItem({ project, idx, onOpenLightbox }) {
   const isEven = idx % 2 === 0;
+  const itemRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const itemRef = useRef(null);
 
   useEffect(() => {
-    // Triggers when 20-30% of the project item enters the viewport
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
         }
       },
-      { threshold: 0.2, rootMargin: '0px 0px -10% 0px' }
+      { threshold: 0.16, rootMargin: '0px 0px -10% 0px' }
     );
 
     if (itemRef.current) {
       observer.observe(itemRef.current);
     }
+
     return () => observer.disconnect();
   }, []);
 
@@ -184,7 +186,7 @@ function ProjectSceneItem({ project, idx, onOpenLightbox }) {
       <div
         className={`absolute -top-24 ${isEven ? 'left-0' : 'right-0'} w-[520px] h-[520px] rounded-full blur-[180px] pointer-events-none opacity-20`}
         style={{
-          background: 'radial-gradient(circle, rgba(16, 185, 129, 0.16) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(168, 135, 90, 0.10) 0%, transparent 70%)',
         }}
         aria-hidden="true"
       />
@@ -207,7 +209,7 @@ function ProjectSceneItem({ project, idx, onOpenLightbox }) {
           id={`media-${project.id}`}
         >
           {project.demoVideo ? (
-            <div className="relative w-full aspect-[16/10] rounded-[22px] bg-black/90 border border-white/[0.08] shadow-2xl p-2 overflow-hidden group hover:border-[#10B981]/35 transition-all duration-500">
+            <div className="relative w-full aspect-[16/10] rounded-[22px] bg-[#292522] border border-[#DED3C5] shadow-[0_12px_36px_-6px_rgba(41,37,34,0.08)] p-2 overflow-hidden group hover:border-[#A8875A] transition-all duration-500">
               <video
                 src={project.demoVideo}
                 controls
@@ -234,19 +236,19 @@ function ProjectSceneItem({ project, idx, onOpenLightbox }) {
         >
           {/* Project Number & Subtitle */}
           <div className="flex items-center gap-4">
-            <span className="text-3xl sm:text-4xl font-bold font-serif text-[#10B981] tracking-tight">
+            <span className="text-3xl sm:text-4xl font-bold font-serif text-[#A8875A] tracking-tight">
               {project.number}
             </span>
-            <div className="w-8 h-[1px] bg-white/[0.12]" />
-            <span className="text-xs font-serif tracking-[0.2em] uppercase text-[#93A79E] font-medium">
+            <div className="w-8 h-[1px] bg-[#DED3C5]" />
+            <span className="text-xs font-serif tracking-[0.2em] uppercase text-[#7D736A] font-medium">
               {project.subtitle}
             </span>
           </div>
 
-          {/* Project Title (shifts slightly on hover) */}
+          {/* Project Title */}
           <h3
-            className={`text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#F2FDF7] leading-[1.18] transition-all duration-300 ${
-              isHovered ? 'text-[#34D399] translate-x-1' : ''
+            className={`text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#292522] leading-[1.18] transition-all duration-300 ${
+              isHovered ? 'text-[#A8875A] translate-x-1' : ''
             }`}
           >
             {project.title}
@@ -254,22 +256,22 @@ function ProjectSceneItem({ project, idx, onOpenLightbox }) {
 
           {/* Highlight Badge if available */}
           {project.stat && (
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#10B981]/10 border border-[#10B981]/25 text-xs font-serif text-[#34D399] font-medium">
-              <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981]" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EDE4D8] border border-[#DED3C5] text-xs font-serif text-[#A8875A] font-medium">
+              <CheckCircle2 className="w-3.5 h-3.5 text-[#A8875A]" />
               <span>{project.stat}</span>
             </div>
           )}
 
           {/* Description */}
-          <p className="text-base sm:text-lg text-[#93A79E] font-normal leading-relaxed">
+          <p className="text-base sm:text-lg text-[#5F5750] font-normal leading-relaxed">
             {project.description}
           </p>
 
           {/* Detailed Highlights */}
           <div className="space-y-3 pt-2 w-full">
             {project.details.map((detail, dIdx) => (
-              <div key={dIdx} className="flex items-start gap-3 text-sm font-normal text-[#CFDDD6] leading-normal">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] mt-2 flex-shrink-0" />
+              <div key={dIdx} className="flex items-start gap-3 text-sm font-normal text-[#5F5750] leading-normal">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A] mt-2 flex-shrink-0" />
                 <span>{detail}</span>
               </div>
             ))}
@@ -277,14 +279,14 @@ function ProjectSceneItem({ project, idx, onOpenLightbox }) {
 
           {/* Technologies Pills */}
           <div className="pt-2">
-            <div className="text-xs font-serif tracking-widest text-[#647870] uppercase mb-2.5 font-medium">
+            <div className="text-xs font-serif tracking-widest text-[#7D736A] uppercase mb-2.5 font-medium">
               TECH STACK
             </div>
             <div className="flex flex-wrap gap-2">
               {project.tech.map((t) => (
                 <span
                   key={t}
-                  className="px-3 py-1.5 text-xs font-serif text-[#CFDDD6] bg-[#111C18] border border-white/[0.08] rounded-lg pill-hover-effect hover:border-[#10B981]/50 hover:text-[#F2FDF7]"
+                  className="px-3 py-1.5 text-xs font-serif text-[#292522] bg-[#FFFCF7] border border-[#DED3C5] rounded-lg pill-hover-effect hover:border-[#A8875A] hover:bg-[#EDE4D8]"
                 >
                   {t}
                 </span>
@@ -292,7 +294,7 @@ function ProjectSceneItem({ project, idx, onOpenLightbox }) {
             </div>
           </div>
 
-          {/* Links: GITHUB, LIVE DEMO, WATCH DEMO with 200-300ms hover lift */}
+          {/* Links: GITHUB, LIVE DEMO, WATCH DEMO */}
           <div className="pt-3 flex flex-wrap items-center gap-3">
             {/* GITHUB */}
             {(project.githubUrl || project.github) && (
@@ -300,24 +302,24 @@ function ProjectSceneItem({ project, idx, onOpenLightbox }) {
                 href={project.githubUrl || project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-xl text-xs font-bold tracking-[0.14em] uppercase text-[#CFDDD6] hover:text-[#F2FDF7] bg-[#0B1310]/85 hover:bg-[#111C18] border border-white/[0.12] hover:border-[#10B981]/50 btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#10B981]"
+                className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-xl text-xs font-bold tracking-[0.14em] uppercase text-[#292522] hover:text-[#292522] bg-[#FFFCF7] hover:bg-[#EDE4D8] border border-[#DED3C5] hover:border-[#A8875A] btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A]"
               >
-                <GithubIcon className="w-4 h-4 text-[#10B981]" />
+                <GithubIcon className="w-4 h-4 text-[#A8875A]" />
                 <span>GITHUB</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-[#10B981] transition-transform duration-250 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-[#A8875A] transition-transform duration-250 group-hover:translate-x-1 group-hover:-translate-y-1" />
               </a>
             )}
 
-            {/* LIVE DEMO */}
+            {/* LIVE DEMO: Rich Charcoal with warm ivory text */}
             {project.demoUrl && !project.demoUrl.includes('localhost') && (
               <a
                 href={project.demoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold tracking-[0.14em] uppercase text-white bg-[#10B981] hover:bg-[#059669] btn-hover-effect shadow-[0_4px_20px_rgba(16,185,129,0.30)] hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#10B981]"
+                className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold tracking-[0.14em] uppercase text-[#F7F3ED] bg-[#292522] hover:bg-[#A8875A] hover:text-[#292522] border border-[#292522] hover:border-[#A8875A] btn-hover-effect shadow-[0_4px_20px_rgba(41,37,34,0.18)] hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A]"
               >
                 <span>LIVE DEMO</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-white transition-transform duration-250 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-[#F7F3ED] transition-transform duration-250 group-hover:translate-x-1 group-hover:-translate-y-1" />
               </a>
             )}
 
@@ -325,9 +327,9 @@ function ProjectSceneItem({ project, idx, onOpenLightbox }) {
             {project.demoVideo && (
               <a
                 href={`#media-${project.id}`}
-                className="group inline-flex items-center gap-2 px-5 py-3 rounded-xl text-xs font-bold tracking-[0.14em] uppercase text-[#CFDDD6] hover:text-[#F2FDF7] bg-[#0B1310]/85 hover:bg-[#111C18] border border-white/[0.12] hover:border-[#10B981]/50 btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#10B981]"
+                className="group inline-flex items-center gap-2 px-5 py-3 rounded-xl text-xs font-bold tracking-[0.14em] uppercase text-[#292522] hover:text-[#292522] bg-[#FFFCF7] hover:bg-[#EDE4D8] border border-[#DED3C5] hover:border-[#A8875A] btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A]"
               >
-                <Play className="w-3.5 h-3.5 text-[#10B981] fill-current" />
+                <Play className="w-3.5 h-3.5 text-[#A8875A] fill-current" />
                 <span>WATCH DEMO</span>
               </a>
             )}
@@ -364,7 +366,7 @@ export default function ProjectsSection() {
   return (
     <section
       id="work"
-      className="relative py-32 sm:py-40 lg:py-48 text-[#F2FDF7] overflow-hidden"
+      className="relative py-32 sm:py-40 lg:py-48 bg-[#F7F3ED] text-[#292522] overflow-hidden"
       role="region"
       aria-label="Selected Engineering Work"
     >
@@ -372,19 +374,19 @@ export default function ProjectsSection() {
       <div className="section-divider absolute top-0 left-0 right-0" />
 
       {/* ─────────────────────────────────────────────────────────────
-          ATMOSPHERIC EMERALD LIGHT SOURCES BEHIND WORK SECTION
+          ATMOSPHERIC BRONZE LIGHT SOURCES BEHIND WORK SECTION
       ───────────────────────────────────────────────────────────── */}
       <div
         className="absolute top-1/4 right-0 w-[600px] sm:w-[800px] h-[600px] sm:h-[800px] rounded-full blur-[170px] pointer-events-none"
         style={{
-          background: 'radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(17, 28, 24, 0.45) 50%, transparent 80%)',
+          background: 'radial-gradient(circle, rgba(168, 135, 90, 0.08) 0%, rgba(237, 228, 216, 0.4) 50%, transparent 80%)',
         }}
         aria-hidden="true"
       />
       <div
         className="absolute top-2/3 left-0 w-[550px] h-[550px] rounded-full blur-[160px] pointer-events-none"
         style={{
-          background: 'radial-gradient(circle, rgba(52, 211, 153, 0.08) 0%, rgba(11, 19, 16, 0.45) 50%, transparent 75%)',
+          background: 'radial-gradient(circle, rgba(196, 166, 123, 0.06) 0%, rgba(247, 243, 237, 0.5) 50%, transparent 75%)',
         }}
         aria-hidden="true"
       />
@@ -407,18 +409,18 @@ export default function ProjectsSection() {
             transform: headerVisible ? 'translateY(0px)' : 'translateY(30px)',
           }}
         >
-          <div className="inline-flex items-center gap-2.5 mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse" />
-            <span className="text-xs font-serif tracking-[0.25em] uppercase text-[#34D399] font-bold">
+          <div className="inline-flex items-center gap-2.5 mb-4 px-3.5 py-1.5 rounded-full bg-[#EDE4D8] border border-[#DED3C5] shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A] animate-pulse" />
+            <span className="text-xs font-serif tracking-[0.25em] uppercase text-[#A8875A] font-bold">
               SELECTED WORK
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.12] text-[#F2FDF7] max-w-3xl">
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.12] text-[#292522] max-w-3xl">
             PRACTICAL SYSTEMS & APPLICATIONS.
           </h2>
 
-          <p className="mt-4 text-[#93A79E] text-base sm:text-lg font-normal max-w-2xl leading-relaxed">
+          <p className="mt-4 text-[#5F5750] text-base sm:text-lg font-normal max-w-2xl leading-relaxed">
             Production-oriented architectures spanning AI retrieval-augmented generation, media forensics, e-commerce intelligence, and full-stack web applications.
           </p>
         </div>

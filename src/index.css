@@ -9,13 +9,13 @@
 
   html {
     scroll-behavior: smooth;
-    color-scheme: dark;
+    color-scheme: light;
     font-family: "Times New Roman", Times, serif !important;
   }
 
   body {
-    background-color: #060A08;
-    color: #CFDDD6;
+    background-color: #F7F3ED;
+    color: #5F5750;
     font-family: "Times New Roman", Times, serif !important;
     font-weight: 400;
     line-height: 1.7;
@@ -25,7 +25,7 @@
   }
 
   p {
-    color: #93A79E;
+    color: #5F5750;
     font-family: "Times New Roman", Times, serif !important;
     font-weight: 400;
     line-height: 1.75;
@@ -35,7 +35,7 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: "Times New Roman", Times, serif !important;
     letter-spacing: -0.015em;
-    color: #F2FDF7;
+    color: #292522;
     text-wrap: balance;
     font-weight: 700;
     line-height: 1.2;
@@ -61,21 +61,21 @@
 
   /* Universal Keyboard Focus State for Accessibility */
   :focus-visible {
-    outline: 2px solid #10B981 !important;
+    outline: 2px solid #A8875A !important;
     outline-offset: 3px !important;
     border-radius: 6px;
   }
 }
 
 @layer utilities {
-  /* Subtle Section Divider with soft emerald edge falloff */
+  /* Subtle Section Divider with soft bronze edge falloff */
   .section-divider {
     background: linear-gradient(
       90deg,
       transparent 0%,
-      rgba(255, 255, 255, 0.04) 15%,
-      rgba(16, 185, 129, 0.22) 50%,
-      rgba(255, 255, 255, 0.04) 85%,
+      rgba(222, 211, 197, 0.4) 15%,
+      rgba(168, 135, 90, 0.3) 50%,
+      rgba(222, 211, 197, 0.4) 85%,
       transparent 100%
     );
     height: 1px;
@@ -92,7 +92,7 @@
   }
   .btn-hover-effect:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px -4px rgba(16, 185, 129, 0.35);
+    box-shadow: 0 8px 24px -4px rgba(41, 37, 34, 0.15);
   }
   .btn-hover-effect:active {
     transform: translateY(0px) scale(0.98);
@@ -106,8 +106,8 @@
   }
   .card-hover-subtle:hover {
     transform: translateY(-3px);
-    border-color: rgba(52, 211, 153, 0.40);
-    box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.75), 0 0 20px -4px rgba(16, 185, 129, 0.15);
+    border-color: #A8875A;
+    box-shadow: 0 16px 32px -8px rgba(41, 37, 34, 0.08), 0 0 16px -4px rgba(168, 135, 90, 0.12);
   }
 
   .pill-hover-effect {
@@ -118,8 +118,8 @@
   }
   .pill-hover-effect:hover {
     transform: translateY(-1.5px) scale(1.02);
-    border-color: rgba(52, 211, 153, 0.45);
-    background-color: rgba(16, 185, 129, 0.12);
+    border-color: #A8875A;
+    background-color: rgba(168, 135, 90, 0.10);
   }
 
   /* Dual Edge Fade Mask for Seamless Scrolling Text Without Overflow */
@@ -137,7 +137,7 @@
 
   /* Text glow subtle */
   .text-glow-subtle {
-    text-shadow: 0 0 24px rgba(16, 185, 129, 0.25);
+    text-shadow: 0 0 20px rgba(168, 135, 90, 0.20);
   }
 }
 

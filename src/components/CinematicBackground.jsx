@@ -95,10 +95,6 @@ export default function CinematicBackground({ activeSection = 'home' }) {
 
   const atmosphere = SECTION_ATMOSPHERES[currentSection] || SECTION_ATMOSPHERES.home;
 
-  // Parallax:
-  // atmospheric primary layer: 0.15x scroll
-  // secondary peripheral layer: -0.08x scroll
-  // accent depth layer: 0.05x scroll
   const scrollOffsetPrimary = isReducedMotion ? 0 : scrollY * 0.15;
   const scrollOffsetSecondary = isReducedMotion ? 0 : -scrollY * 0.08;
   const scrollOffsetAccent = isReducedMotion ? 0 : scrollY * 0.05;
@@ -113,16 +109,16 @@ export default function CinematicBackground({ activeSection = 'home' }) {
       aria-hidden="true"
     >
       {/* ─────────────────────────────────────────────────────────────
-          LAYER 0: DEEP BASE (Deep Forest Obsidian + Deep Moss Slate)
+          LAYER 0: DEEP BASE (Warm Ivory + Champagne)
       ───────────────────────────────────────────────────────────── */}
-      <div className="absolute inset-0 bg-[#060A08]" />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#060A08] via-[#0B1310] to-[#060A08]" />
+      <div className="absolute inset-0 bg-[#F7F3ED]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#F7F3ED] via-[#EDE4D8] to-[#F7F3ED]" />
       
-      {/* Deep Dark Moss Ambient Mesh */}
+      {/* Soft Champagne Ambient Mesh */}
       <div
         className="absolute inset-0 transition-all duration-1000 ease-out"
         style={{
-          background: atmosphere.meshGradient || 'radial-gradient(circle at 50% 35%, #111C18 0%, #0B1310 45%, #060A08 100%)',
+          background: atmosphere.meshGradient || 'radial-gradient(circle at 50% 35%, #EDE4D8 0%, #F7F3ED 60%)',
           opacity: 0.85,
         }}
       />
@@ -175,10 +171,10 @@ export default function CinematicBackground({ activeSection = 'home' }) {
       />
 
       {/* ─────────────────────────────────────────────────────────────
-          LAYER 5: ULTRA-SUBTLE FILM GRAIN TEXTURE (0.03 opacity)
+          LAYER 5: ULTRA-SUBTLE TEXTURE
       ───────────────────────────────────────────────────────────── */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-screen"
+        className="absolute inset-0 pointer-events-none opacity-[0.015] mix-blend-multiply"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
         }}

@@ -8,28 +8,28 @@ export default {
     extend: {
       colors: {
         canvas: {
-          base: '#060A08',
-          secondary: '#0B1310',
-          navy: '#111C18',
+          base: '#F7F3ED',
+          secondary: '#EDE4D8',
+          navy: '#FFFCF7',
         },
         accent: {
-          DEFAULT: '#10B981',
-          light: '#34D399',
-          glow: 'rgba(16, 185, 129, 0.18)',
+          DEFAULT: '#A8875A',
+          light: '#C4A67B',
+          glow: 'rgba(168, 135, 90, 0.16)',
         },
         content: {
-          heading: '#F2FDF7',
-          body: '#CFDDD6',
-          secondary: '#93A79E',
-          muted: '#647870',
+          heading: '#292522',
+          body: '#5F5750',
+          secondary: '#7D736A',
+          muted: '#9B9187',
         },
         card: {
-          bg: 'rgba(17, 28, 24, 0.65)',
-          hover: 'rgba(23, 38, 32, 0.85)',
+          bg: '#FFFCF7',
+          hover: '#FAF6EE',
         },
         stroke: {
-          subtle: 'rgba(255, 255, 255, 0.08)',
-          hover: 'rgba(52, 211, 153, 0.45)',
+          subtle: '#DED3C5',
+          hover: '#A8875A',
         }
       },
       fontFamily: {
@@ -39,10 +39,10 @@ export default {
         serif: ['"Times New Roman"', 'Times', 'serif'],
       },
       boxShadow: {
-        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.5)',
-        'lift': '0 14px 32px -4px rgba(0, 0, 0, 0.7)',
-        'accent-subtle': '0 0 24px rgba(16, 185, 129, 0.20)',
-        'accent-glow': '0 0 35px rgba(16, 185, 129, 0.35)',
+        'soft': '0 4px 20px -2px rgba(41, 37, 34, 0.05)',
+        'lift': '0 12px 28px -4px rgba(41, 37, 34, 0.08)',
+        'accent-subtle': '0 0 20px rgba(168, 135, 90, 0.15)',
+        'accent-glow': '0 0 30px rgba(168, 135, 90, 0.25)',
       },
       animation: {
         'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',

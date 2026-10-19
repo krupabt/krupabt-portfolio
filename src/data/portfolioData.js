@@ -97,8 +97,8 @@ export const projectsData = [
       "Integrated secure user authentication, ticket escalation pipelines, source-cited AI responses via Gemini, and an administrative support dashboard."
     ],
     tech: ["Python", "Flask", "RAG", "Gemini", "Sentence Transformers", "FAISS", "SQLite", "NumPy", "Bootstrap"],
-    accent: "from-purple-500/30 via-violet-500/20 to-transparent",
-    accentGlow: "rgba(157, 141, 241, 0.2)",
+    accent: "from-[#A8875A]/25 via-[#C4A67B]/15 to-transparent",
+    accentGlow: "rgba(168, 135, 90, 0.15)",
     githubUrl: "https://github.com/krupabt/SmartSupport-AI",
     github: "https://github.com/krupabt/SmartSupport-AI",
     demoUrl: "",
@@ -121,8 +121,8 @@ export const projectsData = [
       "Architected reactive client-side storefront connected to asynchronous FastAPI REST endpoints and SQLAlchemy persistence."
     ],
     tech: ["Python", "FastAPI", "React.js", "SQLite", "SQLAlchemy", "Pandas", "Scikit-learn", "Gemini", "Razorpay", "REST APIs"],
-    accent: "from-blue-500/30 via-indigo-500/20 to-transparent",
-    accentGlow: "rgba(99, 102, 241, 0.2)",
+    accent: "from-[#A8875A]/25 via-[#C4A67B]/15 to-transparent",
+    accentGlow: "rgba(168, 135, 90, 0.15)",
     githubUrl: "https://github.com/krupabt/MerchantPilot-AI",
     github: "https://github.com/krupabt/MerchantPilot-AI",
     demoUrl: "",
@@ -146,8 +146,8 @@ export const projectsData = [
     ],
     tech: ["Python", "Django", "VGG16", "MobileNet", "GRU", "MySQL", "NumPy", "Pandas", "JavaScript"],
     stat: "70%+ Detection Accuracy",
-    accent: "from-violet-500/30 via-purple-500/20 to-transparent",
-    accentGlow: "rgba(168, 85, 247, 0.2)",
+    accent: "from-[#A8875A]/25 via-[#C4A67B]/15 to-transparent",
+    accentGlow: "rgba(168, 135, 90, 0.15)",
     githubUrl: "https://github.com/krupabt/Deepfake-Detection",
     github: "https://github.com/krupabt/Deepfake-Detection",
     demoUrl: "",
@@ -170,8 +170,8 @@ export const projectsData = [
       "Automated skill extraction workflows to streamline preliminary candidate screening efficiency."
     ],
     tech: ["Python", "NLP", "TF-IDF", "Cosine Similarity", "Text Processing"],
-    accent: "from-indigo-500/30 via-slate-500/20 to-transparent",
-    accentGlow: "rgba(129, 140, 248, 0.2)",
+    accent: "from-[#A8875A]/25 via-[#C4A67B]/15 to-transparent",
+    accentGlow: "rgba(168, 135, 90, 0.15)",
     githubUrl: "https://github.com/krupabt/Resume-Analyzer",
     github: "https://github.com/krupabt/Resume-Analyzer",
     demoUrl: "",
@@ -195,8 +195,8 @@ export const projectsData = [
       "Used Git for version control and maintained a structured, reusable, and maintainable codebase."
     ],
     tech: ["React.js", "Node.js", "Express.js", "JavaScript", "HTML", "CSS", "REST APIs", "Git"],
-    accent: "from-teal-500/30 via-emerald-500/20 to-transparent",
-    accentGlow: "rgba(45, 212, 191, 0.2)",
+    accent: "from-[#A8875A]/25 via-[#C4A67B]/15 to-transparent",
+    accentGlow: "rgba(168, 135, 90, 0.15)",
     githubUrl: "https://github.com/krupabt/Classic-Online-Shop",
     github: "https://github.com/krupabt/Classic-Online-Shop",
     demoUrl: "",
@@ -214,38 +214,50 @@ export const educationData = [
     institution: "Garden City University",
     location: "Bengaluru, India",
     period: "Oct 2023 – Present",
-    score: "9.17 / 10 GPA",
-    highlights: "Core coursework in Data Structures & Algorithms, Object-Oriented Programming, Database Management Systems, Operating Systems, and Applied AI/ML."
+    score: "9.17 / 10 CGPA",
+    highlights: "Focus areas: Python Programming, Data Structures & Algorithms, Artificial Intelligence, Database Management Systems, Computer Networks, and Software Engineering."
   },
   {
-    degree: "Pre-University (PU)",
-    institution: "Government PU College for Girls, Thirthahalli",
-    location: "Karnataka, India",
-    period: "2021 – 2023",
-    score: "87.66%",
-    highlights: "Pre-university curriculum focused on Physics, Chemistry, Mathematics, and Computer Science foundations."
+    degree: "Pre-University Course (PUC) – PCMB",
+    institution: "BGS PU College",
+    location: "Bengaluru, India",
+    period: "May 2021 – May 2023",
+    score: "85.83%",
+    highlights: "Physics, Chemistry, Mathematics, and Biology foundations with analytical problem-solving and laboratory sciences."
+  },
+  {
+    degree: "Secondary School Leaving Certificate (SSLC)",
+    institution: "St. Philomena's High School",
+    location: "Bengaluru, India",
+    period: "Completed 2021",
+    score: "91.84%",
+    highlights: "Distinction academic record with strong fundamentals in mathematics, science, and computer applications."
   }
 ];
 
 export const certificationsData = [
   {
-    title: "Artificial Intelligence and Machine Learning",
-    issuer: "Coursera",
-    credentialTag: "AI / ML Foundations"
+    title: "Python Essentials 1",
+    issuer: "Cisco Networking Academy",
+    date: "Completed",
+    skills: ["Python", "Core Programming", "Control Flow", "Functions"]
   },
   {
-    title: "Software Engineering Job Simulation",
-    issuer: "JPMorgan Chase & Co.",
-    credentialTag: "Software Engineering"
-  },
-  {
-    title: "TCS iON Career Edge – Young Professional",
-    issuer: "TCS iON",
-    credentialTag: "Professional Foundations"
-  },
-  {
-    title: "Introduction to Python",
+    title: "Artificial Intelligence Primer Certification",
     issuer: "Infosys Springboard",
-    credentialTag: "Programming Languages"
+    date: "Completed",
+    skills: ["AI Fundamentals", "Machine Learning Concepts", "Neural Networks Overview"]
+  },
+  {
+    title: "Data Analytics and Visualization Job Simulation",
+    issuer: "Accenture North America (Forage)",
+    date: "Completed",
+    skills: ["Data Cleaning", "Data Modeling", "Data Visualization", "Client Presentations"]
+  },
+  {
+    title: "Power BI Job Simulation",
+    issuer: "PwC Switzerland (Forage)",
+    date: "Completed",
+    skills: ["Power BI", "Data Transformation", "Dashboard Design", "KPI Tracking"]
   }
 ];
