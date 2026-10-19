@@ -222,16 +222,8 @@ export const educationData = [
     institution: "BGS PU College",
     location: "Bengaluru, India",
     period: "May 2021 – May 2023",
-    score: "85.83%",
+    score: "87.6%",
     highlights: "Physics, Chemistry, Mathematics, and Biology foundations with analytical problem-solving and laboratory sciences."
-  },
-  {
-    degree: "Secondary School Leaving Certificate (SSLC)",
-    institution: "St. Philomena's High School",
-    location: "Bengaluru, India",
-    period: "Completed 2021",
-    score: "91.84%",
-    highlights: "Distinction academic record with strong fundamentals in mathematics, science, and computer applications."
   }
 ];
 
