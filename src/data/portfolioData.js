@@ -63,9 +63,9 @@ export const experienceData = [
     location: "Virtual / Remote",
     type: "Internship",
     bullets: [
-      "Applied Python programming concepts through hands-on projects, exercises, and technical assessments.",
-      "Used NumPy, Pandas, and Matplotlib for data processing, analysis, and visualization of datasets.",
-      "Developed practical Python solutions and strengthened programming skills through project-based learning."
+      "Developing **BugFlow — Intelligent Software Defect Tracking System with Resolution Assistance**, a full-stack application using Python, Flask, React.js, and PostgreSQL to report, assign, manage, and track software defects.",
+      "Implementing JWT authentication, role-based access control, REST APIs, and role-specific dashboards for secure access and efficient issue management.",
+      "Developing resolution-assistance features to support software defect handling and improve issue-tracking workflows."
     ],
     technologies: ["Python", "NumPy", "Pandas", "Matplotlib", "Data Processing", "Data Visualization"]
   },

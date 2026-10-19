@@ -150,7 +150,19 @@ export default function ExperienceSection() {
                   {exp.bullets.map((bullet, bIdx) => (
                     <div key={bIdx} className="flex items-start gap-3.5 text-sm sm:text-base font-normal text-[#D7DCE5] leading-relaxed">
                       <CheckCircle2 className="w-4 h-4 text-[#5B8CFF] mt-1 flex-shrink-0" />
-                      <span>{bullet}</span>
+                      <span>
+                        {typeof bullet === 'string' && bullet.includes('**')
+                          ? bullet.split(/(\*\*.*?\*\*)/g).map((part, i) =>
+                              part.startsWith('**') && part.endsWith('**') ? (
+                                <strong key={i} className="font-semibold text-[#F5F7FA]">
+                                  {part.slice(2, -2)}
+                                </strong>
+                              ) : (
+                                part
+                              )
+                            )
+                          : bullet}
+                      </span>
                     </div>
                   ))}
                 </div>
