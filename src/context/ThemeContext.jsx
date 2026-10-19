@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 
 const ThemeContext = createContext();
 
@@ -15,6 +15,8 @@ export function ThemeProvider({ children }) {
     }
     return 'light';
   });
+
+  const transitionTimerRef = useRef(null);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -36,19 +38,35 @@ export function ThemeProvider({ children }) {
     const handleChange = (e) => {
       const saved = localStorage.getItem('portfolio-theme');
       if (!saved) {
-        setTheme(e.matches ? 'dark' : 'light');
+        triggerThemeChange(e.matches ? 'dark' : 'light');
       }
     };
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
+  const triggerThemeChange = (nextTheme) => {
+    const root = document.documentElement;
+    // Enable coordinated smooth fade across all elements
+    root.classList.add('theme-transitioning');
+    
+    setTheme(nextTheme);
+
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
+    }
+
+    transitionTimerRef.current = setTimeout(() => {
+      root.classList.remove('theme-transitioning');
+    }, 420);
+  };
+
   const toggleTheme = () => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+    triggerThemeChange(theme === 'dark' ? 'light' : 'dark');
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme, isDark: theme === 'dark' }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme: triggerThemeChange, isDark: theme === 'dark' }}>
       {children}
     </ThemeContext.Provider>
   );

@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { MapPin } from 'lucide-react';
+import { MapPin, Sun, Moon } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 export default function CinematicIntro({ onStartEnter }) {
+  const { theme, toggleTheme, isDark } = useTheme();
   const [step, setStep] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
   const [isReducedMotion, setIsReducedMotion] = useState(false);
@@ -24,17 +26,17 @@ export default function CinematicIntro({ onStartEnter }) {
     // STEP 1: Background starts soft & slightly blurred
     const t1 = setTimeout(() => setStep(1), 50);
     // STEP 2: Atmospheric light slowly expands into screen
-    const t2 = setTimeout(() => setStep(2), 300);
+    const t2 = setTimeout(() => setStep(2), 250);
     // STEP 3: Profile portrait appears from deep blur (18px) + scale (1.08 -> 1)
-    const t3 = setTimeout(() => setStep(3), 650);
+    const t3 = setTimeout(() => setStep(3), 500);
     // STEP 4: "WELCOME TO MY PORTFOLIO" appears with noticeable upward movement (translateY 35px -> 0)
-    const t4 = setTimeout(() => setStep(4), 1100);
+    const t4 = setTimeout(() => setStep(4), 850);
     // STEP 5: "KRUPA B T" appears with stronger reveal (scale 0.94 -> 1, blur 8px -> 0)
-    const t5 = setTimeout(() => setStep(5), 1500);
+    const t5 = setTimeout(() => setStep(5), 1150);
     // STEP 6: Supporting information appears after the name
-    const t6 = setTimeout(() => setStep(6), 1950);
+    const t6 = setTimeout(() => setStep(6), 1450);
     // STEP 7: ENTER MY PORTFOLIO button appears LAST
-    const t7 = setTimeout(() => setStep(7), 2400);
+    const t7 = setTimeout(() => setStep(7), 1750);
 
     return () => {
       clearTimeout(t1);
@@ -94,25 +96,20 @@ export default function CinematicIntro({ onStartEnter }) {
     if (isExiting) return;
     setIsExiting(true);
     
-    // Smooth forward push transition into the Home section
-    if (onStartEnter) {
-      onStartEnter(targetSection);
-    }
-
+    // Smooth transition from intro screen into main website
     setTimeout(() => {
-      setIsExiting(false);
-    }, 1200);
+      if (onStartEnter) {
+        onStartEnter(targetSection);
+      }
+    }, 450);
   };
 
   // Keyboard accessibility: Enter or Space triggers entry
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
-        // Only trigger if scroll position is at top
-        if (window.scrollY < 300) {
-          e.preventDefault();
-          triggerEnter('home');
-        }
+        e.preventDefault();
+        triggerEnter('home');
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -132,18 +129,36 @@ export default function CinematicIntro({ onStartEnter }) {
     <section
       id="welcome"
       ref={containerRef}
-      className="relative min-h-screen w-full flex items-center justify-center text-[#292522] dark:text-[#F5EFEB] select-none overflow-hidden transition-colors duration-300"
+      className="relative min-h-screen w-full flex items-center justify-center text-[#292522] dark:text-[#F5EFEB] select-none overflow-hidden"
       style={{
-        transition: 'transform 800ms cubic-bezier(0.22, 1, 0.36, 1), filter 800ms cubic-bezier(0.22, 1, 0.36, 1), opacity 800ms ease',
-        transform: isExiting ? 'scale(1.04)' : 'scale(1)',
-        filter: isExiting ? 'blur(4px)' : 'none',
-        opacity: isExiting ? 0.6 : 1,
+        transition: 'transform 450ms cubic-bezier(0.22, 1, 0.36, 1), filter 450ms cubic-bezier(0.22, 1, 0.36, 1), opacity 450ms ease',
+        transform: isExiting ? 'scale(1.03) translateY(-10px)' : 'scale(1)',
+        filter: isExiting ? 'blur(8px)' : 'none',
+        opacity: isExiting ? 0 : 1,
       }}
       role="region"
       aria-label="Welcome to Krupa BT's Portfolio"
     >
       {/* ─────────────────────────────────────────────────────────────
-          STEP 1: HERO BACKGROUND IMAGE & DUAL-THEME READABLE OVERLAY
+          TOP RIGHT THEME TOGGLE ON DEDICATED INTRO SCREEN
+      ───────────────────────────────────────────────────────────── */}
+      <div className="absolute top-5 right-5 sm:top-8 sm:right-10 z-30 flex items-center gap-3">
+        <button
+          onClick={toggleTheme}
+          className="p-2.5 text-[#5F5750] hover:text-[#292522] dark:text-[#D1C8C0] dark:hover:text-[#F5EFEB] bg-[#FFFCF7]/85 dark:bg-[#24201D]/85 backdrop-blur-md border border-[#DED3C5] dark:border-[#38332E] rounded-xl transition-all duration-250 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] hover:-translate-y-0.5 active:scale-95 cursor-pointer flex items-center justify-center shadow-sm"
+          aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+          title={isDark ? "Switch to light theme" : "Switch to dark theme"}
+        >
+          {isDark ? (
+            <Sun className="w-4 h-4 text-[#C4A67B] transition-transform duration-300 hover:rotate-45" />
+          ) : (
+            <Moon className="w-4 h-4 text-[#A8875A] transition-transform duration-300 hover:-rotate-12" />
+          )}
+        </button>
+      </div>
+
+      {/* ─────────────────────────────────────────────────────────────
+          STEP 1: NEW UPLOADED BACKGROUND IMAGE WITH READABLE OVERLAY
       ───────────────────────────────────────────────────────────── */}
       <div
         className="absolute inset-0 pointer-events-none overflow-hidden z-0"
@@ -154,9 +169,9 @@ export default function CinematicIntro({ onStartEnter }) {
         }}
       >
         <img
-          src="/hero-bg.jpg"
+          src="/intro-bg.jpg"
           alt=""
-          className="w-full h-full object-cover object-center scale-[1.03]"
+          className="w-full h-full object-cover object-[center_35%] scale-[1.03]"
           style={{
             transform: isReducedMotion
               ? 'scale(1.02)'
@@ -166,9 +181,9 @@ export default function CinematicIntro({ onStartEnter }) {
         />
 
         {/* Dual Theme Readability Overlays */}
-        <div className="absolute inset-0 bg-[#F7F3ED]/85 dark:bg-[#141210]/85 backdrop-blur-[1px] transition-colors duration-300" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#F7F3ED] via-[#F7F3ED]/80 to-[#F7F3ED]/90 dark:from-[#141210] dark:via-[#141210]/80 dark:to-[#141210]/90 transition-colors duration-300" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(237,228,216,0.6)_75%,#F7F3ED_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(28,25,23,0.75)_75%,#141210_100%)] transition-colors duration-300" />
+        <div className="absolute inset-0 bg-[#F7F3ED]/80 dark:bg-[#141210]/80 backdrop-blur-[1.5px] transition-colors duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#F7F3ED] via-[#F7F3ED]/75 to-[#F7F3ED]/85 dark:from-[#141210] dark:via-[#141210]/75 dark:to-[#141210]/85 transition-colors duration-300" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(237,228,216,0.55)_75%,#F7F3ED_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(28,25,23,0.65)_75%,#141210_100%)] transition-colors duration-300" />
 
         {/* Tactile Texture */}
         <div
@@ -312,7 +327,7 @@ export default function CinematicIntro({ onStartEnter }) {
             </button>
 
             <p className="mt-3.5 text-xs font-clean tracking-normal text-[#7D736A] dark:text-[#9E9389]">
-              Click to step inside or scroll down to explore
+              Click to step inside or explore
             </p>
           </div>
         </div>
