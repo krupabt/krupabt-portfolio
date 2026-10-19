@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CinematicIntro from '../components/CinematicIntro';
 import CinematicBackground from '../components/CinematicBackground';
 import Header from '../components/Header';
@@ -12,9 +12,84 @@ import CertificationsSection from '../components/CertificationsSection';
 import ContactSection from '../components/ContactSection';
 
 export default function LandingPage() {
-  const [hasEntered, setHasEntered] = useState(false);
+  const [hasEntered, setHasEntered] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash;
+      return Boolean(hash && hash !== '#intro');
+    }
+    return false;
+  });
+
+  // Handle direct links, page refreshes, and browser back / forward navigation
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const initialHash = window.location.hash;
+    if (!initialHash || initialHash === '#intro') {
+      // Set initial entry state at the root intro screen
+      window.history.replaceState(
+        { section: 'intro', entered: false },
+        '',
+        window.location.pathname + window.location.search
+      );
+    } else {
+      // Direct load with a hash like #work or #about
+      const targetId = initialHash.replace('#', '');
+      setTimeout(() => {
+        if (targetId === 'home') {
+          window.scrollTo({ top: 0, behavior: 'instant' });
+        } else {
+          const target = document.getElementById(targetId);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }, 150);
+    }
+
+    const handlePopState = () => {
+      const currentHash = window.location.hash;
+
+      // Navigated back to the intro screen (no hash or #intro)
+      if (!currentHash || currentHash === '#intro') {
+        setHasEntered(false);
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        return;
+      }
+
+      // Navigated forward or backward to a portfolio section (#home, #work, #about, etc.)
+      setHasEntered(true);
+      const targetId = currentHash.replace('#', '');
+      setTimeout(() => {
+        if (targetId === 'home') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          const target = document.getElementById(targetId);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }, 60);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    window.addEventListener('hashchange', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('hashchange', handlePopState);
+    };
+  }, []);
 
   const handleEnterClick = (targetSection = 'home') => {
+    const hashTarget = `#${targetSection}`;
+    if (window.location.hash !== hashTarget) {
+      window.history.pushState(
+        { section: targetSection, entered: true },
+        '',
+        hashTarget
+      );
+    }
     setHasEntered(true);
     window.scrollTo({ top: 0, behavior: 'instant' });
     if (targetSection && targetSection !== 'home') {

@@ -85,6 +85,9 @@ export default function FirstScreenHero() {
 
   const scrollToProjects = (e) => {
     e.preventDefault();
+    if (window.location.hash !== '#work') {
+      window.history.pushState({ section: 'work', entered: true }, '', '#work');
+    }
     const target = document.getElementById('work');
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
@@ -216,9 +219,12 @@ export default function FirstScreenHero() {
               {/* Primary Action: VIEW MY WORK */}
               <button
                 onClick={scrollToProjects}
-                className="group relative inline-flex items-center justify-center px-8 py-3.5 rounded-xl font-bold text-xs tracking-[0.16em] uppercase text-[#F7F3ED] dark:text-[#141210] bg-[#292522] dark:bg-[#C4A67B] hover:bg-[#A8875A] dark:hover:bg-[#D8BC93] hover:text-[#292522] dark:hover:text-[#141210] border border-[#292522] dark:border-[#C4A67B] hover:border-[#A8875A] btn-hover-effect shadow-[0_4px_20px_rgba(41,37,34,0.18)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] cursor-pointer"
+                className="btn-hover-effect group relative inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-bold text-xs tracking-[0.16em] uppercase text-[#F7F3ED] dark:text-[#141210] bg-[#292522] dark:bg-[#C4A67B] hover:bg-[#A8875A] dark:hover:bg-[#D8BC93] hover:text-[#292522] dark:hover:text-[#141210] border border-[#292522] dark:border-[#C4A67B] hover:border-[#A8875A] dark:hover:border-[#D8BC93] shadow-[0_4px_20px_rgba(41,37,34,0.18)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F7F3ED] dark:focus-visible:ring-offset-[#141210]"
               >
                 <span>VIEW MY WORK</span>
+                <span className="inline-block transition-transform duration-250 ease-out group-hover:translate-y-0.5 font-bold">
+                  ↓
+                </span>
                 <span className="absolute -inset-0.5 rounded-xl bg-[#A8875A]/20 dark:bg-[#C4A67B]/30 blur opacity-0 group-hover:opacity-100 transition-opacity duration-250 pointer-events-none" />
               </button>
 
@@ -227,12 +233,12 @@ export default function FirstScreenHero() {
                 href={personalInfo.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-bold text-xs tracking-[0.14em] uppercase text-[#292522] dark:text-[#F5EFEB] hover:text-[#292522] dark:hover:text-[#F5EFEB] bg-[#FFFCF7] dark:bg-[#24201D] hover:bg-[#EDE4D8] dark:hover:bg-[#2D2824] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
+                className="btn-hover-effect group inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-bold text-xs tracking-[0.14em] uppercase text-[#292522] dark:text-[#F5EFEB] hover:text-[#292522] dark:hover:text-[#F5EFEB] bg-[#FFFCF7] dark:bg-[#24201D] hover:bg-[#EDE4D8] dark:hover:bg-[#2D2824] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
                 aria-label="GitHub Profile"
               >
                 <GithubIcon className="w-4 h-4 text-[#A8875A] dark:text-[#C4A67B]" />
                 <span>GITHUB</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B] transition-transform duration-250 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
 
               {/* LINKEDIN */}
@@ -240,12 +246,12 @@ export default function FirstScreenHero() {
                 href={personalInfo.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-bold text-xs tracking-[0.14em] uppercase text-[#292522] dark:text-[#F5EFEB] hover:text-[#292522] dark:hover:text-[#F5EFEB] bg-[#FFFCF7] dark:bg-[#24201D] hover:bg-[#EDE4D8] dark:hover:bg-[#2D2824] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
+                className="btn-hover-effect group inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-bold text-xs tracking-[0.14em] uppercase text-[#292522] dark:text-[#F5EFEB] hover:text-[#292522] dark:hover:text-[#F5EFEB] bg-[#FFFCF7] dark:bg-[#24201D] hover:bg-[#EDE4D8] dark:hover:bg-[#2D2824] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
                 aria-label="LinkedIn Profile"
               >
                 <LinkedinIcon className="w-4 h-4 text-[#A8875A] dark:text-[#C4A67B]" />
                 <span>LINKEDIN</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B] transition-transform duration-250 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
 
               {/* LEETCODE */}
@@ -253,12 +259,12 @@ export default function FirstScreenHero() {
                 href={personalInfo.leetcode}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-bold text-xs tracking-[0.14em] uppercase text-[#292522] dark:text-[#F5EFEB] hover:text-[#292522] dark:hover:text-[#F5EFEB] bg-[#FFFCF7] dark:bg-[#24201D] hover:bg-[#EDE4D8] dark:hover:bg-[#2D2824] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
+                className="btn-hover-effect group inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-bold text-xs tracking-[0.14em] uppercase text-[#292522] dark:text-[#F5EFEB] hover:text-[#292522] dark:hover:text-[#F5EFEB] bg-[#FFFCF7] dark:bg-[#24201D] hover:bg-[#EDE4D8] dark:hover:bg-[#2D2824] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
                 aria-label="LeetCode Profile"
               >
                 <LeetcodeIcon className="w-4 h-4 text-[#A8875A] dark:text-[#C4A67B]" />
                 <span>LEETCODE</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B] transition-transform duration-250 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
             </div>
           </div>
@@ -326,10 +332,13 @@ export default function FirstScreenHero() {
       <div className="relative z-10 w-full flex justify-center px-4">
         <button
           onClick={() => {
+            if (window.location.hash !== '#about') {
+              window.history.pushState({ section: 'about', entered: true }, '', '#about');
+            }
             const target = document.getElementById('about');
             if (target) target.scrollIntoView({ behavior: 'smooth' });
           }}
-          className="flex flex-col items-center justify-center gap-2 pt-2 group cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] rounded py-1 bg-transparent border-0"
+          className="btn-hover-effect flex flex-col items-center justify-center gap-2 pt-2 px-3 group cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] rounded-lg py-1 bg-transparent border-0"
           style={{
             transition: 'opacity 700ms cubic-bezier(0.22, 1, 0.36, 1), transform 700ms cubic-bezier(0.22, 1, 0.36, 1)',
             opacity: animState >= 4 ? 1 : 0,
@@ -337,10 +346,10 @@ export default function FirstScreenHero() {
           }}
           aria-label="Scroll to explore"
         >
-          <span className="text-xs font-clean tracking-wide text-[#7D736A] dark:text-[#9E9389] group-hover:text-[#292522] dark:group-hover:text-[#F5EFEB] transition-colors duration-200 whitespace-nowrap">
+          <span className="text-xs font-clean tracking-wide text-[#7D736A] dark:text-[#9E9389] group-hover:text-[#292522] dark:group-hover:text-[#F5EFEB] transition-colors duration-250 whitespace-nowrap">
             SCROLL TO EXPLORE
           </span>
-          <div className="w-[1px] h-6 bg-gradient-to-b from-[#A8875A]/70 dark:from-[#C4A67B]/70 to-transparent animate-pulse group-hover:h-8 transition-all duration-300" />
+          <div className="w-[1px] h-6 bg-gradient-to-b from-[#A8875A]/70 dark:from-[#C4A67B]/70 to-transparent animate-pulse group-hover:h-8 transition-all duration-250" />
         </button>
       </div>
     </section>

@@ -115,11 +115,11 @@ export default function ContactSection() {
           {/* Email: Primary Action */}
           <a
             href={`mailto:${personalInfo.email}`}
-            className="group inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-xs sm:text-sm tracking-[0.16em] uppercase text-[#F7F3ED] dark:text-[#141210] bg-[#292522] dark:bg-[#C4A67B] hover:bg-[#A8875A] dark:hover:bg-[#D8BC93] hover:text-[#292522] dark:hover:text-[#141210] border border-[#292522] dark:border-[#C4A67B] hover:border-[#A8875A] btn-hover-effect shadow-[0_4px_22px_rgba(41,37,34,0.18)] dark:shadow-[0_4px_22px_rgba(0,0,0,0.4)] hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
+            className="btn-hover-effect group inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-xs sm:text-sm tracking-[0.16em] uppercase text-[#F7F3ED] dark:text-[#141210] bg-[#292522] dark:bg-[#C4A67B] hover:bg-[#A8875A] dark:hover:bg-[#D8BC93] hover:text-[#292522] dark:hover:text-[#141210] border border-[#292522] dark:border-[#C4A67B] hover:border-[#A8875A] dark:hover:border-[#D8BC93] shadow-[0_4px_22px_rgba(41,37,34,0.18)] dark:shadow-[0_4px_22px_rgba(0,0,0,0.4)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F7F3ED] dark:focus-visible:ring-offset-[#141210]"
           >
             <Mail className="w-4 h-4 text-inherit" />
             <span>EMAIL ME</span>
-            <ArrowUpRight className="w-4 h-4 text-inherit transition-transform duration-250 group-hover:translate-x-1 group-hover:-translate-y-1" />
+            <ArrowUpRight className="w-4 h-4 text-inherit transition-transform duration-250 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
 
           {/* LinkedIn */}
@@ -127,11 +127,11 @@ export default function ContactSection() {
             href={personalInfo.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2.5 px-7 py-4 rounded-xl font-bold text-xs sm:text-sm tracking-[0.14em] uppercase text-[#292522] dark:text-[#F5EFEB] hover:text-[#292522] dark:hover:text-[#F5EFEB] bg-[#FFFCF7] dark:bg-[#24201D] hover:bg-[#EDE4D8] dark:hover:bg-[#2D2824] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
+            className="btn-hover-effect group inline-flex items-center gap-2.5 px-7 py-4 rounded-xl font-bold text-xs sm:text-sm tracking-[0.14em] uppercase text-[#292522] dark:text-[#F5EFEB] hover:text-[#292522] dark:hover:text-[#F5EFEB] bg-[#FFFCF7] dark:bg-[#24201D] hover:bg-[#EDE4D8] dark:hover:bg-[#2D2824] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
           >
             <LinkedinIcon className="w-4 h-4 text-[#A8875A] dark:text-[#C4A67B]" />
             <span>LINKEDIN</span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B] transition-transform duration-250 group-hover:translate-x-1 group-hover:-translate-y-1" />
+            <ArrowUpRight className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B] transition-transform duration-250 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
 
           {/* GitHub */}
@@ -139,11 +139,11 @@ export default function ContactSection() {
             href={personalInfo.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2.5 px-7 py-4 rounded-xl font-bold text-xs sm:text-sm tracking-[0.14em] uppercase text-[#292522] dark:text-[#F5EFEB] hover:text-[#292522] dark:hover:text-[#F5EFEB] bg-[#FFFCF7] dark:bg-[#24201D] hover:bg-[#EDE4D8] dark:hover:bg-[#2D2824] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
+            className="btn-hover-effect group inline-flex items-center gap-2.5 px-7 py-4 rounded-xl font-bold text-xs sm:text-sm tracking-[0.14em] uppercase text-[#292522] dark:text-[#F5EFEB] hover:text-[#292522] dark:hover:text-[#F5EFEB] bg-[#FFFCF7] dark:bg-[#24201D] hover:bg-[#EDE4D8] dark:hover:bg-[#2D2824] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
           >
             <GithubIcon className="w-4 h-4 text-[#A8875A] dark:text-[#C4A67B]" />
             <span>GITHUB</span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B] transition-transform duration-250 group-hover:translate-x-1 group-hover:-translate-y-1" />
+            <ArrowUpRight className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B] transition-transform duration-250 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
 
           {/* LeetCode */}
@@ -151,11 +151,11 @@ export default function ContactSection() {
             href={personalInfo.leetcode}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2.5 px-7 py-4 rounded-xl font-bold text-xs sm:text-sm tracking-[0.14em] uppercase text-[#292522] dark:text-[#F5EFEB] hover:text-[#292522] dark:hover:text-[#F5EFEB] bg-[#FFFCF7] dark:bg-[#24201D] hover:bg-[#EDE4D8] dark:hover:bg-[#2D2824] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
+            className="btn-hover-effect group inline-flex items-center gap-2.5 px-7 py-4 rounded-xl font-bold text-xs sm:text-sm tracking-[0.14em] uppercase text-[#292522] dark:text-[#F5EFEB] hover:text-[#292522] dark:hover:text-[#F5EFEB] bg-[#FFFCF7] dark:bg-[#24201D] hover:bg-[#EDE4D8] dark:hover:bg-[#2D2824] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
           >
             <LeetcodeIcon className="w-4 h-4 text-[#A8875A] dark:text-[#C4A67B]" />
             <span>LEETCODE</span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B] transition-transform duration-250 group-hover:translate-x-1 group-hover:-translate-y-1" />
+            <ArrowUpRight className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B] transition-transform duration-250 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
         </div>
 

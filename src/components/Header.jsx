@@ -66,9 +66,19 @@ export default function Header() {
       window.location.href = `/#${targetId}`;
       return;
     }
-    const elem = document.getElementById(targetId);
-    if (elem) {
-      elem.scrollIntoView({ behavior: 'smooth' });
+
+    const hashTarget = `#${targetId}`;
+    if (window.location.hash !== hashTarget) {
+      window.history.pushState({ section: targetId, entered: true }, '', hashTarget);
+    }
+
+    if (targetId === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      const elem = document.getElementById(targetId);
+      if (elem) {
+        elem.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -87,7 +97,7 @@ export default function Header() {
         <a
           href="#home"
           onClick={(e) => scrollToSection(e, 'home')}
-          className="group flex items-center tracking-tight transition-all duration-250 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] rounded-lg py-1 pr-2"
+          className="group flex items-center tracking-tight transition-all duration-250 hover:-translate-y-0.5 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] rounded-lg py-1 pr-2"
           aria-label="Return to home"
         >
           <span className="text-base sm:text-lg font-bold tracking-[0.14em] uppercase text-[#292522] dark:text-[#F5EFEB] group-hover:text-[#A8875A] dark:group-hover:text-[#C4A67B] transition-colors duration-250">
@@ -105,7 +115,7 @@ export default function Header() {
                   key={link.label}
                   href={`#${link.targetId}`}
                   onClick={(e) => scrollToSection(e, link.targetId)}
-                  className={`text-sm font-semibold tracking-[0.12em] transition-all duration-250 relative py-1.5 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] rounded group ${
+                  className={`text-sm font-semibold tracking-[0.12em] transition-all duration-250 relative py-1.5 px-1 rounded hover:-translate-y-0.5 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] group ${
                     isActive
                       ? 'text-[#292522] dark:text-[#F5EFEB]'
                       : 'text-[#5F5750] dark:text-[#D1C8C0] hover:text-[#292522] dark:hover:text-[#F5EFEB]'
@@ -131,7 +141,7 @@ export default function Header() {
               href={personalInfo.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#5F5750] dark:text-[#D1C8C0] hover:text-[#A8875A] dark:hover:text-[#C4A67B] hover:bg-[#EDE4D8]/60 dark:hover:bg-[#24201D] p-2 transition-all duration-250 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] rounded-xl hover:-translate-y-0.5 active:scale-95"
+              className="btn-hover-effect text-[#5F5750] dark:text-[#D1C8C0] hover:text-[#A8875A] dark:hover:text-[#C4A67B] hover:bg-[#EDE4D8]/60 dark:hover:bg-[#24201D] border border-transparent hover:border-[#DED3C5] dark:hover:border-[#38332E] p-2 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
               title="GitHub Profile"
               aria-label="GitHub Profile"
             >
@@ -141,7 +151,7 @@ export default function Header() {
               href={personalInfo.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#5F5750] dark:text-[#D1C8C0] hover:text-[#A8875A] dark:hover:text-[#C4A67B] hover:bg-[#EDE4D8]/60 dark:hover:bg-[#24201D] p-2 transition-all duration-250 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] rounded-xl hover:-translate-y-0.5 active:scale-95"
+              className="btn-hover-effect text-[#5F5750] dark:text-[#D1C8C0] hover:text-[#A8875A] dark:hover:text-[#C4A67B] hover:bg-[#EDE4D8]/60 dark:hover:bg-[#24201D] border border-transparent hover:border-[#DED3C5] dark:hover:border-[#38332E] p-2 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
               title="LinkedIn Profile"
               aria-label="LinkedIn Profile"
             >
@@ -151,7 +161,7 @@ export default function Header() {
               href={personalInfo.leetcode}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#5F5750] dark:text-[#D1C8C0] hover:text-[#A8875A] dark:hover:text-[#C4A67B] hover:bg-[#EDE4D8]/60 dark:hover:bg-[#24201D] p-2 transition-all duration-250 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] rounded-xl hover:-translate-y-0.5 active:scale-95"
+              className="btn-hover-effect text-[#5F5750] dark:text-[#D1C8C0] hover:text-[#A8875A] dark:hover:text-[#C4A67B] hover:bg-[#EDE4D8]/60 dark:hover:bg-[#24201D] border border-transparent hover:border-[#DED3C5] dark:hover:border-[#38332E] p-2 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
               title="LeetCode Profile"
               aria-label="LeetCode Profile"
             >
@@ -164,14 +174,14 @@ export default function Header() {
           {/* Desktop Theme Toggle Button */}
           <button
             onClick={toggleTheme}
-            className="p-2 text-[#5F5750] hover:text-[#292522] dark:text-[#D1C8C0] dark:hover:text-[#F5EFEB] hover:bg-[#EDE4D8]/70 dark:hover:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] rounded-xl transition-all duration-250 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] hover:-translate-y-0.5 active:scale-95 cursor-pointer flex items-center justify-center shadow-xs"
+            className="btn-hover-effect group p-2 text-[#5F5750] hover:text-[#292522] dark:text-[#D1C8C0] dark:hover:text-[#F5EFEB] hover:bg-[#EDE4D8]/70 dark:hover:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] rounded-xl cursor-pointer flex items-center justify-center shadow-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F7F3ED] dark:focus-visible:ring-offset-[#141210]"
             aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
             title={isDark ? "Switch to light theme" : "Switch to dark theme"}
           >
             {isDark ? (
-              <Sun className="w-4 h-4 text-[#C4A67B] transition-transform duration-300 hover:rotate-45" />
+              <Sun className="w-4 h-4 text-[#C4A67B] transition-transform duration-250 group-hover:rotate-45" />
             ) : (
-              <Moon className="w-4 h-4 text-[#A8875A] transition-transform duration-300 hover:-rotate-12" />
+              <Moon className="w-4 h-4 text-[#A8875A] transition-transform duration-250 group-hover:-rotate-12" />
             )}
           </button>
         </div>
@@ -180,7 +190,7 @@ export default function Header() {
         <div className="lg:hidden flex items-center gap-2">
           <button
             onClick={toggleTheme}
-            className="p-2 text-[#5F5750] dark:text-[#D1C8C0] hover:text-[#292522] dark:hover:text-[#F5EFEB] hover:bg-[#EDE4D8]/60 dark:hover:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] rounded-xl transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
+            className="btn-hover-effect p-2 text-[#5F5750] dark:text-[#D1C8C0] hover:text-[#292522] dark:hover:text-[#F5EFEB] hover:bg-[#EDE4D8]/60 dark:hover:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
             aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
             title={isDark ? "Switch to light theme" : "Switch to dark theme"}
           >
@@ -193,7 +203,7 @@ export default function Header() {
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2.5 rounded-xl text-[#292522] dark:text-[#F5EFEB] hover:text-[#A8875A] dark:hover:text-[#C4A67B] hover:bg-[#EDE4D8]/60 dark:hover:bg-[#24201D] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
+            className="btn-hover-effect p-2.5 rounded-xl text-[#292522] dark:text-[#F5EFEB] hover:text-[#A8875A] dark:hover:text-[#C4A67B] hover:bg-[#EDE4D8]/60 dark:hover:bg-[#24201D] border border-transparent hover:border-[#DED3C5] dark:hover:border-[#38332E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
             aria-label="Toggle Navigation Menu"
             aria-expanded={mobileMenuOpen}
           >
@@ -214,7 +224,7 @@ export default function Header() {
                   key={link.label}
                   href={`#${link.targetId}`}
                   onClick={(e) => scrollToSection(e, link.targetId)}
-                  className={`text-xs sm:text-sm font-semibold tracking-[0.14em] py-2 transition-colors flex items-center justify-between ${
+                  className={`text-xs sm:text-sm font-semibold tracking-[0.14em] py-2 transition-all duration-200 hover:translate-x-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] rounded flex items-center justify-between ${
                     isActive
                       ? 'text-[#A8875A] dark:text-[#C4A67B] border-l-2 border-[#A8875A] dark:border-[#C4A67B] pl-3'
                       : 'text-[#5F5750] dark:text-[#D1C8C0] hover:text-[#292522] dark:hover:text-[#F5EFEB] pl-3'
@@ -229,7 +239,7 @@ export default function Header() {
             {/* Mobile Theme Toggle Card */}
             <button
               onClick={toggleTheme}
-              className="mt-2 flex items-center justify-between w-full py-2.5 px-3.5 rounded-xl bg-[#EDE4D8]/50 dark:bg-[#24201D] text-xs font-semibold tracking-wider text-[#292522] dark:text-[#F5EFEB] border border-[#DED3C5] dark:border-[#38332E] transition-colors"
+              className="btn-hover-effect mt-2 flex items-center justify-between w-full py-2.5 px-3.5 rounded-xl bg-[#EDE4D8]/50 dark:bg-[#24201D] hover:bg-[#EDE4D8] dark:hover:bg-[#2D2824] text-xs font-semibold tracking-wider text-[#292522] dark:text-[#F5EFEB] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
               aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
             >
               <span className="flex items-center gap-2">
@@ -246,7 +256,7 @@ export default function Header() {
                 href={personalInfo.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-xs text-[#5F5750] dark:text-[#D1C8C0] hover:text-[#A8875A] dark:hover:text-[#C4A67B]"
+                className="btn-hover-effect flex items-center gap-2 text-xs text-[#5F5750] dark:text-[#D1C8C0] hover:text-[#A8875A] dark:hover:text-[#C4A67B] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] p-1.5 rounded-lg"
               >
                 <GithubIcon className="w-4 h-4" />
                 <span>GitHub</span>
@@ -255,7 +265,7 @@ export default function Header() {
                 href={personalInfo.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-xs text-[#5F5750] dark:text-[#D1C8C0] hover:text-[#A8875A] dark:hover:text-[#C4A67B]"
+                className="btn-hover-effect flex items-center gap-2 text-xs text-[#5F5750] dark:text-[#D1C8C0] hover:text-[#A8875A] dark:hover:text-[#C4A67B] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] p-1.5 rounded-lg"
               >
                 <LinkedinIcon className="w-4 h-4" />
                 <span>LinkedIn</span>
@@ -264,7 +274,7 @@ export default function Header() {
                 href={personalInfo.leetcode}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-xs text-[#5F5750] dark:text-[#D1C8C0] hover:text-[#A8875A] dark:hover:text-[#C4A67B]"
+                className="btn-hover-effect flex items-center gap-2 text-xs text-[#5F5750] dark:text-[#D1C8C0] hover:text-[#A8875A] dark:hover:text-[#C4A67B] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] p-1.5 rounded-lg"
               >
                 <LeetcodeIcon className="w-4 h-4" />
                 <span>LeetCode</span>

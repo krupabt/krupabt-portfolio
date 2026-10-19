@@ -145,14 +145,14 @@ export default function CinematicIntro({ onStartEnter }) {
       <div className="absolute top-5 right-5 sm:top-8 sm:right-10 z-30 flex items-center gap-3">
         <button
           onClick={toggleTheme}
-          className="p-2.5 text-[#5F5750] hover:text-[#292522] dark:text-[#D1C8C0] dark:hover:text-[#F5EFEB] bg-[#FFFCF7]/85 dark:bg-[#24201D]/85 backdrop-blur-md border border-[#DED3C5] dark:border-[#38332E] rounded-xl transition-all duration-250 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] hover:-translate-y-0.5 active:scale-95 cursor-pointer flex items-center justify-center shadow-sm"
+          className="btn-hover-effect group p-2.5 text-[#5F5750] hover:text-[#292522] dark:text-[#D1C8C0] dark:hover:text-[#F5EFEB] bg-[#FFFCF7]/85 dark:bg-[#24201D]/85 backdrop-blur-md border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] rounded-xl cursor-pointer flex items-center justify-center shadow-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F7F3ED] dark:focus-visible:ring-offset-[#141210]"
           aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
           title={isDark ? "Switch to light theme" : "Switch to dark theme"}
         >
           {isDark ? (
-            <Sun className="w-4 h-4 text-[#C4A67B] transition-transform duration-300 hover:rotate-45" />
+            <Sun className="w-4 h-4 text-[#C4A67B] transition-transform duration-250 group-hover:rotate-45" />
           ) : (
-            <Moon className="w-4 h-4 text-[#A8875A] transition-transform duration-300 hover:-rotate-12" />
+            <Moon className="w-4 h-4 text-[#A8875A] transition-transform duration-250 group-hover:-rotate-12" />
           )}
         </button>
       </div>
@@ -299,11 +299,11 @@ export default function CinematicIntro({ onStartEnter }) {
                 e.stopPropagation();
                 triggerEnter('home');
               }}
-              className="group relative inline-flex items-center gap-3.5 px-9 py-4 text-sm font-bold tracking-[0.16em] uppercase text-[#F7F3ED] dark:text-[#141210] transition-all duration-250 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] rounded-xl bg-[#292522] dark:bg-[#C4A67B] hover:bg-[#A8875A] dark:hover:bg-[#D8BC93] hover:text-[#292522] dark:hover:text-[#141210] border border-[#292522] dark:border-[#C4A67B] hover:border-[#A8875A] shadow-[0_4px_20px_rgba(41,37,34,0.18)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:-translate-y-1 active:scale-95 cursor-pointer z-30"
+              className="btn-hover-effect group relative inline-flex items-center gap-3.5 px-9 py-4 text-sm font-bold tracking-[0.16em] uppercase text-[#F7F3ED] dark:text-[#141210] rounded-xl bg-[#292522] dark:bg-[#C4A67B] hover:bg-[#A8875A] dark:hover:bg-[#D8BC93] hover:text-[#292522] dark:hover:text-[#141210] border border-[#292522] dark:border-[#C4A67B] hover:border-[#A8875A] dark:hover:border-[#D8BC93] shadow-[0_4px_20px_rgba(41,37,34,0.18)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)] cursor-pointer z-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F7F3ED] dark:focus-visible:ring-offset-[#141210]"
               aria-label="Enter My Portfolio"
             >
               <span>ENTER MY PORTFOLIO</span>
-              <span className="inline-block transition-transform duration-250 ease-out group-hover:translate-x-2 font-bold text-base">
+              <span className="inline-block transition-transform duration-250 ease-out group-hover:translate-x-1.5 font-bold text-base">
                 →
               </span>
             </button>
