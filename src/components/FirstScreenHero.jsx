@@ -101,29 +101,7 @@ export default function FirstScreenHero() {
     >
       <div id="hero" className="absolute top-0 left-0" />
 
-      {/* ─────────────────────────────────────────────────────────────
-          HERO BACKGROUND IMAGE WITH DUAL-THEME READABLE OVERLAY
-      ───────────────────────────────────────────────────────────── */}
-      <div
-        className="absolute inset-0 pointer-events-none overflow-hidden z-0"
-        aria-hidden="true"
-      >
-        <img
-          src="/hero-bg.jpg"
-          alt=""
-          className="w-full h-full object-cover object-center scale-[1.03]"
-          style={{
-            transform: isReducedMotion
-              ? 'scale(1.01)'
-              : `translate3d(${-mouseOffset.x * 0.4}px, ${-mouseOffset.y * 0.4}px, 0) scale(1.03)`,
-            transition: 'transform 500ms ease-out',
-          }}
-        />
-        {/* Dual-theme readable overlays */}
-        <div className="absolute inset-0 bg-[#F7F3ED]/85 dark:bg-[#141210]/85 backdrop-blur-[1px] transition-colors duration-300" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#F7F3ED]/90 via-[#F7F3ED]/80 to-[#F7F3ED] dark:from-[#141210]/92 dark:via-[#141210]/85 dark:to-[#141210] transition-colors duration-300" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(237,228,216,0.6)_80%,#F7F3ED_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(28,25,23,0.75)_80%,#141210_100%)] transition-colors duration-300" />
-      </div>
+
 
       {/* ─────────────────────────────────────────────────────────────
           HERO ATMOSPHERE LIGHTING (Champagne & Soft Taupe)

@@ -158,33 +158,15 @@ export default function CinematicIntro({ onStartEnter }) {
       </div>
 
       {/* ─────────────────────────────────────────────────────────────
-          STEP 1: NEW UPLOADED BACKGROUND IMAGE WITH READABLE OVERLAY
+          STEP 1: SUBTLE TACTILE TEXTURE
       ───────────────────────────────────────────────────────────── */}
       <div
         className="absolute inset-0 pointer-events-none overflow-hidden z-0"
         style={{
-          transition: 'opacity 1200ms cubic-bezier(0.22, 1, 0.36, 1), filter 1200ms cubic-bezier(0.22, 1, 0.36, 1)',
+          transition: 'opacity 1200ms cubic-bezier(0.22, 1, 0.36, 1)',
           opacity: step >= 1 ? 1 : 0,
-          filter: step >= 1 ? 'blur(0px)' : 'blur(14px)',
         }}
       >
-        <img
-          src="/intro-bg.jpg"
-          alt=""
-          className="w-full h-full object-cover object-[center_35%] scale-[1.03]"
-          style={{
-            transform: isReducedMotion
-              ? 'scale(1.02)'
-              : `translate3d(${depthTranslateX * 0.4}px, ${depthTranslateY * 0.4}px, 0) scale(1.03)`,
-          }}
-          aria-hidden="true"
-        />
-
-        {/* Dual Theme Readability Overlays */}
-        <div className="absolute inset-0 bg-[#F7F3ED]/80 dark:bg-[#141210]/80 backdrop-blur-[1.5px] transition-colors duration-300" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#F7F3ED] via-[#F7F3ED]/75 to-[#F7F3ED]/85 dark:from-[#141210] dark:via-[#141210]/75 dark:to-[#141210]/85 transition-colors duration-300" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(237,228,216,0.55)_75%,#F7F3ED_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(28,25,23,0.65)_75%,#141210_100%)] transition-colors duration-300" />
-
         {/* Tactile Texture */}
         <div
           className="absolute inset-0 pointer-events-none opacity-[0.015] dark:opacity-[0.025] mix-blend-multiply"
