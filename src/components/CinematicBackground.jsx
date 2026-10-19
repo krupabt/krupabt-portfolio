@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { SECTION_ATMOSPHERES } from '../data/atmospheres';
+import { useTheme } from '../context/ThemeContext';
 
 export default function CinematicBackground({ activeSection = 'home' }) {
+  const { theme } = useTheme();
   const [currentSection, setCurrentSection] = useState(activeSection);
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.3 });
   const [scrollY, setScrollY] = useState(0);
@@ -93,7 +95,8 @@ export default function CinematicBackground({ activeSection = 'home' }) {
     };
   }, []);
 
-  const atmosphere = SECTION_ATMOSPHERES[currentSection] || SECTION_ATMOSPHERES.home;
+  const sectionAtmosphere = SECTION_ATMOSPHERES[currentSection] || SECTION_ATMOSPHERES.home;
+  const atmosphere = sectionAtmosphere[theme] || sectionAtmosphere.light;
 
   const scrollOffsetPrimary = isReducedMotion ? 0 : scrollY * 0.15;
   const scrollOffsetSecondary = isReducedMotion ? 0 : -scrollY * 0.08;
@@ -109,17 +112,17 @@ export default function CinematicBackground({ activeSection = 'home' }) {
       aria-hidden="true"
     >
       {/* ─────────────────────────────────────────────────────────────
-          LAYER 0: DEEP BASE (Warm Ivory + Champagne)
+          LAYER 0: DEEP BASE (Light: Warm Ivory + Champagne | Dark: Deep Charcoal)
       ───────────────────────────────────────────────────────────── */}
-      <div className="absolute inset-0 bg-[#F7F3ED]" />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#F7F3ED] via-[#EDE4D8] to-[#F7F3ED]" />
+      <div className="absolute inset-0 bg-[#F7F3ED] dark:bg-[#141210] transition-colors duration-500" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#F7F3ED] via-[#EDE4D8] to-[#F7F3ED] dark:from-[#141210] dark:via-[#1C1917] dark:to-[#141210] transition-colors duration-500" />
       
-      {/* Soft Champagne Ambient Mesh */}
+      {/* Ambient Mesh */}
       <div
         className="absolute inset-0 transition-all duration-1000 ease-out"
         style={{
-          background: atmosphere.meshGradient || 'radial-gradient(circle at 50% 35%, #EDE4D8 0%, #F7F3ED 60%)',
-          opacity: 0.85,
+          background: atmosphere.meshGradient,
+          opacity: theme === 'dark' ? 0.75 : 0.85,
         }}
       />
 

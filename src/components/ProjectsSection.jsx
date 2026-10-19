@@ -88,7 +88,7 @@ function ProjectImageCard({ project, onOpenLightbox }) {
   }, [primaryImage]);
 
   return (
-    <div className="relative w-full aspect-[16/10] rounded-[22px] bg-[#FFFCF7] border border-[#DED3C5] shadow-[0_12px_36px_-6px_rgba(41,37,34,0.08)] overflow-hidden group hover:border-[#A8875A] card-hover-subtle transition-all duration-300">
+    <div className="relative w-full aspect-[16/10] rounded-[22px] bg-[#FFFCF7] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] shadow-[0_12px_36px_-6px_rgba(41,37,34,0.08)] dark:shadow-[0_12px_36px_-6px_rgba(0,0,0,0.4)] overflow-hidden group hover:border-[#A8875A] dark:hover:border-[#C4A67B] card-hover-subtle transition-all duration-300">
       {hasImages && !imgError ? (
         <div
           className="relative w-full h-full cursor-pointer overflow-hidden"
@@ -114,30 +114,30 @@ function ProjectImageCard({ project, onOpenLightbox }) {
 
           {/* Hover Overlay Hint & Lighting Accent */}
           {imgLoaded && (
-            <div className="absolute inset-0 bg-gradient-to-t from-[#292522]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-250 flex items-end justify-center pb-6 pointer-events-none">
-              <span className="px-4 py-2 rounded-xl bg-[#292522]/90 border border-[#DED3C5]/30 text-xs font-serif text-[#F7F3ED] tracking-wider flex items-center gap-2 shadow-lg">
-                <Maximize2 className="w-3.5 h-3.5 text-[#A8875A]" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#292522]/80 dark:from-[#141210]/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-250 flex items-end justify-center pb-6 pointer-events-none">
+              <span className="px-4 py-2 rounded-xl bg-[#292522]/90 dark:bg-[#24201D]/90 border border-[#DED3C5]/30 dark:border-[#38332E] text-xs font-serif text-[#F7F3ED] dark:text-[#F5EFEB] tracking-wider flex items-center gap-2 shadow-lg">
+                <Maximize2 className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B]" />
                 EXPAND PREVIEW
               </span>
             </div>
           )}
 
           {!imgLoaded && (
-            <div className="absolute inset-0 flex items-center justify-center bg-[#EDE4D8] animate-pulse">
-              <ImageIcon className="w-10 h-10 text-[#A8875A]/40" />
+            <div className="absolute inset-0 flex items-center justify-center bg-[#EDE4D8] dark:bg-[#1C1917] animate-pulse">
+              <ImageIcon className="w-10 h-10 text-[#A8875A]/40 dark:text-[#C4A67B]/40" />
             </div>
           )}
         </div>
       ) : (
-        <div className="w-full h-full flex flex-col items-center justify-center gap-3 p-8 text-center bg-[#EDE4D8]">
-          <div className="w-12 h-12 rounded-2xl bg-[#FFFCF7] border border-[#DED3C5] flex items-center justify-center text-[#A8875A]">
+        <div className="w-full h-full flex flex-col items-center justify-center gap-3 p-8 text-center bg-[#EDE4D8] dark:bg-[#1C1917]">
+          <div className="w-12 h-12 rounded-2xl bg-[#FFFCF7] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] flex items-center justify-center text-[#A8875A] dark:text-[#C4A67B]">
             <ImageIcon className="w-6 h-6" />
           </div>
           <div>
-            <span className="text-sm font-semibold text-[#292522] block font-serif">
+            <span className="text-sm font-semibold text-[#292522] dark:text-[#F5EFEB] block font-serif">
               {project.title}
             </span>
-            <span className="text-xs text-[#7D736A] mt-1 block">
+            <span className="text-xs text-[#7D736A] dark:text-[#9E9389] mt-1 block">
               Architectural implementation active
             </span>
           </div>
@@ -209,7 +209,7 @@ function ProjectSceneItem({ project, idx, onOpenLightbox }) {
           id={`media-${project.id}`}
         >
           {project.demoVideo ? (
-            <div className="relative w-full aspect-[16/10] rounded-[22px] bg-[#292522] border border-[#DED3C5] shadow-[0_12px_36px_-6px_rgba(41,37,34,0.08)] p-2 overflow-hidden group hover:border-[#A8875A] transition-all duration-500">
+            <div className="relative w-full aspect-[16/10] rounded-[22px] bg-[#292522] dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] shadow-[0_12px_36px_-6px_rgba(41,37,34,0.08)] dark:shadow-[0_12px_36px_-6px_rgba(0,0,0,0.4)] p-2 overflow-hidden group hover:border-[#A8875A] dark:hover:border-[#C4A67B] transition-all duration-500">
               <video
                 src={project.demoVideo}
                 controls
@@ -236,19 +236,19 @@ function ProjectSceneItem({ project, idx, onOpenLightbox }) {
         >
           {/* Project Number & Subtitle */}
           <div className="flex items-center gap-4">
-            <span className="text-3xl sm:text-4xl font-bold font-serif text-[#A8875A] tracking-tight">
+            <span className="text-3xl sm:text-4xl font-bold font-serif text-[#A8875A] dark:text-[#C4A67B] tracking-tight">
               {project.number}
             </span>
-            <div className="w-8 h-[1px] bg-[#DED3C5]" />
-            <span className="text-xs font-serif tracking-[0.2em] uppercase text-[#7D736A] font-medium">
+            <div className="w-8 h-[1px] bg-[#DED3C5] dark:bg-[#38332E]" />
+            <span className="text-xs font-serif tracking-[0.2em] uppercase text-[#7D736A] dark:text-[#9E9389] font-medium">
               {project.subtitle}
             </span>
           </div>
 
           {/* Project Title */}
           <h3
-            className={`text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#292522] leading-[1.18] transition-all duration-300 ${
-              isHovered ? 'text-[#A8875A] translate-x-1' : ''
+            className={`text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#292522] dark:text-[#F5EFEB] leading-[1.18] transition-all duration-300 ${
+              isHovered ? 'text-[#A8875A] dark:text-[#C4A67B] translate-x-1' : ''
             }`}
           >
             {project.title}
@@ -256,22 +256,22 @@ function ProjectSceneItem({ project, idx, onOpenLightbox }) {
 
           {/* Highlight Badge if available */}
           {project.stat && (
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EDE4D8] border border-[#DED3C5] text-xs font-serif text-[#A8875A] font-medium">
-              <CheckCircle2 className="w-3.5 h-3.5 text-[#A8875A]" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EDE4D8] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] text-xs font-serif text-[#A8875A] dark:text-[#C4A67B] font-medium">
+              <CheckCircle2 className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B]" />
               <span>{project.stat}</span>
             </div>
           )}
 
           {/* Description */}
-          <p className="text-base sm:text-lg text-[#5F5750] font-normal leading-relaxed">
+          <p className="text-base sm:text-lg text-[#5F5750] dark:text-[#D1C8C0] font-normal leading-relaxed">
             {project.description}
           </p>
 
           {/* Detailed Highlights */}
           <div className="space-y-3 pt-2 w-full">
             {project.details.map((detail, dIdx) => (
-              <div key={dIdx} className="flex items-start gap-3 text-sm font-normal text-[#5F5750] leading-normal">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A] mt-2 flex-shrink-0" />
+              <div key={dIdx} className="flex items-start gap-3 text-sm font-normal text-[#5F5750] dark:text-[#D1C8C0] leading-normal">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A] dark:bg-[#C4A67B] mt-2 flex-shrink-0" />
                 <span>{detail}</span>
               </div>
             ))}
@@ -279,14 +279,14 @@ function ProjectSceneItem({ project, idx, onOpenLightbox }) {
 
           {/* Technologies Pills */}
           <div className="pt-2">
-            <div className="text-xs font-serif tracking-widest text-[#7D736A] uppercase mb-2.5 font-medium">
+            <div className="text-xs font-serif tracking-widest text-[#7D736A] dark:text-[#9E9389] uppercase mb-2.5 font-medium">
               TECH STACK
             </div>
             <div className="flex flex-wrap gap-2">
               {project.tech.map((t) => (
                 <span
                   key={t}
-                  className="px-3 py-1.5 text-xs font-serif text-[#292522] bg-[#FFFCF7] border border-[#DED3C5] rounded-lg pill-hover-effect hover:border-[#A8875A] hover:bg-[#EDE4D8]"
+                  className="px-3 py-1.5 text-xs font-serif text-[#292522] dark:text-[#F5EFEB] bg-[#FFFCF7] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] rounded-lg pill-hover-effect hover:border-[#A8875A] dark:hover:border-[#C4A67B] hover:bg-[#EDE4D8] dark:hover:bg-[#2D2824]"
                 >
                   {t}
                 </span>
@@ -302,24 +302,24 @@ function ProjectSceneItem({ project, idx, onOpenLightbox }) {
                 href={project.githubUrl || project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-xl text-xs font-bold tracking-[0.14em] uppercase text-[#292522] hover:text-[#292522] bg-[#FFFCF7] hover:bg-[#EDE4D8] border border-[#DED3C5] hover:border-[#A8875A] btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A]"
+                className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-xl text-xs font-bold tracking-[0.14em] uppercase text-[#292522] dark:text-[#F5EFEB] hover:text-[#292522] dark:hover:text-[#F5EFEB] bg-[#FFFCF7] dark:bg-[#24201D] hover:bg-[#EDE4D8] dark:hover:bg-[#2D2824] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
               >
-                <GithubIcon className="w-4 h-4 text-[#A8875A]" />
+                <GithubIcon className="w-4 h-4 text-[#A8875A] dark:text-[#C4A67B]" />
                 <span>GITHUB</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-[#A8875A] transition-transform duration-250 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B] transition-transform duration-250 group-hover:translate-x-1 group-hover:-translate-y-1" />
               </a>
             )}
 
-            {/* LIVE DEMO: Rich Charcoal with warm ivory text */}
+            {/* LIVE DEMO: Primary Button */}
             {project.demoUrl && !project.demoUrl.includes('localhost') && (
               <a
                 href={project.demoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold tracking-[0.14em] uppercase text-[#F7F3ED] bg-[#292522] hover:bg-[#A8875A] hover:text-[#292522] border border-[#292522] hover:border-[#A8875A] btn-hover-effect shadow-[0_4px_20px_rgba(41,37,34,0.18)] hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A]"
+                className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold tracking-[0.14em] uppercase text-[#F7F3ED] dark:text-[#141210] bg-[#292522] dark:bg-[#C4A67B] hover:bg-[#A8875A] dark:hover:bg-[#D8BC93] hover:text-[#292522] dark:hover:text-[#141210] border border-[#292522] dark:border-[#C4A67B] hover:border-[#A8875A] btn-hover-effect shadow-[0_4px_20px_rgba(41,37,34,0.18)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
               >
                 <span>LIVE DEMO</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-[#F7F3ED] transition-transform duration-250 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-[#F7F3ED] dark:text-[#141210] transition-transform duration-250 group-hover:translate-x-1 group-hover:-translate-y-1" />
               </a>
             )}
 
@@ -327,9 +327,9 @@ function ProjectSceneItem({ project, idx, onOpenLightbox }) {
             {project.demoVideo && (
               <a
                 href={`#media-${project.id}`}
-                className="group inline-flex items-center gap-2 px-5 py-3 rounded-xl text-xs font-bold tracking-[0.14em] uppercase text-[#292522] hover:text-[#292522] bg-[#FFFCF7] hover:bg-[#EDE4D8] border border-[#DED3C5] hover:border-[#A8875A] btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A]"
+                className="group inline-flex items-center gap-2 px-5 py-3 rounded-xl text-xs font-bold tracking-[0.14em] uppercase text-[#292522] dark:text-[#F5EFEB] hover:text-[#292522] dark:hover:text-[#F5EFEB] bg-[#FFFCF7] dark:bg-[#24201D] hover:bg-[#EDE4D8] dark:hover:bg-[#2D2824] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
               >
-                <Play className="w-3.5 h-3.5 text-[#A8875A] fill-current" />
+                <Play className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B] fill-current" />
                 <span>WATCH DEMO</span>
               </a>
             )}
@@ -366,7 +366,7 @@ export default function ProjectsSection() {
   return (
     <section
       id="work"
-      className="relative py-32 sm:py-40 lg:py-48 bg-[#F7F3ED] text-[#292522] overflow-hidden"
+      className="relative py-32 sm:py-40 lg:py-48 bg-[#F7F3ED] dark:bg-[#141210] text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
       role="region"
       aria-label="Selected Engineering Work"
     >
@@ -377,14 +377,14 @@ export default function ProjectsSection() {
           ATMOSPHERIC BRONZE LIGHT SOURCES BEHIND WORK SECTION
       ───────────────────────────────────────────────────────────── */}
       <div
-        className="absolute top-1/4 right-0 w-[600px] sm:w-[800px] h-[600px] sm:h-[800px] rounded-full blur-[170px] pointer-events-none"
+        className="absolute top-1/4 right-0 w-[600px] sm:w-[800px] h-[600px] sm:h-[800px] rounded-full blur-[170px] pointer-events-none dark:opacity-25"
         style={{
           background: 'radial-gradient(circle, rgba(168, 135, 90, 0.08) 0%, rgba(237, 228, 216, 0.4) 50%, transparent 80%)',
         }}
         aria-hidden="true"
       />
       <div
-        className="absolute top-2/3 left-0 w-[550px] h-[550px] rounded-full blur-[160px] pointer-events-none"
+        className="absolute top-2/3 left-0 w-[550px] h-[550px] rounded-full blur-[160px] pointer-events-none dark:opacity-25"
         style={{
           background: 'radial-gradient(circle, rgba(196, 166, 123, 0.06) 0%, rgba(247, 243, 237, 0.5) 50%, transparent 75%)',
         }}
@@ -409,18 +409,18 @@ export default function ProjectsSection() {
             transform: headerVisible ? 'translateY(0px)' : 'translateY(30px)',
           }}
         >
-          <div className="inline-flex items-center gap-2.5 mb-4 px-3.5 py-1.5 rounded-full bg-[#EDE4D8] border border-[#DED3C5] shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A] animate-pulse" />
-            <span className="text-xs font-serif tracking-[0.25em] uppercase text-[#A8875A] font-bold">
+          <div className="inline-flex items-center gap-2.5 mb-4 px-3.5 py-1.5 rounded-full bg-[#EDE4D8] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A] dark:bg-[#C4A67B] animate-pulse" />
+            <span className="text-xs font-serif tracking-[0.25em] uppercase text-[#A8875A] dark:text-[#C4A67B] font-bold">
               SELECTED WORK
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.12] text-[#292522] max-w-3xl">
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.12] text-[#292522] dark:text-[#F5EFEB] max-w-3xl">
             PRACTICAL SYSTEMS & APPLICATIONS.
           </h2>
 
-          <p className="mt-4 text-[#5F5750] text-base sm:text-lg font-normal max-w-2xl leading-relaxed">
+          <p className="mt-4 text-[#5F5750] dark:text-[#D1C8C0] text-base sm:text-lg font-normal max-w-2xl leading-relaxed">
             Production-oriented architectures spanning AI retrieval-augmented generation, media forensics, e-commerce intelligence, and full-stack web applications.
           </p>
         </div>

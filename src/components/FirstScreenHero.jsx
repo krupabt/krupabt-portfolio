@@ -95,14 +95,14 @@ export default function FirstScreenHero() {
     <section
       id="home"
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col justify-between pt-28 sm:pt-32 pb-12 text-[#292522] overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-between pt-28 sm:pt-32 pb-12 text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
       role="region"
       aria-label="Home and Personal Introduction"
     >
       <div id="hero" className="absolute top-0 left-0" />
 
       {/* ─────────────────────────────────────────────────────────────
-          HERO BACKGROUND IMAGE WITH WARM IVORY READABLE OVERLAY
+          HERO BACKGROUND IMAGE WITH DUAL-THEME READABLE OVERLAY
       ───────────────────────────────────────────────────────────── */}
       <div
         className="absolute inset-0 pointer-events-none overflow-hidden z-0"
@@ -119,17 +119,17 @@ export default function FirstScreenHero() {
             transition: 'transform 500ms ease-out',
           }}
         />
-        {/* Warm Ivory readable overlays */}
-        <div className="absolute inset-0 bg-[#F7F3ED]/85 backdrop-blur-[1px]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#F7F3ED]/90 via-[#F7F3ED]/80 to-[#F7F3ED]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(237,228,216,0.6)_80%,#F7F3ED_100%)]" />
+        {/* Dual-theme readable overlays */}
+        <div className="absolute inset-0 bg-[#F7F3ED]/85 dark:bg-[#141210]/85 backdrop-blur-[1px] transition-colors duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F7F3ED]/90 via-[#F7F3ED]/80 to-[#F7F3ED] dark:from-[#141210]/92 dark:via-[#141210]/85 dark:to-[#141210] transition-colors duration-300" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(237,228,216,0.6)_80%,#F7F3ED_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(28,25,23,0.75)_80%,#141210_100%)] transition-colors duration-300" />
       </div>
 
       {/* ─────────────────────────────────────────────────────────────
           HERO ATMOSPHERE LIGHTING (Champagne & Soft Taupe)
       ───────────────────────────────────────────────────────────── */}
       <div
-        className="absolute top-1/4 right-0 lg:right-16 w-[600px] sm:w-[750px] h-[600px] sm:h-[750px] rounded-full blur-[160px] pointer-events-none transition-transform duration-700 ease-out z-0"
+        className="absolute top-1/4 right-0 lg:right-16 w-[600px] sm:w-[750px] h-[600px] sm:h-[750px] rounded-full blur-[160px] pointer-events-none transition-transform duration-700 ease-out z-0 dark:opacity-35"
         style={{
           background: 'radial-gradient(circle, rgba(168, 135, 90, 0.10) 0%, rgba(237, 228, 216, 0.4) 50%, transparent 80%)',
           transform: isReducedMotion
@@ -139,7 +139,7 @@ export default function FirstScreenHero() {
         aria-hidden="true"
       />
       <div
-        className="absolute top-1/3 left-2 lg:left-10 w-[450px] h-[450px] rounded-full blur-[150px] pointer-events-none z-0"
+        className="absolute top-1/3 left-2 lg:left-10 w-[450px] h-[450px] rounded-full blur-[150px] pointer-events-none z-0 dark:opacity-35"
         style={{
           background: 'radial-gradient(circle, rgba(196, 166, 123, 0.08) 0%, rgba(247, 243, 237, 0.5) 50%, transparent 75%)',
         }}
@@ -169,9 +169,9 @@ export default function FirstScreenHero() {
                 transform: animState >= 1 ? 'translateY(0px)' : 'translateY(25px)',
               }}
             >
-              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#EDE4D8] border border-[#DED3C5] shadow-sm">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A] animate-pulse" />
-                <span className="text-xs font-serif uppercase tracking-[0.20em] text-[#A8875A] font-bold">
+              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#EDE4D8] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] shadow-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A] dark:bg-[#C4A67B] animate-pulse" />
+                <span className="text-xs font-serif uppercase tracking-[0.20em] text-[#A8875A] dark:text-[#C4A67B] font-bold">
                   INFORMATION SCIENCE ENGINEERING
                 </span>
               </div>
@@ -185,14 +185,14 @@ export default function FirstScreenHero() {
                 transform: animState >= 1 ? 'translateY(0px)' : 'translateY(40px)',
               }}
             >
-              <h1 className="text-4xl min-[400px]:text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-bold tracking-[-0.03em] leading-[0.98] text-[#292522] lg:whitespace-nowrap">
+              <h1 className="text-4xl min-[400px]:text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-bold tracking-[-0.03em] leading-[0.98] text-[#292522] dark:text-[#F5EFEB] lg:whitespace-nowrap">
                 KRUPA B T
               </h1>
             </div>
 
             {/* Description: appears 150-250ms after the name */}
             <p
-              className="text-[#5F5750] text-base sm:text-lg font-normal leading-relaxed max-w-xl"
+              className="text-[#5F5750] dark:text-[#D1C8C0] text-base sm:text-lg font-normal leading-relaxed max-w-xl"
               style={{
                 transition: 'opacity 800ms cubic-bezier(0.22, 1, 0.36, 1), transform 800ms cubic-bezier(0.22, 1, 0.36, 1)',
                 opacity: animState >= 2 ? 1 : 0,
@@ -202,9 +202,9 @@ export default function FirstScreenHero() {
               {personalInfo.supportingStatement}
             </p>
 
-            {/* Academic Context */}
+            {/* Academic Context with Normal Bengaluru Font */}
             <div
-              className="space-y-2 pt-1 text-sm text-[#5F5750] font-normal"
+              className="space-y-2 pt-1 text-sm text-[#5F5750] dark:text-[#D1C8C0] font-normal"
               style={{
                 transition: 'opacity 700ms cubic-bezier(0.22, 1, 0.36, 1), transform 700ms cubic-bezier(0.22, 1, 0.36, 1)',
                 opacity: animState >= 3 ? 1 : 0,
@@ -212,16 +212,16 @@ export default function FirstScreenHero() {
               }}
             >
               <div className="flex items-center gap-2">
-                <GraduationCap className="w-4 h-4 text-[#A8875A] flex-shrink-0" />
-                <span className="font-semibold text-[#292522]">{personalInfo.education}</span>
+                <GraduationCap className="w-4 h-4 text-[#A8875A] dark:text-[#C4A67B] flex-shrink-0" />
+                <span className="font-semibold text-[#292522] dark:text-[#F5EFEB]">{personalInfo.education}</span>
               </div>
-              <div className="flex items-center gap-2 text-xs font-serif text-[#5F5750] pl-6">
+              <div className="flex items-center gap-2 text-xs font-serif text-[#5F5750] dark:text-[#D1C8C0] pl-6">
                 <span>{personalInfo.institution}</span>
-                <span className="text-[#DED3C5]">·</span>
-                <span className="text-[#A8875A] font-semibold">{personalInfo.gpa}</span>
+                <span className="text-[#DED3C5] dark:text-[#38332E]">·</span>
+                <span className="text-[#A8875A] dark:text-[#C4A67B] font-semibold">{personalInfo.gpa}</span>
               </div>
-              <div className="flex items-center gap-2 pl-6 text-xs text-[#7D736A] font-sans tracking-normal">
-                <MapPin className="w-3.5 h-3.5 text-[#A8875A] flex-shrink-0" />
+              <div className="flex items-center gap-2 pl-6 text-xs text-[#7D736A] dark:text-[#9E9389] font-clean tracking-normal">
+                <MapPin className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B] flex-shrink-0" />
                 <span>Bengaluru, India</span>
               </div>
             </div>
@@ -235,13 +235,13 @@ export default function FirstScreenHero() {
                 transform: animState >= 4 ? 'translateY(0px) scale(1)' : 'translateY(25px) scale(0.96)',
               }}
             >
-              {/* Primary Action: VIEW MY WORK (Rich Charcoal with warm ivory text) */}
+              {/* Primary Action: VIEW MY WORK */}
               <button
                 onClick={scrollToProjects}
-                className="group relative inline-flex items-center justify-center px-8 py-3.5 rounded-xl font-bold text-xs tracking-[0.16em] uppercase text-[#F7F3ED] bg-[#292522] hover:bg-[#A8875A] hover:text-[#292522] border border-[#292522] hover:border-[#A8875A] btn-hover-effect shadow-[0_4px_20px_rgba(41,37,34,0.18)] hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A] cursor-pointer"
+                className="group relative inline-flex items-center justify-center px-8 py-3.5 rounded-xl font-bold text-xs tracking-[0.16em] uppercase text-[#F7F3ED] dark:text-[#141210] bg-[#292522] dark:bg-[#C4A67B] hover:bg-[#A8875A] dark:hover:bg-[#D8BC93] hover:text-[#292522] dark:hover:text-[#141210] border border-[#292522] dark:border-[#C4A67B] hover:border-[#A8875A] btn-hover-effect shadow-[0_4px_20px_rgba(41,37,34,0.18)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] cursor-pointer"
               >
                 <span>VIEW MY WORK</span>
-                <span className="absolute -inset-0.5 rounded-xl bg-[#A8875A]/20 blur opacity-0 group-hover:opacity-100 transition-opacity duration-250 pointer-events-none" />
+                <span className="absolute -inset-0.5 rounded-xl bg-[#A8875A]/20 dark:bg-[#C4A67B]/30 blur opacity-0 group-hover:opacity-100 transition-opacity duration-250 pointer-events-none" />
               </button>
 
               {/* GITHUB */}
@@ -249,12 +249,12 @@ export default function FirstScreenHero() {
                 href={personalInfo.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-bold text-xs tracking-[0.14em] uppercase text-[#292522] hover:text-[#292522] bg-[#FFFCF7] hover:bg-[#EDE4D8] border border-[#DED3C5] hover:border-[#A8875A] btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A]"
+                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-bold text-xs tracking-[0.14em] uppercase text-[#292522] dark:text-[#F5EFEB] hover:text-[#292522] dark:hover:text-[#F5EFEB] bg-[#FFFCF7] dark:bg-[#24201D] hover:bg-[#EDE4D8] dark:hover:bg-[#2D2824] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
                 aria-label="GitHub Profile"
               >
-                <GithubIcon className="w-4 h-4 text-[#A8875A]" />
+                <GithubIcon className="w-4 h-4 text-[#A8875A] dark:text-[#C4A67B]" />
                 <span>GITHUB</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-[#A8875A] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
 
               {/* LINKEDIN */}
@@ -262,12 +262,12 @@ export default function FirstScreenHero() {
                 href={personalInfo.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-bold text-xs tracking-[0.14em] uppercase text-[#292522] hover:text-[#292522] bg-[#FFFCF7] hover:bg-[#EDE4D8] border border-[#DED3C5] hover:border-[#A8875A] btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A]"
+                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-bold text-xs tracking-[0.14em] uppercase text-[#292522] dark:text-[#F5EFEB] hover:text-[#292522] dark:hover:text-[#F5EFEB] bg-[#FFFCF7] dark:bg-[#24201D] hover:bg-[#EDE4D8] dark:hover:bg-[#2D2824] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
                 aria-label="LinkedIn Profile"
               >
-                <LinkedinIcon className="w-4 h-4 text-[#A8875A]" />
+                <LinkedinIcon className="w-4 h-4 text-[#A8875A] dark:text-[#C4A67B]" />
                 <span>LINKEDIN</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-[#A8875A] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
 
               {/* LEETCODE */}
@@ -275,12 +275,12 @@ export default function FirstScreenHero() {
                 href={personalInfo.leetcode}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-bold text-xs tracking-[0.14em] uppercase text-[#292522] hover:text-[#292522] bg-[#FFFCF7] hover:bg-[#EDE4D8] border border-[#DED3C5] hover:border-[#A8875A] btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A]"
+                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-bold text-xs tracking-[0.14em] uppercase text-[#292522] dark:text-[#F5EFEB] hover:text-[#292522] dark:hover:text-[#F5EFEB] bg-[#FFFCF7] dark:bg-[#24201D] hover:bg-[#EDE4D8] dark:hover:bg-[#2D2824] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
                 aria-label="LeetCode Profile"
               >
-                <LeetcodeIcon className="w-4 h-4 text-[#A8875A]" />
+                <LeetcodeIcon className="w-4 h-4 text-[#A8875A] dark:text-[#C4A67B]" />
                 <span>LEETCODE</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-[#A8875A] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
             </div>
           </div>
@@ -309,28 +309,28 @@ export default function FirstScreenHero() {
               />
 
               {/* Framed Photo Container */}
-              <div className="relative rounded-[28px] overflow-hidden border border-[#DED3C5] group-hover:border-[#A8875A]/50 transition-colors duration-500 shadow-[0_16px_40px_rgba(41,37,34,0.12)] bg-[#FFFCF7]">
+              <div className="relative rounded-[28px] overflow-hidden border border-[#DED3C5] dark:border-[#38332E] group-hover:border-[#A8875A]/50 dark:group-hover:border-[#C4A67B]/50 transition-colors duration-500 shadow-[0_16px_40px_rgba(41,37,34,0.12)] dark:shadow-[0_16px_40px_rgba(0,0,0,0.4)] bg-[#FFFCF7] dark:bg-[#24201D]">
                 <ProfilePhoto
                   alt="Krupa B T - Software Engineer"
                   className="w-full h-auto aspect-[4/5] object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
                   priority={true}
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-[#292522]/30 via-transparent to-transparent pointer-events-none" />
-                <div className="absolute inset-0 rounded-[28px] ring-1 ring-inset ring-[#DED3C5]/40 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#292522]/30 dark:from-[#141210]/40 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute inset-0 rounded-[28px] ring-1 ring-inset ring-[#DED3C5]/40 dark:ring-[#38332E]/50 pointer-events-none" />
 
                 {/* Status Pill with Location and Active Status */}
-                <div className="absolute bottom-4 left-4 right-4 bg-[#FFFCF7]/95 backdrop-blur-md px-4 py-2.5 rounded-xl border border-[#DED3C5] shadow-md flex items-center justify-between z-20">
+                <div className="absolute bottom-4 left-4 right-4 bg-[#FFFCF7]/95 dark:bg-[#24201D]/95 backdrop-blur-md px-4 py-2.5 rounded-xl border border-[#DED3C5] dark:border-[#38332E] shadow-md flex items-center justify-between z-20">
                   <div>
-                    <div className="text-xs font-semibold text-[#292522] tracking-tight">
+                    <div className="text-xs font-semibold text-[#292522] dark:text-[#F5EFEB] tracking-tight">
                       {personalInfo.name}
                     </div>
-                    <div className="text-[11px] text-[#7D736A] font-sans tracking-normal font-normal">
+                    <div className="text-[11px] text-[#7D736A] dark:text-[#9E9389] font-clean tracking-normal font-normal">
                       Bengaluru, India
                     </div>
                   </div>
-                  <div className="flex items-center gap-1.5 text-[11px] font-serif text-[#A8875A] font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A] animate-pulse" />
+                  <div className="flex items-center gap-1.5 text-[11px] font-serif text-[#A8875A] dark:text-[#C4A67B] font-medium">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A] dark:bg-[#C4A67B] animate-pulse" />
                     <span>Active</span>
                   </div>
                 </div>
@@ -343,26 +343,28 @@ export default function FirstScreenHero() {
       </div>
 
       {/* ─────────────────────────────────────────────────────────────
-          BOTTOM SCROLL INDICATOR
+          BOTTOM SCROLL INDICATOR (Clean font, neatly aligned, not clipped)
       ───────────────────────────────────────────────────────────── */}
-      <button
-        onClick={() => {
-          const target = document.getElementById('about');
-          if (target) target.scrollIntoView({ behavior: 'smooth' });
-        }}
-        className="relative z-10 w-full flex flex-col items-center justify-center gap-2 pt-2 group cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-[#A8875A] rounded py-1 bg-transparent border-0"
-        style={{
-          transition: 'opacity 700ms cubic-bezier(0.22, 1, 0.36, 1), transform 700ms cubic-bezier(0.22, 1, 0.36, 1)',
-          opacity: animState >= 4 ? 1 : 0,
-          transform: animState >= 4 ? 'translateY(0px)' : 'translateY(15px)',
-        }}
-        aria-label="Scroll to explore"
-      >
-        <span className="text-xs font-sans tracking-wide text-[#7D736A] group-hover:text-[#292522] transition-colors duration-200">
-          SCROLL TO EXPLORE
-        </span>
-        <div className="w-[1px] h-6 bg-gradient-to-b from-[#A8875A]/70 to-transparent animate-pulse group-hover:h-8 transition-all duration-300" />
-      </button>
+      <div className="relative z-10 w-full flex justify-center px-4">
+        <button
+          onClick={() => {
+            const target = document.getElementById('about');
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+          }}
+          className="flex flex-col items-center justify-center gap-2 pt-2 group cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] rounded py-1 bg-transparent border-0"
+          style={{
+            transition: 'opacity 700ms cubic-bezier(0.22, 1, 0.36, 1), transform 700ms cubic-bezier(0.22, 1, 0.36, 1)',
+            opacity: animState >= 4 ? 1 : 0,
+            transform: animState >= 4 ? 'translateY(0px)' : 'translateY(15px)',
+          }}
+          aria-label="Scroll to explore"
+        >
+          <span className="text-xs font-clean tracking-wide text-[#7D736A] dark:text-[#9E9389] group-hover:text-[#292522] dark:group-hover:text-[#F5EFEB] transition-colors duration-200 whitespace-nowrap">
+            SCROLL TO EXPLORE
+          </span>
+          <div className="w-[1px] h-6 bg-gradient-to-b from-[#A8875A]/70 dark:from-[#C4A67B]/70 to-transparent animate-pulse group-hover:h-8 transition-all duration-300" />
+        </button>
+      </div>
     </section>
   );
 }

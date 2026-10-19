@@ -56,7 +56,7 @@ export default function AboutSection() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative py-28 sm:py-36 lg:py-44 bg-[#EDE4D8] text-[#292522] overflow-hidden"
+      className="relative py-28 sm:py-36 lg:py-44 bg-[#EDE4D8] dark:bg-[#1A1815] text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
       role="region"
       aria-label="About Krupa B T"
     >
@@ -67,14 +67,14 @@ export default function AboutSection() {
           CINEMATIC BACKGROUND ATMOSPHERE (Warm Champagne & Bronze)
       ───────────────────────────────────────────────────────────── */}
       <div
-        className="absolute top-1/6 left-1/4 w-[600px] sm:w-[750px] h-[600px] sm:h-[750px] rounded-full blur-[160px] pointer-events-none"
+        className="absolute top-1/6 left-1/4 w-[600px] sm:w-[750px] h-[600px] sm:h-[750px] rounded-full blur-[160px] pointer-events-none dark:opacity-30"
         style={{
           background: 'radial-gradient(circle, rgba(168, 135, 90, 0.08) 0%, rgba(222, 211, 197, 0.40) 50%, transparent 80%)',
         }}
         aria-hidden="true"
       />
       <div
-        className="absolute bottom-1/4 -left-20 w-[500px] h-[500px] rounded-full blur-[150px] pointer-events-none"
+        className="absolute bottom-1/4 -left-20 w-[500px] h-[500px] rounded-full blur-[150px] pointer-events-none dark:opacity-30"
         style={{
           background: 'radial-gradient(circle, rgba(196, 166, 123, 0.06) 0%, rgba(247, 243, 237, 0.5) 50%, transparent 75%)',
         }}
@@ -90,24 +90,24 @@ export default function AboutSection() {
           
           {/* Eyebrow: ABOUT ME */}
           <div
-            className="inline-flex items-center gap-2.5 mb-5 px-3.5 py-1.5 rounded-full bg-[#FFFCF7] border border-[#DED3C5] shadow-sm"
+            className="inline-flex items-center gap-2.5 mb-5 px-3.5 py-1.5 rounded-full bg-[#FFFCF7] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] shadow-sm"
             style={{
               transition: 'opacity 700ms cubic-bezier(0.22, 1, 0.36, 1), transform 700ms cubic-bezier(0.22, 1, 0.36, 1)',
               opacity: isVisible || isReducedMotion ? 1 : 0,
               transform: isVisible || isReducedMotion ? 'translateY(0px)' : 'translateY(25px)',
             }}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A] animate-pulse" />
-            <span className="text-xs font-serif tracking-[0.24em] uppercase text-[#A8875A] font-bold">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A] dark:bg-[#C4A67B] animate-pulse" />
+            <span className="text-xs font-serif tracking-[0.24em] uppercase text-[#A8875A] dark:text-[#C4A67B] font-bold">
               ABOUT ME
             </span>
           </div>
 
           {/* Main Statement */}
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold tracking-[-0.03em] leading-[1.15] text-[#292522] mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold tracking-[-0.03em] leading-[1.15] text-[#292522] dark:text-[#F5EFEB] mb-6">
             <div className="overflow-hidden py-1">
               <span
-                className="block text-[#292522]"
+                className="block text-[#292522] dark:text-[#F5EFEB]"
                 style={{
                   transition: 'opacity 850ms cubic-bezier(0.22, 1, 0.36, 1), transform 850ms cubic-bezier(0.22, 1, 0.36, 1), filter 850ms cubic-bezier(0.22, 1, 0.36, 1)',
                   opacity: isVisible || isReducedMotion ? 1 : 0,
@@ -121,7 +121,7 @@ export default function AboutSection() {
 
             <div className="overflow-hidden py-1">
               <span
-                className="block text-[#292522]"
+                className="block text-[#292522] dark:text-[#F5EFEB]"
                 style={{
                   transition: 'opacity 850ms cubic-bezier(0.22, 1, 0.36, 1) 140ms, transform 850ms cubic-bezier(0.22, 1, 0.36, 1) 140ms, filter 850ms cubic-bezier(0.22, 1, 0.36, 1) 140ms',
                   opacity: isVisible || isReducedMotion ? 1 : 0,
@@ -135,7 +135,7 @@ export default function AboutSection() {
 
             <div className="overflow-hidden py-1">
               <span
-                className="block text-[#A8875A]"
+                className="block text-[#A8875A] dark:text-[#C4A67B]"
                 style={{
                   transition: 'opacity 850ms cubic-bezier(0.22, 1, 0.36, 1) 280ms, transform 850ms cubic-bezier(0.22, 1, 0.36, 1) 280ms, filter 850ms cubic-bezier(0.22, 1, 0.36, 1) 280ms',
                   opacity: isVisible || isReducedMotion ? 1 : 0,
@@ -150,7 +150,7 @@ export default function AboutSection() {
 
           {/* Intro statement */}
           <p
-            className="text-base sm:text-lg text-[#5F5750] font-normal leading-relaxed"
+            className="text-base sm:text-lg text-[#5F5750] dark:text-[#D1C8C0] font-normal leading-relaxed"
             style={{
               transition: 'opacity 800ms cubic-bezier(0.22, 1, 0.36, 1) 420ms, transform 800ms cubic-bezier(0.22, 1, 0.36, 1) 420ms',
               opacity: isVisible || isReducedMotion ? 1 : 0,
@@ -165,7 +165,7 @@ export default function AboutSection() {
             EDITORIAL ABSTRACT VISUAL: CODE → DATA → AI → SOFTWARE
         ───────────────────────────────────────────────────────────── */}
         <div
-          className="mb-16 sm:mb-20 p-6 sm:p-8 rounded-[20px] bg-[#FFFCF7] border border-[#DED3C5] shadow-[0_6px_24px_-4px_rgba(41,37,34,0.06)]"
+          className="mb-16 sm:mb-20 p-6 sm:p-8 rounded-[20px] bg-[#FFFCF7] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] shadow-[0_6px_24px_-4px_rgba(41,37,34,0.06)] dark:shadow-[0_6px_24px_-4px_rgba(0,0,0,0.3)]"
           style={{
             transition: 'opacity 800ms cubic-bezier(0.22, 1, 0.36, 1) 300ms, transform 800ms cubic-bezier(0.22, 1, 0.36, 1) 300ms',
             opacity: isVisible || isReducedMotion ? 1 : 0,
@@ -174,41 +174,41 @@ export default function AboutSection() {
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             
-            <div className="text-xs font-serif tracking-[0.22em] text-[#7D736A] uppercase font-bold">
+            <div className="text-xs font-serif tracking-[0.22em] text-[#7D736A] dark:text-[#9E9389] uppercase font-bold">
               ENGINEERING PIPELINE
             </div>
 
             {/* Flow line connecting CODE → DATA → AI → SOFTWARE */}
-            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-5 text-xs sm:text-sm font-serif font-medium text-[#292522]">
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-5 text-xs sm:text-sm font-serif font-medium text-[#292522] dark:text-[#F5EFEB]">
               
               {/* CODE */}
-              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EDE4D8] border border-[#DED3C5] pill-hover-effect">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A]" />
-                <span className="tracking-wide text-[#292522]">CODE</span>
+              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EDE4D8] dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] pill-hover-effect">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A] dark:bg-[#C4A67B]" />
+                <span className="tracking-wide text-[#292522] dark:text-[#F5EFEB]">CODE</span>
               </div>
 
-              <span className="text-[#A8875A] text-xs">→</span>
+              <span className="text-[#A8875A] dark:text-[#C4A67B] text-xs">→</span>
 
               {/* DATA */}
-              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EDE4D8] border border-[#DED3C5] pill-hover-effect">
+              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EDE4D8] dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] pill-hover-effect">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#C4A67B]" />
-                <span className="tracking-wide text-[#292522]">DATA</span>
+                <span className="tracking-wide text-[#292522] dark:text-[#F5EFEB]">DATA</span>
               </div>
 
-              <span className="text-[#A8875A] text-xs">→</span>
+              <span className="text-[#A8875A] dark:text-[#C4A67B] text-xs">→</span>
 
               {/* AI */}
-              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#A8875A]/15 border border-[#A8875A]/40 text-[#292522] pill-hover-effect">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A] animate-pulse" />
-                <span className="tracking-wide font-semibold text-[#A8875A]">AI</span>
+              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#A8875A]/15 dark:bg-[#C4A67B]/20 border border-[#A8875A]/40 dark:border-[#C4A67B]/40 text-[#292522] dark:text-[#F5EFEB] pill-hover-effect">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A] dark:bg-[#C4A67B] animate-pulse" />
+                <span className="tracking-wide font-semibold text-[#A8875A] dark:text-[#C4A67B]">AI</span>
               </div>
 
-              <span className="text-[#A8875A] text-xs">→</span>
+              <span className="text-[#A8875A] dark:text-[#C4A67B] text-xs">→</span>
 
               {/* SOFTWARE */}
-              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EDE4D8] border border-[#DED3C5] pill-hover-effect">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A]" />
-                <span className="tracking-wide text-[#292522]">SOFTWARE</span>
+              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EDE4D8] dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] pill-hover-effect">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A] dark:bg-[#C4A67B]" />
+                <span className="tracking-wide text-[#292522] dark:text-[#F5EFEB]">SOFTWARE</span>
               </div>
 
             </div>
@@ -222,34 +222,34 @@ export default function AboutSection() {
           
           {/* 1. WHO I AM */}
           <div
-            className="p-7 rounded-[20px] bg-[#FFFCF7] border border-[#DED3C5] hover:border-[#A8875A] card-hover-subtle transition-all duration-300 ease-out shadow-[0_6px_24px_-4px_rgba(41,37,34,0.06)]"
+            className="p-7 rounded-[20px] bg-[#FFFCF7] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] card-hover-subtle transition-all duration-300 ease-out shadow-[0_6px_24px_-4px_rgba(41,37,34,0.06)] dark:shadow-[0_6px_24px_-4px_rgba(0,0,0,0.3)]"
             style={{
               transition: 'opacity 750ms cubic-bezier(0.22, 1, 0.36, 1) 320ms, transform 750ms cubic-bezier(0.22, 1, 0.36, 1) 320ms',
               opacity: isVisible || isReducedMotion ? 1 : 0,
               transform: isVisible || isReducedMotion ? 'translateY(0px)' : 'translateY(40px)',
             }}
           >
-            <div className="text-xs font-serif tracking-[0.18em] uppercase text-[#A8875A] font-bold mb-4 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A]" />
+            <div className="text-xs font-serif tracking-[0.18em] uppercase text-[#A8875A] dark:text-[#C4A67B] font-bold mb-4 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A] dark:bg-[#C4A67B]" />
               WHO I AM
             </div>
 
-            <p className="text-sm sm:text-base text-[#5F5750] font-normal leading-relaxed">
+            <p className="text-sm sm:text-base text-[#5F5750] dark:text-[#D1C8C0] font-normal leading-relaxed">
               I am Krupa, an Information Science Engineering student at Garden City University in Bengaluru with a 9.17 GPA. My focus centers on Python development, artificial intelligence, and full-stack systems, taking ideas from concept to production.
             </p>
           </div>
 
           {/* 2. WHAT I BUILD */}
           <div
-            className="p-7 rounded-[20px] bg-[#FFFCF7] border border-[#DED3C5] hover:border-[#A8875A] card-hover-subtle transition-all duration-300 ease-out shadow-[0_6px_24px_-4px_rgba(41,37,34,0.06)]"
+            className="p-7 rounded-[20px] bg-[#FFFCF7] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] card-hover-subtle transition-all duration-300 ease-out shadow-[0_6px_24px_-4px_rgba(41,37,34,0.06)] dark:shadow-[0_6px_24px_-4px_rgba(0,0,0,0.3)]"
             style={{
               transition: 'opacity 750ms cubic-bezier(0.22, 1, 0.36, 1) 440ms, transform 750ms cubic-bezier(0.22, 1, 0.36, 1) 440ms',
               opacity: isVisible || isReducedMotion ? 1 : 0,
               transform: isVisible || isReducedMotion ? 'translateY(0px)' : 'translateY(40px)',
             }}
           >
-            <div className="text-xs font-serif tracking-[0.18em] uppercase text-[#A8875A] font-bold mb-4 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A]" />
+            <div className="text-xs font-serif tracking-[0.18em] uppercase text-[#A8875A] dark:text-[#C4A67B] font-bold mb-4 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A] dark:bg-[#C4A67B]" />
               WHAT I BUILD
             </div>
 
@@ -259,9 +259,9 @@ export default function AboutSection() {
                 return (
                   <div
                     key={idx}
-                    className="flex items-center gap-3 text-sm sm:text-base text-[#292522]"
+                    className="flex items-center gap-3 text-sm sm:text-base text-[#292522] dark:text-[#F5EFEB]"
                   >
-                    <div className="w-6 h-6 rounded-lg bg-[#EDE4D8] border border-[#DED3C5] flex items-center justify-center flex-shrink-0 text-[#A8875A]">
+                    <div className="w-6 h-6 rounded-lg bg-[#EDE4D8] dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] flex items-center justify-center flex-shrink-0 text-[#A8875A] dark:text-[#C4A67B]">
                       <IconComponent className="w-3.5 h-3.5" />
                     </div>
                     <span>{item.title}</span>
@@ -273,15 +273,15 @@ export default function AboutSection() {
 
           {/* 3. HOW I WORK */}
           <div
-            className="p-7 rounded-[20px] bg-[#FFFCF7] border border-[#DED3C5] hover:border-[#A8875A] card-hover-subtle transition-all duration-300 ease-out shadow-[0_6px_24px_-4px_rgba(41,37,34,0.06)]"
+            className="p-7 rounded-[20px] bg-[#FFFCF7] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] card-hover-subtle transition-all duration-300 ease-out shadow-[0_6px_24px_-4px_rgba(41,37,34,0.06)] dark:shadow-[0_6px_24px_-4px_rgba(0,0,0,0.3)]"
             style={{
               transition: 'opacity 750ms cubic-bezier(0.22, 1, 0.36, 1) 560ms, transform 750ms cubic-bezier(0.22, 1, 0.36, 1) 560ms',
               opacity: isVisible || isReducedMotion ? 1 : 0,
               transform: isVisible || isReducedMotion ? 'translateY(0px)' : 'translateY(40px)',
             }}
           >
-            <div className="text-xs font-serif tracking-[0.18em] uppercase text-[#A8875A] font-bold mb-4 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A]" />
+            <div className="text-xs font-serif tracking-[0.18em] uppercase text-[#A8875A] dark:text-[#C4A67B] font-bold mb-4 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A] dark:bg-[#C4A67B]" />
               HOW I WORK
             </div>
 
@@ -291,10 +291,10 @@ export default function AboutSection() {
                   key={idx}
                   className="flex items-start gap-2.5 text-sm sm:text-base"
                 >
-                  <CheckCircle2 className="w-4 h-4 text-[#A8875A] mt-0.5 flex-shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#A8875A] dark:text-[#C4A67B] mt-0.5 flex-shrink-0" />
                   <div>
-                    <span className="text-[#292522] font-medium">{item.title}</span>
-                    <span className="text-xs text-[#7D736A] block mt-0.5">{item.desc}</span>
+                    <span className="text-[#292522] dark:text-[#F5EFEB] font-medium">{item.title}</span>
+                    <span className="text-xs text-[#7D736A] dark:text-[#9E9389] block mt-0.5">{item.desc}</span>
                   </div>
                 </div>
               ))}
@@ -307,14 +307,14 @@ export default function AboutSection() {
             SUPPORTING PERSONAL PARAGRAPH
         ───────────────────────────────────────────────────────────── */}
         <div
-          className="p-8 rounded-[20px] bg-[#FFFCF7] border border-[#DED3C5] shadow-[0_6px_24px_-4px_rgba(41,37,34,0.06)] mb-16 sm:mb-20"
+          className="p-8 rounded-[20px] bg-[#FFFCF7] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] shadow-[0_6px_24px_-4px_rgba(41,37,34,0.06)] dark:shadow-[0_6px_24px_-4px_rgba(0,0,0,0.3)] mb-16 sm:mb-20"
           style={{
             transition: 'opacity 800ms cubic-bezier(0.22, 1, 0.36, 1) 600ms, transform 800ms cubic-bezier(0.22, 1, 0.36, 1) 600ms',
             opacity: isVisible || isReducedMotion ? 1 : 0,
             transform: isVisible || isReducedMotion ? 'translateY(0px)' : 'translateY(30px)',
           }}
         >
-          <p className="text-sm sm:text-base md:text-lg text-[#5F5750] font-normal leading-relaxed max-w-4xl">
+          <p className="text-sm sm:text-base md:text-lg text-[#5F5750] dark:text-[#D1C8C0] font-normal leading-relaxed max-w-4xl">
             From engineering conversational customer support powered by RAG and e-commerce revenue intelligence using association rule mining, to facial deepfake media detection across video frame sequences and NLP candidate matching, my focus is straightforward: pairing clean data with practical machine learning to solve real user challenges, while continuously improving my Data Structures & Algorithms, problem-solving, and software development skills.
           </p>
         </div>
@@ -323,24 +323,24 @@ export default function AboutSection() {
             HORIZONTAL METRIC BAR (AT A GLANCE)
         ───────────────────────────────────────────────────────────── */}
         <div
-          className="pt-8 border-t border-[#DED3C5]"
+          className="pt-8 border-t border-[#DED3C5] dark:border-[#38332E]"
           style={{
             transition: 'opacity 800ms cubic-bezier(0.22, 1, 0.36, 1) 700ms, transform 800ms cubic-bezier(0.22, 1, 0.36, 1) 700ms',
             opacity: isVisible || isReducedMotion ? 1 : 0,
             transform: isVisible || isReducedMotion ? 'translateY(0px)' : 'translateY(25px)',
           }}
         >
-          <div className="text-xs font-serif tracking-[0.25em] uppercase text-[#A8875A] font-bold mb-6 sm:mb-8">
+          <div className="text-xs font-serif tracking-[0.25em] uppercase text-[#A8875A] dark:text-[#C4A67B] font-bold mb-6 sm:mb-8">
             AT A GLANCE
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 lg:gap-12">
             {personalDetails.map((detail) => (
               <div key={detail.label} className="space-y-1">
-                <div className="text-[11px] font-serif tracking-[0.16em] uppercase text-[#7D736A] font-medium">
+                <div className="text-[11px] font-serif tracking-[0.16em] uppercase text-[#7D736A] dark:text-[#9E9389] font-medium">
                   {detail.label}
                 </div>
-                <div className="text-sm sm:text-base font-semibold text-[#292522] tracking-tight">
+                <div className="text-sm sm:text-base font-semibold text-[#292522] dark:text-[#F5EFEB] tracking-tight">
                   {detail.value}
                 </div>
               </div>

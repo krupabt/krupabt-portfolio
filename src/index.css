@@ -4,41 +4,59 @@
 
 @layer base {
   *, *::before, *::after {
-    font-family: "Times New Roman", Times, serif !important;
+    font-family: "Times New Roman", Times, serif;
   }
 
   html {
     scroll-behavior: smooth;
     color-scheme: light;
-    font-family: "Times New Roman", Times, serif !important;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  html.dark {
+    color-scheme: dark;
   }
 
   body {
     background-color: #F7F3ED;
     color: #5F5750;
-    font-family: "Times New Roman", Times, serif !important;
+    font-family: "Times New Roman", Times, serif;
     font-weight: 400;
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    transition: background-color 250ms ease, color 250ms ease;
+  }
+
+  html.dark body {
+    background-color: #141210;
+    color: #D1C8C0;
   }
 
   p {
     color: #5F5750;
-    font-family: "Times New Roman", Times, serif !important;
+    font-family: "Times New Roman", Times, serif;
     font-weight: 400;
     line-height: 1.75;
   }
 
+  html.dark p {
+    color: #D1C8C0;
+  }
+
   /* Times New Roman Elegant Heading Hierarchy */
   h1, h2, h3, h4, h5, h6 {
-    font-family: "Times New Roman", Times, serif !important;
+    font-family: "Times New Roman", Times, serif;
     letter-spacing: -0.015em;
     color: #292522;
     text-wrap: balance;
     font-weight: 700;
     line-height: 1.2;
+  }
+
+  html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6 {
+    color: #F5EFEB;
   }
 
   h1 {
@@ -65,9 +83,18 @@
     outline-offset: 3px !important;
     border-radius: 6px;
   }
+
+  html.dark :focus-visible {
+    outline-color: #C4A67B !important;
+  }
 }
 
 @layer utilities {
+  /* Clean modern sans font utility that overrides serif where explicitly requested */
+  .font-clean {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  }
+
   /* Subtle Section Divider with soft bronze edge falloff */
   .section-divider {
     background: linear-gradient(
@@ -80,6 +107,17 @@
     );
     height: 1px;
     width: 100%;
+  }
+
+  html.dark .section-divider {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(56, 51, 46, 0.6) 15%,
+      rgba(196, 166, 123, 0.3) 50%,
+      rgba(56, 51, 46, 0.6) 85%,
+      transparent 100%
+    );
   }
 
   /* Smooth, professional interactive hover effects (200-300ms) */
