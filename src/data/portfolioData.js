@@ -237,27 +237,33 @@ export const educationData = [
 
 export const certificationsData = [
   {
-    title: "Python Essentials 1",
-    issuer: "Cisco Networking Academy",
-    date: "Completed",
-    skills: ["Python", "Core Programming", "Control Flow", "Functions"]
+    title: "Artificial Intelligence and Machine Learning",
+    issuer: "Coursera",
+    issuerType: "Platform",
+    date: "January 2026",
+    icon: "Brain"
   },
   {
-    title: "Artificial Intelligence Primer Certification",
+    title: "Software Engineering Job Simulation",
+    issuer: "JPMorgan Chase & Co.",
+    issuerType: "Organization",
+    date: "April 2026",
+    icon: "Code2"
+  },
+  {
+    title: "TCS iON Career Edge – Young Professional",
+    issuer: "TCS iON",
+    issuerType: "Organization",
+    date: "September 2025",
+    icon: "TrendingUp"
+  },
+  {
+    title: "Introduction to Python",
     issuer: "Infosys Springboard",
-    date: "Completed",
-    skills: ["AI Fundamentals", "Machine Learning Concepts", "Neural Networks Overview"]
-  },
-  {
-    title: "Data Analytics and Visualization Job Simulation",
-    issuer: "Accenture North America (Forage)",
-    date: "Completed",
-    skills: ["Data Cleaning", "Data Modeling", "Data Visualization", "Client Presentations"]
-  },
-  {
-    title: "Power BI Job Simulation",
-    issuer: "PwC Switzerland (Forage)",
-    date: "Completed",
-    skills: ["Power BI", "Data Transformation", "Dashboard Design", "KPI Tracking"]
+    issuerType: "Platform",
+    date: "September 2024",
+    icon: "Terminal"
   }
 ];
+
+export const certifications = certificationsData;

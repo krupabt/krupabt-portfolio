@@ -1,20 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Award, CheckCircle2 } from 'lucide-react';
+import { Award, Calendar, CheckCircle2, Brain, Code2, TrendingUp, Terminal } from 'lucide-react';
 import { certificationsData } from '../data/portfolioData';
+
+// Map icon types to Lucide components
+const iconMap = {
+  Brain: Brain,
+  Code2: Code2,
+  TrendingUp: TrendingUp,
+  Terminal: Terminal,
+};
 
 export default function CertificationsSection() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    // Triggers when 20% of the section enters the viewport
+    // Triggers when 15% of the section enters the viewport
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
         }
       },
-      { threshold: 0.2, rootMargin: '0px 0px -10% 0px' }
+      { threshold: 0.15, rootMargin: '0px 0px -10% 0px' }
     );
 
     if (sectionRef.current) {
@@ -28,7 +36,7 @@ export default function CertificationsSection() {
     <section
       id="certifications"
       ref={sectionRef}
-      className="relative py-32 sm:py-40 lg:py-48 bg-[#F7F3ED] dark:bg-[#141210] text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
+      className="relative py-28 sm:py-36 lg:py-44 bg-[#F7F3ED] dark:bg-[#141210] text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
       role="region"
       aria-label="Verified Certifications"
     >
@@ -36,7 +44,7 @@ export default function CertificationsSection() {
       <div className="section-divider absolute top-0 left-0 right-0" />
 
       {/* ─────────────────────────────────────────────────────────────
-          ATMOSPHERIC BRONZE LIGHT SOURCES BEHIND CERTIFICATIONS SECTION
+          ATMOSPHERIC BRONZE & CHAMPAGNE LIGHT SOURCES BEHIND SECTION
       ───────────────────────────────────────────────────────────── */}
       <div
         className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full blur-[170px] pointer-events-none dark:opacity-25"
@@ -79,47 +87,63 @@ export default function CertificationsSection() {
           </p>
         </div>
 
-        {/* 4 Authentic Certifications Grid */}
+        {/* 4 Professional Certifications Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {certificationsData.map((cert, idx) => {
-            const staggerDelay = 150 + idx * 140;
+            const staggerDelay = 120 + idx * 120;
+            const IconComponent = iconMap[cert.icon] || Award;
 
             return (
               <div
-                key={idx}
-                className="p-8 rounded-[20px] bg-[#FFFCF7] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] card-hover-subtle transition-all duration-300 shadow-[0_6px_24px_-4px_rgba(41,37,34,0.06)] dark:shadow-[0_6px_24px_-4px_rgba(0,0,0,0.3)] flex flex-col justify-between group"
+                key={cert.title}
+                className="p-7 sm:p-8 rounded-[22px] bg-[#FFFCF7] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] card-hover-subtle transition-all duration-300 shadow-[0_6px_24px_-4px_rgba(41,37,34,0.06)] dark:shadow-[0_6px_24px_-4px_rgba(0,0,0,0.35)] flex flex-col justify-between group"
                 style={{
                   transition: 'opacity 800ms cubic-bezier(0.22, 1, 0.36, 1), transform 800ms cubic-bezier(0.22, 1, 0.36, 1)',
                   transitionDelay: `${staggerDelay}ms`,
                   opacity: isVisible ? 1 : 0,
-                  transform: isVisible ? 'scale(1) translateY(0px)' : 'scale(0.92) translateY(25px)',
+                  transform: isVisible ? 'scale(1) translateY(0px)' : 'scale(0.94) translateY(24px)',
                 }}
               >
                 <div>
-                  <div className="flex items-center justify-between gap-4 mb-5">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-xl bg-[#EDE4D8] dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] flex items-center justify-center text-[#A8875A] dark:text-[#C4A67B]">
-                        <Award className="w-4 h-4" />
+                  {/* Top Bar: Icon + Platform/Org + Completion Date Pill */}
+                  <div className="flex items-center justify-between gap-3 mb-5">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-[#EDE4D8] dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] flex items-center justify-center text-[#A8875A] dark:text-[#C4A67B] shadow-xs group-hover:scale-105 transition-transform duration-250">
+                        <IconComponent className="w-5 h-5" />
                       </div>
-                      <span className="text-xs font-serif font-bold text-[#A8875A] dark:text-[#C4A67B] uppercase tracking-wider">
-                        {cert.issuer}
-                      </span>
+                      <div>
+                        <span className="text-xs font-serif font-bold text-[#A8875A] dark:text-[#C4A67B] uppercase tracking-wider block">
+                          {cert.issuer}
+                        </span>
+                        <span className="text-[11px] text-[#7D736A] dark:text-[#9E9389] font-sans">
+                          {cert.issuerType || 'Platform'}
+                        </span>
+                      </div>
                     </div>
 
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EDE4D8] dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] text-xs font-serif text-[#A8875A] dark:text-[#C4A67B]">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B]" />
-                      <span>Verified</span>
+                    {/* Completion Date Clearly Displayed */}
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#EDE4D8]/80 dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] text-xs font-serif text-[#292522] dark:text-[#F5EFEB] shadow-xs whitespace-nowrap">
+                      <Calendar className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B]" />
+                      <span className="font-semibold">{cert.date}</span>
                     </div>
                   </div>
 
+                  {/* Title */}
                   <h3 className="text-xl sm:text-2xl font-bold text-[#292522] dark:text-[#F5EFEB] tracking-tight leading-snug group-hover:text-[#A8875A] dark:group-hover:text-[#C4A67B] transition-colors duration-250">
                     {cert.title}
                   </h3>
                 </div>
 
+                {/* Footer Details: Platform/Organization & Completion Status */}
                 <div className="mt-8 pt-4 border-t border-[#DED3C5] dark:border-[#38332E] flex items-center justify-between text-xs font-serif">
-                  <span className="text-[#7D736A] dark:text-[#9E9389]">Issuing Organization</span>
-                  <span className="font-bold text-[#292522] dark:text-[#F5EFEB]">{cert.issuer}</span>
+                  <span className="text-[#7D736A] dark:text-[#9E9389]">
+                    {cert.issuerType === 'Organization' ? 'Organization' : 'Platform'}: <strong className="font-semibold text-[#292522] dark:text-[#F5EFEB]">{cert.issuer}</strong>
+                  </span>
+                  
+                  <div className="inline-flex items-center gap-1.5 text-[#A8875A] dark:text-[#C4A67B] font-medium">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    <span>Verified</span>
+                  </div>
                 </div>
               </div>
             );
