@@ -143,23 +143,36 @@ export default function CinematicIntro({ onStartEnter }) {
       aria-label="Welcome to Krupa BT's Portfolio"
     >
       {/* ─────────────────────────────────────────────────────────────
-          STEP 1: DARK ATMOSPHERIC BACKGROUND (Starts dark & slightly blurred)
+          STEP 1: HERO BACKGROUND IMAGE & DARK ATMOSPHERIC OVERLAY
       ───────────────────────────────────────────────────────────── */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none overflow-hidden z-0"
         style={{
           transition: 'opacity 1200ms cubic-bezier(0.22, 1, 0.36, 1), filter 1200ms cubic-bezier(0.22, 1, 0.36, 1)',
           opacity: step >= 1 ? 1 : 0,
           filter: step >= 1 ? 'blur(0px)' : 'blur(14px)',
-          background: 'radial-gradient(ellipse 95% 75% at 65% 30%, #061510 0%, #04100C 38%, #030A08 68%, #020504 100%)',
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-t from-[#020504] via-transparent to-[#020504]/80" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(2,5,4,0.42)_78%,#020504_100%)]" />
+        <img
+          src="/hero-bg.jpg"
+          alt=""
+          className="w-full h-full object-cover object-center scale-[1.03]"
+          style={{
+            transform: isReducedMotion
+              ? 'scale(1.02)'
+              : `translate3d(${depthTranslateX * 0.4}px, ${depthTranslateY * 0.4}px, 0) scale(1.03)`,
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Subtle dark readability overlays */}
+        <div className="absolute inset-0 bg-[#060A08]/80" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#060A08] via-transparent to-[#060A08]/85" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(6,10,8,0.65)_75%,#060A08_100%)]" />
 
         {/* Tactile Cinematic Grain */}
         <div
-          className="absolute inset-0 pointer-events-none opacity-[0.048] mix-blend-screen"
+          className="absolute inset-0 pointer-events-none opacity-[0.035] mix-blend-screen"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='introNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23introNoise)'/%3E%3C/svg%3E")`,
           }}
@@ -234,7 +247,7 @@ export default function CinematicIntro({ onStartEnter }) {
 
           {/* STEP 5: "KRUPA B T" enters with stronger cinematic reveal (0.94 -> 1, blur 8px -> 0) */}
           <div
-            className="mt-5 sm:mt-7"
+            className="mt-5 sm:mt-6"
             style={{
               transition: 'opacity 800ms cubic-bezier(0.22, 1, 0.36, 1), transform 800ms cubic-bezier(0.22, 1, 0.36, 1), filter 800ms cubic-bezier(0.22, 1, 0.36, 1)',
               opacity: step >= 5 ? 1 : 0,
@@ -261,27 +274,27 @@ export default function CinematicIntro({ onStartEnter }) {
               INFORMATION SCIENCE ENGINEERING
             </p>
 
-            {/* Smooth Continuous Scrolling Ribbon with Bengaluru Reference - Zero Page Overflow */}
+            {/* Clean Scrolling Ribbon with normal Bengaluru, India font - Zero Page Overflow */}
             <div className="w-full overflow-hidden mask-edges-fade py-1">
-              <div className="animate-marquee-continuous flex items-center gap-6 py-2 px-3 rounded-full bg-[#111C18]/80 border border-white/[0.08] shadow-inner text-xs sm:text-sm font-serif tracking-[0.18em] uppercase text-[#CFDDD6]">
-                <div className="flex items-center gap-2 text-[#34D399] font-semibold whitespace-nowrap">
+              <div className="animate-marquee-continuous flex items-center gap-6 py-2 px-3 rounded-full bg-[#111C18]/80 border border-white/[0.08] shadow-inner text-xs sm:text-sm font-sans tracking-normal text-[#CFDDD6]">
+                <div className="flex items-center gap-2 text-[#34D399] font-medium whitespace-nowrap">
                   <MapPin className="w-3.5 h-3.5 text-[#10B981]" />
-                  <span>BENGALURU, INDIA</span>
+                  <span>Bengaluru, India</span>
                 </div>
                 <span className="text-white/20 select-none">✦</span>
-                <span className="text-[#F2FDF7] whitespace-nowrap font-medium">INFORMATION SCIENCE ENGINEERING</span>
+                <span className="text-[#F2FDF7] whitespace-nowrap font-medium">Information Science Engineering</span>
                 <span className="text-white/20 select-none">✦</span>
-                <span className="text-[#93A79E] whitespace-nowrap">BUILDING · LEARNING · EXPLORING</span>
+                <span className="text-[#93A79E] whitespace-nowrap">Building · Learning · Exploring</span>
                 <span className="text-white/20 select-none">✦</span>
                 {/* Seamless repeat loop segment */}
-                <div className="flex items-center gap-2 text-[#34D399] font-semibold whitespace-nowrap">
+                <div className="flex items-center gap-2 text-[#34D399] font-medium whitespace-nowrap">
                   <MapPin className="w-3.5 h-3.5 text-[#10B981]" />
-                  <span>BENGALURU, INDIA</span>
+                  <span>Bengaluru, India</span>
                 </div>
                 <span className="text-white/20 select-none">✦</span>
-                <span className="text-[#F2FDF7] whitespace-nowrap font-medium">INFORMATION SCIENCE ENGINEERING</span>
+                <span className="text-[#F2FDF7] whitespace-nowrap font-medium">Information Science Engineering</span>
                 <span className="text-white/20 select-none">✦</span>
-                <span className="text-[#93A79E] whitespace-nowrap">BUILDING · LEARNING · EXPLORING</span>
+                <span className="text-[#93A79E] whitespace-nowrap">Building · Learning · Exploring</span>
                 <span className="text-white/20 select-none">✦</span>
               </div>
             </div>
@@ -311,7 +324,7 @@ export default function CinematicIntro({ onStartEnter }) {
               </span>
             </button>
 
-            <p className="mt-3.5 text-xs font-serif tracking-wider text-[#647870]">
+            <p className="mt-3.5 text-xs font-sans tracking-normal text-[#93A79E]">
               Click to step inside or scroll down to explore
             </p>
           </div>
@@ -354,10 +367,7 @@ export default function CinematicIntro({ onStartEnter }) {
             }}
           />
 
-          {/* STEP 3 Main Foreground Portrait:
-              Starts: opacity 0, filter blur(18px), transform scale(1.08)
-              Animates to: opacity 1, filter blur(0px), transform scale(1)
-          */}
+          {/* STEP 3 Main Foreground Portrait */}
           <div
             className="relative w-56 sm:w-64 lg:w-72 h-72 sm:h-80 lg:h-96 rounded-3xl overflow-hidden border border-white/[0.08] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.95)] bg-[#0B1310]"
             style={{

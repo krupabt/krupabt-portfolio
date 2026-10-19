@@ -1,19 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowUpRight, MapPin, GraduationCap } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, MapPin, Sparkles, GraduationCap } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, LeetcodeIcon } from './Icons';
+import ProfilePhoto from './ProfilePhoto';
 import { personalInfo } from '../data/portfolioData';
-import AbstractAiOrb from './AbstractAiOrb';
 
-export default function FirstScreenHero({ isEntering = false }) {
+export default function FirstScreenHero() {
   const [animState, setAnimState] = useState(0);
   const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
   const [isReducedMotion, setIsReducedMotion] = useState(false);
-  const [imageSrc, setImageSrc] = useState('/profile.jpeg');
   const sectionRef = useRef(null);
 
+  // 1. Accessibility & Staggered Cinematic Reveal
   useEffect(() => {
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setIsReducedMotion(motionQuery.matches);
+
     const handleMotionChange = (e) => setIsReducedMotion(e.matches);
     motionQuery.addEventListener('change', handleMotionChange);
 
@@ -22,46 +23,30 @@ export default function FirstScreenHero({ isEntering = false }) {
       return () => motionQuery.removeEventListener('change', handleMotionChange);
     }
 
-    // Trigger Home animation when section enters viewport (20% threshold)
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          // Trigger choreographed sequence
-          setTimeout(() => setAnimState(1), 50);
-          setTimeout(() => setAnimState(2), 260);
-          setTimeout(() => setAnimState(3), 440);
-          setTimeout(() => setAnimState(4), 680);
-        }
-      },
-      { threshold: 0.15, rootMargin: '0px 0px -10% 0px' }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+    // Step 1: Eyebrow + Name appear together
+    const t1 = setTimeout(() => setAnimState(1), 120);
+    // Step 2: Description paragraph appears 150-250ms after the name
+    const t2 = setTimeout(() => setAnimState(2), 340);
+    // Step 3: Academic context (Education, University, GPA, Location) appears
+    const t3 = setTimeout(() => setAnimState(3), 520);
+    // Step 4: CTAs and status pills settle in
+    const t4 = setTimeout(() => setAnimState(4), 700);
 
     return () => {
-      observer.disconnect();
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      clearTimeout(t4);
       motionQuery.removeEventListener('change', handleMotionChange);
     };
   }, []);
 
-  // Also trigger if isEntering prop changes
-  useEffect(() => {
-    if (isEntering && animState === 0 && !isReducedMotion) {
-      setTimeout(() => setAnimState(1), 50);
-      setTimeout(() => setAnimState(2), 260);
-      setTimeout(() => setAnimState(3), 440);
-      setTimeout(() => setAnimState(4), 680);
-    }
-  }, [isEntering, isReducedMotion, animState]);
-
-  // Desktop subtle mouse parallax
+  // 2. Subtle Parallax for mouse movement on desktop
   useEffect(() => {
     if (isReducedMotion) return;
 
-    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768;
-    if (isTouchDevice) return;
+    const isTouch = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 1024;
+    if (isTouch) return;
 
     let rafId = null;
     let targetX = 0;
@@ -73,9 +58,8 @@ export default function FirstScreenHero({ isEntering = false }) {
       const { innerWidth, innerHeight } = window;
       const nx = (e.clientX / innerWidth) * 2 - 1;
       const ny = (e.clientY / innerHeight) * 2 - 1;
-
-      targetX = nx * 14;
-      targetY = ny * 14;
+      targetX = nx * 12;
+      targetY = ny * 12;
     };
 
     const updateParallax = () => {
@@ -118,10 +102,34 @@ export default function FirstScreenHero({ isEntering = false }) {
       <div id="hero" className="absolute top-0 left-0" />
 
       {/* ─────────────────────────────────────────────────────────────
+          HERO BACKGROUND IMAGE WITH SUBTLE READABLE OVERLAY
+      ───────────────────────────────────────────────────────────── */}
+      <div
+        className="absolute inset-0 pointer-events-none overflow-hidden z-0"
+        aria-hidden="true"
+      >
+        <img
+          src="/hero-bg.jpg"
+          alt=""
+          className="w-full h-full object-cover object-center scale-[1.03]"
+          style={{
+            transform: isReducedMotion
+              ? 'scale(1.01)'
+              : `translate3d(${-mouseOffset.x * 0.4}px, ${-mouseOffset.y * 0.4}px, 0) scale(1.03)`,
+            transition: 'transform 500ms ease-out',
+          }}
+        />
+        {/* Subtle readable dark overlays */}
+        <div className="absolute inset-0 bg-[#060A08]/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#060A08]/90 via-transparent to-[#060A08]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(6,10,8,0.7)_80%,#060A08_100%)]" />
+      </div>
+
+      {/* ─────────────────────────────────────────────────────────────
           HERO ATMOSPHERE LIGHTING (Emerald & Moss Obsidian)
       ───────────────────────────────────────────────────────────── */}
       <div
-        className="absolute top-1/4 right-0 lg:right-16 w-[600px] sm:w-[750px] h-[600px] sm:h-[750px] rounded-full blur-[160px] pointer-events-none transition-transform duration-700 ease-out"
+        className="absolute top-1/4 right-0 lg:right-16 w-[600px] sm:w-[750px] h-[600px] sm:h-[750px] rounded-full blur-[160px] pointer-events-none transition-transform duration-700 ease-out z-0"
         style={{
           background: 'radial-gradient(circle, rgba(16, 185, 129, 0.16) 0%, rgba(17, 28, 24, 0.45) 50%, transparent 80%)',
           transform: isReducedMotion
@@ -131,7 +139,7 @@ export default function FirstScreenHero({ isEntering = false }) {
         aria-hidden="true"
       />
       <div
-        className="absolute top-1/3 left-2 lg:left-10 w-[450px] h-[450px] rounded-full blur-[150px] pointer-events-none"
+        className="absolute top-1/3 left-2 lg:left-10 w-[450px] h-[450px] rounded-full blur-[150px] pointer-events-none z-0"
         style={{
           background: 'radial-gradient(circle, rgba(52, 211, 153, 0.08) 0%, rgba(11, 19, 16, 0.5) 50%, transparent 75%)',
         }}
@@ -141,7 +149,7 @@ export default function FirstScreenHero({ isEntering = false }) {
       {/* ─────────────────────────────────────────────────────────────
           MAIN ASYMMETRICAL EDITORIAL VIEWPORT
       ───────────────────────────────────────────────────────────── */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 w-full my-auto z-10 py-8 font-sans">
+      <div className="relative max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 w-full my-auto z-10 py-8 font-sans">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           
           {/* LEFT SIDE: Recruiter-First Content */}
@@ -212,9 +220,9 @@ export default function FirstScreenHero({ isEntering = false }) {
                 <span className="text-white/20">·</span>
                 <span className="text-[#10B981] font-semibold">{personalInfo.gpa}</span>
               </div>
-              <div className="flex items-center gap-2 pl-6 text-xs text-[#93A79E]">
+              <div className="flex items-center gap-2 pl-6 text-xs text-[#93A79E] font-sans tracking-normal">
                 <MapPin className="w-3.5 h-3.5 text-[#10B981] flex-shrink-0" />
-                <span>{personalInfo.location}</span>
+                <span>Bengaluru, India</span>
               </div>
             </div>
 
@@ -241,12 +249,12 @@ export default function FirstScreenHero({ isEntering = false }) {
                 href={personalInfo.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-semibold text-xs tracking-[0.14em] uppercase text-[#CFDDD6] hover:text-[#F2FDF7] bg-[#0B1310]/85 hover:bg-[#111C18] border border-white/[0.12] hover:border-[#10B981]/50 btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#10B981]"
-                title="GitHub Profile"
+                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-bold text-xs tracking-[0.14em] uppercase text-[#CFDDD6] hover:text-[#F2FDF7] bg-[#0B1310]/85 hover:bg-[#111C18] border border-white/[0.12] hover:border-[#10B981]/50 btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#10B981]"
+                aria-label="GitHub Profile"
               >
-                <GithubIcon className="w-3.5 h-3.5 text-[#10B981]" />
+                <GithubIcon className="w-4 h-4 text-[#10B981]" />
                 <span>GITHUB</span>
-                <ArrowUpRight className="w-3 h-3 text-[#10B981] transition-transform duration-250 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-[#10B981] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
 
               {/* LINKEDIN */}
@@ -254,12 +262,12 @@ export default function FirstScreenHero({ isEntering = false }) {
                 href={personalInfo.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-semibold text-xs tracking-[0.14em] uppercase text-[#CFDDD6] hover:text-[#F2FDF7] bg-[#0B1310]/85 hover:bg-[#111C18] border border-white/[0.12] hover:border-[#10B981]/50 btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#10B981]"
-                title="LinkedIn Profile"
+                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-bold text-xs tracking-[0.14em] uppercase text-[#CFDDD6] hover:text-[#F2FDF7] bg-[#0B1310]/85 hover:bg-[#111C18] border border-white/[0.12] hover:border-[#10B981]/50 btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#10B981]"
+                aria-label="LinkedIn Profile"
               >
-                <LinkedinIcon className="w-3.5 h-3.5 text-[#10B981]" />
+                <LinkedinIcon className="w-4 h-4 text-[#10B981]" />
                 <span>LINKEDIN</span>
-                <ArrowUpRight className="w-3 h-3 text-[#10B981] transition-transform duration-250 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-[#10B981] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
 
               {/* LEETCODE */}
@@ -267,81 +275,45 @@ export default function FirstScreenHero({ isEntering = false }) {
                 href={personalInfo.leetcode}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-semibold text-xs tracking-[0.14em] uppercase text-[#CFDDD6] hover:text-[#F2FDF7] bg-[#0B1310]/85 hover:bg-[#111C18] border border-white/[0.12] hover:border-[#10B981]/50 btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#10B981]"
-                title="LeetCode Profile"
+                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-bold text-xs tracking-[0.14em] uppercase text-[#CFDDD6] hover:text-[#F2FDF7] bg-[#0B1310]/85 hover:bg-[#111C18] border border-white/[0.12] hover:border-[#10B981]/50 btn-hover-effect shadow-sm hover:-translate-y-1 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#10B981]"
+                aria-label="LeetCode Profile"
               >
-                <LeetcodeIcon className="w-3.5 h-3.5 text-[#10B981]" />
+                <LeetcodeIcon className="w-4 h-4 text-[#10B981]" />
                 <span>LEETCODE</span>
-                <ArrowUpRight className="w-3 h-3 text-[#10B981] transition-transform duration-250 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-[#10B981] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
             </div>
-
           </div>
 
-          {/* RIGHT SIDE: Portrait Animation
-              opacity: 0 -> 1
-              scale: 1.08 -> 1
-              blur: 12px -> 0
-          */}
+          {/* RIGHT SIDE: Real High-Quality Photo */}
           <div
-            className="lg:col-span-5 w-full flex items-center justify-center lg:justify-end"
+            className="lg:col-span-5 flex justify-center items-center relative py-4 lg:py-6"
             style={{
-              transition: 'opacity 1000ms cubic-bezier(0.22, 1, 0.36, 1), transform 1000ms cubic-bezier(0.22, 1, 0.36, 1), filter 1000ms cubic-bezier(0.22, 1, 0.36, 1)',
+              transition: 'opacity 800ms cubic-bezier(0.22, 1, 0.36, 1) 200ms, transform 800ms cubic-bezier(0.22, 1, 0.36, 1) 200ms',
               opacity: animState >= 1 ? 1 : 0,
-              transform: animState >= 1 ? 'scale(1)' : 'scale(1.08)',
-              filter: animState >= 1 ? 'blur(0px)' : 'blur(12px)',
+              transform: animState >= 1 ? 'scale(1)' : 'scale(0.92)',
             }}
           >
-            <div className="relative w-full max-w-[360px] sm:max-w-[400px] lg:max-w-[440px] flex items-center justify-center">
-              
-              {/* Soft Ambient Emerald Glow Behind Hero Profile */}
+            <div
+              className="relative w-64 sm:w-72 lg:w-80 group transition-transform duration-500 ease-out"
+              style={{
+                transform: isReducedMotion
+                  ? 'none'
+                  : `translate3d(${-mouseOffset.x * 0.35}px, ${-mouseOffset.y * 0.35}px, 0)`,
+              }}
+            >
+              {/* Silhouette backdrop glow behind portrait */}
               <div
-                className="absolute -inset-16 sm:-inset-24 rounded-full blur-[140px] pointer-events-none z-0"
-                style={{
-                  background: 'radial-gradient(circle, rgba(16, 185, 129, 0.18) 0%, rgba(17, 28, 24, 0.40) 50%, transparent 80%)',
-                }}
+                className="absolute inset-0 bg-gradient-to-tr from-[#10B981]/25 via-[#34D399]/20 to-transparent rounded-[32px] blur-2xl -z-10 transform scale-95 group-hover:scale-105 transition-transform duration-700 ease-out"
                 aria-hidden="true"
               />
 
-              {/* Behind portrait: Abstract AI Orb */}
-              <div className="absolute -inset-10 sm:-inset-16 flex items-center justify-center pointer-events-none z-0">
-                <AbstractAiOrb mouseOffset={mouseOffset} isReducedMotion={isReducedMotion} />
-              </div>
-
-              {/* Blurred Edge Lighting Layer */}
-              <div
-                className="absolute inset-0 rounded-[32px] overflow-hidden filter blur-2xl opacity-25 scale-105 pointer-events-none transition-transform duration-700 ease-out"
-                style={{
-                  transform: isReducedMotion
-                    ? 'none'
-                    : `translate3d(${-mouseOffset.x * 0.9}px, ${-mouseOffset.y * 0.9}px, 0)`,
-                }}
-                aria-hidden="true"
-              >
-                <img
-                  src={imageSrc}
-                  alt=""
-                  onError={() => setImageSrc('/profile.jpeg')}
-                  className="w-full h-full object-cover object-center"
-                />
-              </div>
-
-              {/* Foreground Cinematic Portrait Frame */}
-              <div
-                className={`relative w-full aspect-[4/5] rounded-[28px] bg-gradient-to-b from-[#111C18]/85 via-[#0B1310] to-[#060A08] border border-white/[0.08] shadow-2xl overflow-hidden flex items-center justify-center backdrop-blur-md transition-all duration-300 hover:border-[#10B981]/40 z-10 ${
-                  isReducedMotion ? '' : 'animate-float-slow'
-                }`}
-                style={{
-                  transform: isReducedMotion
-                    ? 'none'
-                    : `translate3d(${-mouseOffset.x * 0.6}px, ${-mouseOffset.y * 0.6}px, 0)`,
-                }}
-              >
-                <img
-                  src={imageSrc}
-                  alt="Portrait of Krupa B T"
-                  onError={() => setImageSrc('/profile.jpeg')}
-                  className="w-full h-full object-cover object-top filter contrast-[1.02] select-none transition-transform duration-500 ease-out hover:scale-[1.02]"
+              {/* Framed Photo Container */}
+              <div className="relative rounded-[28px] overflow-hidden border border-white/[0.08] group-hover:border-[#10B981]/40 transition-colors duration-500 shadow-[0_20px_50px_rgba(0,0,0,0.85)] bg-[#0B1310]">
+                <ProfilePhoto
+                  alt="Krupa B T - Software Engineer"
+                  className="w-full h-auto aspect-[4/5] object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                  priority={true}
                 />
 
                 <div className="absolute inset-0 bg-gradient-to-t from-[#060A08]/90 via-[#060A08]/20 to-transparent pointer-events-none" />
@@ -353,8 +325,8 @@ export default function FirstScreenHero({ isEntering = false }) {
                     <div className="text-xs font-semibold text-[#F2FDF7] tracking-tight">
                       {personalInfo.name}
                     </div>
-                    <div className="text-[11px] text-[#93A79E] font-light">
-                      {personalInfo.location}
+                    <div className="text-[11px] text-[#93A79E] font-sans tracking-normal font-normal">
+                      Bengaluru, India
                     </div>
                   </div>
                   <div className="flex items-center gap-1.5 text-[11px] font-serif text-[#10B981] font-medium">
@@ -373,19 +345,24 @@ export default function FirstScreenHero({ isEntering = false }) {
       {/* ─────────────────────────────────────────────────────────────
           BOTTOM SCROLL INDICATOR
       ───────────────────────────────────────────────────────────── */}
-      <div
-        className="w-full flex flex-col items-center justify-center gap-2 pt-2"
+      <button
+        onClick={() => {
+          const target = document.getElementById('about');
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
+        }}
+        className="relative z-10 w-full flex flex-col items-center justify-center gap-2 pt-2 group cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-[#10B981] rounded py-1 bg-transparent border-0"
         style={{
           transition: 'opacity 700ms cubic-bezier(0.22, 1, 0.36, 1), transform 700ms cubic-bezier(0.22, 1, 0.36, 1)',
           opacity: animState >= 4 ? 1 : 0,
           transform: animState >= 4 ? 'translateY(0px)' : 'translateY(15px)',
         }}
+        aria-label="Scroll to explore"
       >
-        <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-[#93A79E] font-medium">
+        <span className="text-xs font-sans tracking-wide text-[#93A79E] group-hover:text-[#F2FDF7] transition-colors duration-200">
           SCROLL TO EXPLORE
         </span>
-        <div className="w-[1px] h-6 bg-gradient-to-b from-emerald-400/60 to-transparent animate-pulse" />
-      </div>
+        <div className="w-[1px] h-6 bg-gradient-to-b from-[#10B981]/70 to-transparent animate-pulse group-hover:h-8 transition-all duration-300" />
+      </button>
     </section>
   );
 }
