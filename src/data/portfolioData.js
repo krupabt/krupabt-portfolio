@@ -6,7 +6,7 @@ export const personalInfo = {
   education: "B.E. Information Science Engineering",
   institution: "Garden City University",
   period: "Oct 2023 – Present",
-  gpa: "9.17 / 10 GPA",
+  gpa: "9.22 / 10 GPA",
   location: "Bengaluru, India",
   supportingStatement: "Building practical AI and software solutions while continuously improving my DSA and development skills.",
   aboutStatement: "I like turning ideas into things that actually work.",
@@ -214,7 +214,7 @@ export const educationData = [
     institution: "Garden City University",
     location: "Bengaluru, India",
     period: "Oct 2023 – Present",
-    score: "9.17 / 10 CGPA",
+    score: "9.22 / 10 CGPA",
     highlights: "Focus areas: Python Programming, Data Structures & Algorithms, Artificial Intelligence, Database Management Systems, Computer Networks, and Software Engineering."
   },
   {

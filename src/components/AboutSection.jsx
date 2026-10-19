@@ -49,7 +49,7 @@ export default function AboutSection() {
     { label: 'BASED IN', value: 'Bengaluru, India' },
     { label: 'STUDYING', value: 'Information Science Engineering' },
     { label: 'UNIVERSITY', value: 'Garden City University' },
-    { label: 'GPA', value: '9.17 / 10' },
+    { label: 'GPA', value: '9.22 / 10' },
   ];
 
   return (
@@ -235,7 +235,7 @@ export default function AboutSection() {
             </div>
 
             <p className="text-sm sm:text-base text-[#5F5750] dark:text-[#D1C8C0] font-normal leading-relaxed">
-              I am Krupa, an Information Science Engineering student at Garden City University in Bengaluru with a 9.17 GPA. My focus centers on Python development, artificial intelligence, and full-stack systems, taking ideas from concept to production.
+              I am Krupa, an Information Science Engineering student at Garden City University in Bengaluru with a 9.22 GPA. My focus centers on Python development, artificial intelligence, and full-stack systems, taking ideas from concept to production.
             </p>
           </div>
 

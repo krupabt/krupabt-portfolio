@@ -95,7 +95,7 @@ export default function ProfilePhotoFrame() {
 
       <div className="absolute -top-3 -right-3 glass-panel px-3 py-1.5 rounded-xl border border-white/[0.12] text-[11px] font-mono text-slate-200 shadow-xl hidden sm:flex items-center gap-2">
         <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-        <span>CGPA: 9.17 / 10</span>
+        <span>CGPA: 9.22 / 10</span>
       </div>
 
     </div>
