@@ -72,10 +72,10 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ease-out font-sans ${
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ease-out font-serif ${
         scrolled
-          ? 'py-3.5 sm:py-4 bg-[#080A0F]/85 backdrop-blur-md border-b border-white/[0.08] shadow-[0_10px_30px_-10px_rgba(0,0,0,0.85)]'
-          : 'py-5 sm:py-7 bg-[#080A0F]/40 backdrop-blur-sm border-b border-white/[0.04]'
+          ? 'py-3 sm:py-3.5 bg-[#060A08]/90 backdrop-blur-md border-b border-white/[0.08] shadow-[0_10px_30px_-10px_rgba(0,0,0,0.85)]'
+          : 'py-4 sm:py-6 bg-[#060A08]/40 backdrop-blur-sm border-b border-white/[0.04]'
       }`}
       role="banner"
     >
@@ -85,10 +85,10 @@ export default function Header() {
         <a
           href="#home"
           onClick={(e) => scrollToSection(e, 'home')}
-          className="group flex items-center tracking-tight transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#5B8CFF]/50 rounded-lg py-1 pr-2"
+          className="group flex items-center tracking-tight transition-all duration-250 focus-visible:ring-2 focus-visible:ring-[#10B981] rounded-lg py-1 pr-2"
           aria-label="Return to home"
         >
-          <span className="text-sm sm:text-base font-bold tracking-[0.16em] uppercase text-[#F5F7FA] group-hover:text-[#5B8CFF] transition-colors">
+          <span className="text-base sm:text-lg font-bold tracking-[0.14em] uppercase text-[#F2FDF7] group-hover:text-[#10B981] transition-colors duration-250">
             {personalInfo.brandName}
           </span>
         </a>
@@ -103,14 +103,14 @@ export default function Header() {
                   key={link.label}
                   href={`#${link.targetId}`}
                   onClick={(e) => scrollToSection(e, link.targetId)}
-                  className={`text-xs font-semibold tracking-[0.12em] transition-all duration-300 relative py-1.5 focus:outline-none focus:ring-1 focus:ring-[#5B8CFF]/50 rounded group ${
-                    isActive ? 'text-[#F5F7FA]' : 'text-[#9AA4B2] hover:text-[#F5F7FA]'
+                  className={`text-sm font-semibold tracking-[0.12em] transition-all duration-250 relative py-1.5 focus-visible:ring-2 focus-visible:ring-[#10B981] rounded group ${
+                    isActive ? 'text-[#F2FDF7]' : 'text-[#93A79E] hover:text-[#F2FDF7]'
                   }`}
                 >
                   <span>{link.label}</span>
                   {/* Subtle animated underline */}
                   <span
-                    className={`absolute bottom-0 left-0 h-[1.5px] bg-[#5B8CFF] transition-all duration-300 ${
+                    className={`absolute bottom-0 left-0 h-[2px] bg-[#10B981] shadow-[0_0_8px_rgba(16,185,129,0.6)] transition-all duration-250 ${
                       isActive ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-100'
                     }`}
                   />
@@ -121,12 +121,12 @@ export default function Header() {
 
           <div className="w-[1px] h-4 bg-white/[0.12]" />
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2">
             <a
               href={personalInfo.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#9AA4B2] hover:text-[#5B8CFF] p-1.5 transition-colors focus:outline-none focus:ring-2 focus:ring-[#5B8CFF]/50 rounded-lg hover:scale-105 transition-transform"
+              className="text-[#93A79E] hover:text-[#10B981] hover:bg-white/[0.05] p-2 transition-all duration-250 focus-visible:ring-2 focus-visible:ring-[#10B981] rounded-xl hover:-translate-y-0.5 active:scale-95"
               title="GitHub Profile"
               aria-label="GitHub Profile"
             >
@@ -136,7 +136,7 @@ export default function Header() {
               href={personalInfo.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#9AA4B2] hover:text-[#5B8CFF] p-1.5 transition-colors focus:outline-none focus:ring-2 focus:ring-[#5B8CFF]/50 rounded-lg hover:scale-105 transition-transform"
+              className="text-[#93A79E] hover:text-[#10B981] hover:bg-white/[0.05] p-2 transition-all duration-250 focus-visible:ring-2 focus-visible:ring-[#10B981] rounded-xl hover:-translate-y-0.5 active:scale-95"
               title="LinkedIn Profile"
               aria-label="LinkedIn Profile"
             >
@@ -146,7 +146,7 @@ export default function Header() {
               href={personalInfo.leetcode}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#9AA4B2] hover:text-[#5B8CFF] p-1.5 transition-colors focus:outline-none focus:ring-2 focus:ring-[#5B8CFF]/50 rounded-lg hover:scale-105 transition-transform"
+              className="text-[#93A79E] hover:text-[#10B981] hover:bg-white/[0.05] p-2 transition-all duration-250 focus-visible:ring-2 focus-visible:ring-[#10B981] rounded-xl hover:-translate-y-0.5 active:scale-95"
               title="LeetCode Profile"
               aria-label="LeetCode Profile"
             >
@@ -158,7 +158,7 @@ export default function Header() {
         {/* Mobile / Tablet Menu Button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden p-2 rounded-lg text-[#9AA4B2] hover:text-[#F5F7FA] transition-colors focus:outline-none focus:ring-2 focus:ring-[#5B8CFF]/50"
+          className="lg:hidden p-2.5 rounded-xl text-[#93A79E] hover:text-[#F2FDF7] hover:bg-white/[0.05] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[#10B981]"
           aria-label="Toggle Navigation Menu"
           aria-expanded={mobileMenuOpen}
         >
@@ -169,7 +169,7 @@ export default function Header() {
 
       {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#0D1118]/95 backdrop-blur-xl border-b border-white/[0.08] px-6 sm:px-10 py-7 shadow-2xl animate-in fade-in slide-in-from-top-3 duration-300">
+        <div className="lg:hidden bg-[#0B1310]/95 backdrop-blur-xl border-b border-white/[0.08] px-6 sm:px-10 py-7 shadow-2xl animate-in fade-in slide-in-from-top-3 duration-250">
           <div className="flex flex-col gap-4 max-w-sm mx-auto">
             {navLinks.map((link) => {
               const isActive = activeSection === link.targetId;
@@ -180,12 +180,12 @@ export default function Header() {
                   onClick={(e) => scrollToSection(e, link.targetId)}
                   className={`text-xs sm:text-sm font-semibold tracking-[0.14em] py-2 transition-colors flex items-center justify-between ${
                     isActive
-                      ? 'text-[#5B8CFF] border-l-2 border-[#5B8CFF] pl-3'
-                      : 'text-[#9AA4B2] hover:text-[#F5F7FA] pl-3'
+                      ? 'text-[#10B981] border-l-2 border-[#10B981] pl-3'
+                      : 'text-[#93A79E] hover:text-[#F2FDF7] pl-3'
                   }`}
                 >
                   <span>{link.label}</span>
-                  {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#5B8CFF]" />}
+                  {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />}
                 </a>
               );
             })}
@@ -195,7 +195,7 @@ export default function Header() {
                 href={personalInfo.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-xs text-[#9AA4B2] hover:text-[#5B8CFF]"
+                className="flex items-center gap-2 text-xs text-[#93A79E] hover:text-[#10B981]"
               >
                 <GithubIcon className="w-4 h-4" />
                 <span>GitHub</span>
@@ -204,7 +204,7 @@ export default function Header() {
                 href={personalInfo.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-xs text-[#9AA4B2] hover:text-[#5B8CFF]"
+                className="flex items-center gap-2 text-xs text-[#93A79E] hover:text-[#10B981]"
               >
                 <LinkedinIcon className="w-4 h-4" />
                 <span>LinkedIn</span>
@@ -213,7 +213,7 @@ export default function Header() {
                 href={personalInfo.leetcode}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-xs text-[#9AA4B2] hover:text-[#5B8CFF]"
+                className="flex items-center gap-2 text-xs text-[#93A79E] hover:text-[#10B981]"
               >
                 <LeetcodeIcon className="w-4 h-4" />
                 <span>LeetCode</span>

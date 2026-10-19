@@ -151,11 +151,11 @@ export default function CinematicIntro({ onStartEnter }) {
           transition: 'opacity 1200ms cubic-bezier(0.22, 1, 0.36, 1), filter 1200ms cubic-bezier(0.22, 1, 0.36, 1)',
           opacity: step >= 1 ? 1 : 0,
           filter: step >= 1 ? 'blur(0px)' : 'blur(14px)',
-          background: 'radial-gradient(ellipse 95% 75% at 65% 30%, #091838 0%, #061026 38%, #040915 68%, #020409 100%)',
+          background: 'radial-gradient(ellipse 95% 75% at 65% 30%, #061510 0%, #04100C 38%, #030A08 68%, #020504 100%)',
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-t from-[#020409] via-transparent to-[#020409]/80" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(2,4,10,0.42)_78%,#020409_100%)]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#020504] via-transparent to-[#020504]/80" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(2,5,4,0.42)_78%,#020504_100%)]" />
 
         {/* Tactile Cinematic Grain */}
         <div
@@ -167,38 +167,38 @@ export default function CinematicIntro({ onStartEnter }) {
       </div>
 
       {/* ─────────────────────────────────────────────────────────────
-          STEP 2: ATMOSPHERIC BLUE LIGHT EXPANDS INTO SCREEN
+          STEP 2: ATMOSPHERIC EMERALD LIGHT EXPANDS INTO SCREEN
       ───────────────────────────────────────────────────────────── */}
-      {/* Electric Blue Light bloom 1 (upper-right) */}
+      {/* Emerald Light bloom 1 (upper-right) */}
       <div
         className="absolute -top-20 right-0 lg:right-1/4 w-[650px] sm:w-[880px] h-[650px] sm:h-[880px] rounded-full blur-[200px] pointer-events-none"
         style={{
           transition: 'opacity 1400ms cubic-bezier(0.22, 1, 0.36, 1), transform 1400ms cubic-bezier(0.22, 1, 0.36, 1)',
           opacity: step >= 2 ? 0.9 : 0,
           transform: step >= 2 ? 'scale(1)' : 'scale(0.65)',
-          background: 'radial-gradient(circle, rgba(37, 99, 235, 0.34) 0%, rgba(30, 64, 175, 0.22) 45%, rgba(8, 20, 50, 0.35) 70%, transparent 88%)',
+          background: 'radial-gradient(circle, rgba(16, 185, 129, 0.34) 0%, rgba(5, 150, 105, 0.22) 45%, rgba(6, 26, 18, 0.35) 70%, transparent 88%)',
         }}
       />
 
-      {/* Electric Blue Light bloom 2 (bottom-left) */}
+      {/* Mint Light bloom 2 (bottom-left) */}
       <div
         className="absolute bottom-4 left-6 lg:left-1/5 w-[550px] h-[550px] rounded-full blur-[180px] pointer-events-none"
         style={{
           transition: 'opacity 1400ms cubic-bezier(0.22, 1, 0.36, 1), transform 1400ms cubic-bezier(0.22, 1, 0.36, 1)',
           opacity: step >= 2 ? 0.8 : 0,
           transform: step >= 2 ? 'scale(1)' : 'scale(0.65)',
-          background: 'radial-gradient(circle, rgba(14, 165, 233, 0.24) 0%, rgba(8, 22, 52, 0.30) 45%, transparent 75%)',
+          background: 'radial-gradient(circle, rgba(52, 211, 153, 0.24) 0%, rgba(6, 26, 18, 0.30) 45%, transparent 75%)',
         }}
       />
 
-      {/* Blue Accent bloom 3 */}
+      {/* Emerald Accent bloom 3 */}
       <div
         className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[480px] h-[480px] rounded-full blur-[170px] pointer-events-none"
         style={{
           transition: 'opacity 1200ms cubic-bezier(0.22, 1, 0.36, 1), transform 1200ms cubic-bezier(0.22, 1, 0.36, 1)',
           opacity: step >= 2 ? 0.75 : 0,
           transform: step >= 2 ? 'scale(1)' : 'scale(0.7)',
-          background: 'radial-gradient(circle, rgba(59, 130, 246, 0.26) 0%, rgba(8, 20, 48, 0.28) 50%, transparent 75%)',
+          background: 'radial-gradient(circle, rgba(16, 185, 129, 0.26) 0%, rgba(6, 26, 18, 0.28) 50%, transparent 75%)',
         }}
       />
 
@@ -224,9 +224,9 @@ export default function CinematicIntro({ onStartEnter }) {
               transform: step >= 4 ? 'translateY(0px)' : 'translateY(35px)',
             }}
           >
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#5B8CFF]/10 border border-[#5B8CFF]/25 backdrop-blur-md">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#5B8CFF] animate-pulse" />
-              <span className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.24em] text-[#7AA2FF] font-semibold">
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#10B981]/10 border border-[#10B981]/25 backdrop-blur-md">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse" />
+              <span className="text-xs font-serif uppercase tracking-[0.20em] text-[#34D399] font-bold">
                 WELCOME TO MY PORTFOLIO
               </span>
             </div>
@@ -242,44 +242,54 @@ export default function CinematicIntro({ onStartEnter }) {
               filter: step >= 5 ? 'blur(0px)' : 'blur(8px)',
             }}
           >
-            <h1 className="text-4xl min-[400px]:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-[-0.04em] text-[#F5F7FA] leading-none whitespace-nowrap">
+            <h1 className="text-4xl min-[400px]:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-[-0.03em] text-[#F2FDF7] leading-none whitespace-nowrap">
               KRUPA B T
             </h1>
           </div>
 
-          {/* STEP 6: Supporting information appears after the name */}
+          {/* STEP 6: Smooth Scrolling Animated Text (Information Science Engineering, Bengaluru, Building·Learning·Exploring) */}
           <div
-            className="mt-5 sm:mt-6 flex flex-col items-center lg:items-start space-y-2.5"
+            className="mt-6 sm:mt-7 w-full max-w-lg flex flex-col items-center lg:items-start space-y-3.5"
             style={{
               transition: 'opacity 700ms cubic-bezier(0.22, 1, 0.36, 1), transform 700ms cubic-bezier(0.22, 1, 0.36, 1)',
               opacity: step >= 6 ? 1 : 0,
               transform: step >= 6 ? 'translateY(0px)' : 'translateY(25px)',
             }}
           >
-            {/* INFORMATION SCIENCE ENGINEERING */}
-            <p className="text-sm sm:text-base md:text-lg font-sans font-semibold tracking-[0.16em] uppercase text-[#F5F7FA]">
+            {/* Primary Discipline Subtitle */}
+            <p className="text-base sm:text-lg md:text-xl font-serif font-bold tracking-[0.14em] uppercase text-[#F2FDF7]">
               INFORMATION SCIENCE ENGINEERING
             </p>
 
-            {/* BENGALURU, INDIA */}
-            <div className="flex items-center gap-2 text-xs sm:text-sm font-mono tracking-[0.22em] uppercase text-[#9AA4B2]">
-              <MapPin className="w-3.5 h-3.5 text-[#5B8CFF]" />
-              <span>BENGALURU, INDIA</span>
-            </div>
-
-            {/* BUILDING · LEARNING · EXPLORING */}
-            <div className="pt-2">
-              <div className="py-1.5 px-3.5 rounded-lg border border-white/[0.08] bg-white/[0.02]">
-                <span className="text-[11px] sm:text-xs font-mono tracking-[0.24em] uppercase text-[#D7DCE5] font-medium">
-                  BUILDING · LEARNING · EXPLORING
-                </span>
+            {/* Smooth Continuous Scrolling Ribbon with Bengaluru Reference - Zero Page Overflow */}
+            <div className="w-full overflow-hidden mask-edges-fade py-1">
+              <div className="animate-marquee-continuous flex items-center gap-6 py-2 px-3 rounded-full bg-[#111C18]/80 border border-white/[0.08] shadow-inner text-xs sm:text-sm font-serif tracking-[0.18em] uppercase text-[#CFDDD6]">
+                <div className="flex items-center gap-2 text-[#34D399] font-semibold whitespace-nowrap">
+                  <MapPin className="w-3.5 h-3.5 text-[#10B981]" />
+                  <span>BENGALURU, INDIA</span>
+                </div>
+                <span className="text-white/20 select-none">✦</span>
+                <span className="text-[#F2FDF7] whitespace-nowrap font-medium">INFORMATION SCIENCE ENGINEERING</span>
+                <span className="text-white/20 select-none">✦</span>
+                <span className="text-[#93A79E] whitespace-nowrap">BUILDING · LEARNING · EXPLORING</span>
+                <span className="text-white/20 select-none">✦</span>
+                {/* Seamless repeat loop segment */}
+                <div className="flex items-center gap-2 text-[#34D399] font-semibold whitespace-nowrap">
+                  <MapPin className="w-3.5 h-3.5 text-[#10B981]" />
+                  <span>BENGALURU, INDIA</span>
+                </div>
+                <span className="text-white/20 select-none">✦</span>
+                <span className="text-[#F2FDF7] whitespace-nowrap font-medium">INFORMATION SCIENCE ENGINEERING</span>
+                <span className="text-white/20 select-none">✦</span>
+                <span className="text-[#93A79E] whitespace-nowrap">BUILDING · LEARNING · EXPLORING</span>
+                <span className="text-white/20 select-none">✦</span>
               </div>
             </div>
           </div>
 
-          {/* STEP 7: ENTER MY PORTFOLIO button appears LAST */}
+          {/* STEP 7: ENTER MY PORTFOLIO button appears LAST with enhanced hover effect */}
           <div
-            className="mt-9 sm:mt-12 flex flex-col items-center lg:items-start"
+            className="mt-8 sm:mt-10 flex flex-col items-center lg:items-start"
             style={{
               transition: 'opacity 600ms cubic-bezier(0.22, 1, 0.36, 1), transform 600ms cubic-bezier(0.22, 1, 0.36, 1)',
               opacity: step >= 7 ? 1 : 0,
@@ -292,16 +302,16 @@ export default function CinematicIntro({ onStartEnter }) {
                 e.stopPropagation();
                 triggerEnter('home');
               }}
-              className="group relative inline-flex items-center gap-3 px-8 py-4 text-xs sm:text-sm font-semibold tracking-[0.18em] uppercase text-white hover:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#5B8CFF]/60 rounded-xl bg-[#5B8CFF] hover:bg-[#7AA2FF] shadow-[0_4px_20px_rgba(91,140,255,0.25)] hover:-translate-y-0.5 active:scale-95 cursor-pointer z-30"
+              className="group relative inline-flex items-center gap-3.5 px-9 py-4 text-sm font-bold tracking-[0.16em] uppercase text-white transition-all duration-250 focus-visible:ring-2 focus-visible:ring-[#10B981] rounded-xl bg-[#10B981] hover:bg-[#059669] shadow-[0_4px_24px_rgba(16,185,129,0.35)] hover:-translate-y-1 active:scale-95 cursor-pointer z-30"
               aria-label="Enter My Portfolio"
             >
               <span>ENTER MY PORTFOLIO</span>
-              <span className="inline-block transition-transform duration-300 ease-out group-hover:translate-x-1.5 font-bold">
+              <span className="inline-block transition-transform duration-250 ease-out group-hover:translate-x-2 font-bold text-base">
                 →
               </span>
             </button>
 
-            <p className="mt-3.5 text-[10px] sm:text-[11px] font-mono tracking-widest text-[#6F7A89] uppercase">
+            <p className="mt-3.5 text-xs font-serif tracking-wider text-[#647870]">
               Click to step inside or scroll down to explore
             </p>
           </div>
@@ -337,7 +347,7 @@ export default function CinematicIntro({ onStartEnter }) {
 
           {/* Delicate rim glow accent */}
           <div
-            className="absolute w-56 sm:w-64 lg:w-72 h-72 sm:h-80 lg:h-96 rounded-3xl bg-gradient-to-b from-[#5B8CFF]/15 via-[#5B8CFF]/25 to-transparent blur-md pointer-events-none"
+            className="absolute w-56 sm:w-64 lg:w-72 h-72 sm:h-80 lg:h-96 rounded-3xl bg-gradient-to-b from-[#10B981]/15 via-[#10B981]/25 to-transparent blur-md pointer-events-none"
             style={{
               transition: 'opacity 1100ms cubic-bezier(0.22, 1, 0.36, 1)',
               opacity: step >= 3 ? 0.75 : 0,
@@ -349,7 +359,7 @@ export default function CinematicIntro({ onStartEnter }) {
               Animates to: opacity 1, filter blur(0px), transform scale(1)
           */}
           <div
-            className="relative w-56 sm:w-64 lg:w-72 h-72 sm:h-80 lg:h-96 rounded-3xl overflow-hidden border border-white/[0.08] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.95)] bg-[#0D1118]"
+            className="relative w-56 sm:w-64 lg:w-72 h-72 sm:h-80 lg:h-96 rounded-3xl overflow-hidden border border-white/[0.08] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.95)] bg-[#0B1310]"
             style={{
               transition: 'opacity 1100ms cubic-bezier(0.22, 1, 0.36, 1), transform 1100ms cubic-bezier(0.22, 1, 0.36, 1), filter 1100ms cubic-bezier(0.22, 1, 0.36, 1)',
               opacity: step >= 3 ? 1 : 0,
@@ -363,7 +373,7 @@ export default function CinematicIntro({ onStartEnter }) {
               className="w-full h-full object-cover object-top filter contrast-[1.02] select-none"
             />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-[#080A0F]/80 via-transparent to-black/10 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#060A08]/80 via-transparent to-black/10 pointer-events-none" />
             <div className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/[0.08] pointer-events-none" />
           </div>
         </div>

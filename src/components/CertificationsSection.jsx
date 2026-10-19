@@ -28,7 +28,7 @@ export default function CertificationsSection() {
     <section
       id="certifications"
       ref={sectionRef}
-      className="relative py-32 sm:py-40 lg:py-48 text-[#F8FAFC] overflow-hidden"
+      className="relative py-32 sm:py-40 lg:py-48 text-[#F2FDF7] overflow-hidden"
       role="region"
       aria-label="Verified Certifications"
     >
@@ -36,19 +36,19 @@ export default function CertificationsSection() {
       <div className="section-divider absolute top-0 left-0 right-0" />
 
       {/* ─────────────────────────────────────────────────────────────
-          ATMOSPHERIC BLUE LIGHT SOURCES BEHIND CERTIFICATIONS SECTION
+          ATMOSPHERIC EMERALD LIGHT SOURCES BEHIND CERTIFICATIONS SECTION
       ───────────────────────────────────────────────────────────── */}
       <div
         className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full blur-[170px] pointer-events-none"
         style={{
-          background: 'radial-gradient(circle, rgba(91, 140, 255, 0.15) 0%, rgba(17, 24, 39, 0.40) 50%, transparent 80%)',
+          background: 'radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(17, 28, 24, 0.40) 50%, transparent 80%)',
         }}
         aria-hidden="true"
       />
       <div
         className="absolute bottom-1/4 right-1/4 w-[480px] h-[480px] rounded-full blur-[160px] pointer-events-none"
         style={{
-          background: 'radial-gradient(circle, rgba(122, 162, 255, 0.08) 0%, rgba(13, 17, 24, 0.45) 50%, transparent 75%)',
+          background: 'radial-gradient(circle, rgba(52, 211, 153, 0.08) 0%, rgba(11, 19, 16, 0.45) 50%, transparent 75%)',
         }}
         aria-hidden="true"
       />
@@ -65,16 +65,16 @@ export default function CertificationsSection() {
           }}
         >
           <div className="inline-flex items-center gap-2.5 mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#5B8CFF] animate-pulse" />
-            <span className="text-xs font-mono tracking-[0.25em] uppercase text-[#7AA2FF] font-semibold">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse" />
+            <span className="text-xs font-serif tracking-[0.22em] uppercase text-[#34D399] font-bold">
               CREDENTIALS & VALIDATIONS
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.12] text-[#F5F7FA]">
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.12] text-[#F2FDF7]">
             CERTIFICATIONS.
           </h2>
-          <p className="mt-4 text-[#9AA4B2] text-base sm:text-lg font-normal max-w-xl leading-relaxed text-center">
+          <p className="mt-4 text-[#93A79E] text-base sm:text-lg font-normal max-w-xl leading-relaxed text-center">
             Completed technical programs and practical job simulations through recognized institutions.
           </p>
         </div>
@@ -87,7 +87,7 @@ export default function CertificationsSection() {
             return (
               <div
                 key={idx}
-                className="p-8 rounded-[20px] bg-[rgba(17,24,39,0.55)] border border-white/[0.08] hover:border-[#5B8CFF]/35 card-hover-subtle transition-all duration-500 shadow-xl flex flex-col justify-between group"
+                className="p-8 rounded-[20px] bg-[rgba(17,28,24,0.65)] border border-white/[0.08] hover:border-[#10B981]/45 card-hover-subtle transition-all duration-300 shadow-xl flex flex-col justify-between group"
                 style={{
                   transition: 'opacity 800ms cubic-bezier(0.22, 1, 0.36, 1), transform 800ms cubic-bezier(0.22, 1, 0.36, 1)',
                   transitionDelay: `${staggerDelay}ms`,
@@ -98,28 +98,28 @@ export default function CertificationsSection() {
                 <div>
                   <div className="flex items-center justify-between gap-4 mb-5">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-xl bg-[#111827] border border-white/[0.08] flex items-center justify-center text-[#5B8CFF]">
+                      <div className="w-8 h-8 rounded-xl bg-[#111C18] border border-white/[0.08] flex items-center justify-center text-[#10B981]">
                         <Award className="w-4 h-4" />
                       </div>
-                      <span className="text-xs font-mono font-bold text-[#5B8CFF] uppercase tracking-wider">
+                      <span className="text-xs font-serif font-bold text-[#10B981] uppercase tracking-wider">
                         {cert.issuer}
                       </span>
                     </div>
 
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#5B8CFF]/10 border border-[#5B8CFF]/25 text-xs font-mono text-[#7AA2FF]">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#5B8CFF]" />
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#10B981]/10 border border-[#10B981]/25 text-xs font-serif text-[#34D399]">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981]" />
                       <span>Verified</span>
                     </div>
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#F5F7FA] tracking-tight leading-snug group-hover:text-[#7AA2FF] transition-colors">
+                  <h3 className="text-xl sm:text-2xl font-bold text-[#F2FDF7] tracking-tight leading-snug group-hover:text-[#34D399] transition-colors duration-250">
                     {cert.title}
                   </h3>
                 </div>
 
-                <div className="mt-8 pt-4 border-t border-white/[0.08] flex items-center justify-between text-xs">
-                  <span className="font-mono text-[#6F7A89]">Issuing Organization</span>
-                  <span className="font-semibold text-[#D7DCE5]">{cert.issuer}</span>
+                <div className="mt-8 pt-4 border-t border-white/[0.08] flex items-center justify-between text-xs font-serif">
+                  <span className="text-[#647870]">Issuing Organization</span>
+                  <span className="font-bold text-[#CFDDD6]">{cert.issuer}</span>
                 </div>
               </div>
             );

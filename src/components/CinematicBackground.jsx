@@ -113,16 +113,16 @@ export default function CinematicBackground({ activeSection = 'home' }) {
       aria-hidden="true"
     >
       {/* ─────────────────────────────────────────────────────────────
-          LAYER 0: DEEP BASE (80% Deep Dark + 15% Deep Navy)
+          LAYER 0: DEEP BASE (Deep Forest Obsidian + Deep Moss Slate)
       ───────────────────────────────────────────────────────────── */}
-      <div className="absolute inset-0 bg-[#080A0F]" />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#080A0F] via-[#0D1118] to-[#080A0F]" />
+      <div className="absolute inset-0 bg-[#060A08]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#060A08] via-[#0B1310] to-[#060A08]" />
       
-      {/* Deep Dark Navy Ambient Mesh */}
+      {/* Deep Dark Moss Ambient Mesh */}
       <div
         className="absolute inset-0 transition-all duration-1000 ease-out"
         style={{
-          background: atmosphere.meshGradient || 'radial-gradient(circle at 50% 35%, #111827 0%, #0D1118 45%, #080A0F 100%)',
+          background: atmosphere.meshGradient || 'radial-gradient(circle at 50% 35%, #111C18 0%, #0B1310 45%, #060A08 100%)',
           opacity: 0.85,
         }}
       />

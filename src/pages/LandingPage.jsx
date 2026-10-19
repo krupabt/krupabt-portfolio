@@ -20,7 +20,7 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080A0F] text-[#D7DCE5] selection:bg-[#5B8CFF]/25 selection:text-[#F5F7FA] relative overflow-x-hidden font-sans">
+    <div className="min-h-screen bg-[#060A08] text-[#CFDDD6] selection:bg-[#10B981]/30 selection:text-[#F2FDF7] relative overflow-x-hidden font-sans">
       
       {/* Global Cinematic Atmospheric Background System */}
       <CinematicBackground />
