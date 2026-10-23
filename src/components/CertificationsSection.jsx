@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Award, Calendar, CheckCircle2, Brain, Code2, TrendingUp, Terminal } from 'lucide-react';
+import { Award, Calendar, CheckCircle2, Brain, Code2, TrendingUp, Terminal, Maximize2, X } from 'lucide-react';
 import { certificationsData } from '../data/portfolioData';
 
 // Map icon types to Lucide components
@@ -10,8 +10,79 @@ const iconMap = {
   Terminal: Terminal,
 };
 
+// Modal / Lightbox for full certificate preview
+function CertificateLightbox({ cert, onClose }) {
+  useEffect(() => {
+    if (!cert) return;
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'unset';
+    };
+  }, [cert, onClose]);
+
+  if (!cert) return null;
+
+  return (
+    <div
+      className="fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-6 md:p-10 bg-[#292522]/95 dark:bg-[#0E0C0B]/95 backdrop-blur-xl transition-all duration-300 animate-in fade-in"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${cert.title} Certificate Full Preview`}
+    >
+      {/* Close Button */}
+      <div
+        className="absolute top-5 right-5 sm:top-8 sm:right-8 z-20 flex items-center gap-4"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          className="p-3 rounded-full bg-[#FFFCF7]/10 hover:bg-[#FFFCF7]/20 text-[#F7F3ED] border border-[#DED3C5]/20 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#A8875A] cursor-pointer"
+          aria-label="Close Preview (Esc)"
+          title="Close Preview (Esc)"
+        >
+          <X className="w-5 h-5" />
+        </button>
+      </div>
+
+      {/* Main Preview Container */}
+      <div
+        className="relative max-w-5xl max-h-[88vh] w-full flex flex-col items-center justify-center"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="relative rounded-2xl overflow-hidden border border-[#DED3C5] dark:border-[#38332E] shadow-2xl bg-[#FFFCF7] dark:bg-[#1C1917] max-h-[76vh]">
+          <img
+            src={cert.image}
+            alt={`${cert.title} Certificate`}
+            className="max-h-[74vh] w-auto max-w-full object-contain"
+          />
+        </div>
+
+        {/* Caption */}
+        <div className="mt-4 text-center">
+          <h4 className="text-base sm:text-lg font-bold text-[#F7F3ED] tracking-tight">
+            {cert.title}
+          </h4>
+          <p className="text-xs sm:text-sm text-[#DED3C5] font-normal mt-0.5">
+            {cert.issuer} • Issued {cert.date}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function CertificationsSection() {
   const [isVisible, setIsVisible] = useState(false);
+  const [activeCertificate, setActiveCertificate] = useState(null);
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -132,6 +203,37 @@ export default function CertificationsSection() {
                   <h3 className="text-xl sm:text-2xl font-bold text-[#292522] dark:text-[#F5EFEB] tracking-tight leading-snug group-hover:text-[#A8875A] dark:group-hover:text-[#C4A67B] transition-colors duration-250">
                     {cert.title}
                   </h3>
+
+                  {/* Certificate Photo Preview if available */}
+                  {cert.image && (
+                    <div
+                      className="mt-5 relative group/img cursor-pointer rounded-xl overflow-hidden border border-[#DED3C5] dark:border-[#38332E] bg-[#EDE4D8]/30 dark:bg-[#1C1917]/60 aspect-[16/10] flex items-center justify-center transition-all duration-300 group-hover/img:border-[#A8875A] dark:group-hover/img:border-[#C4A67B] shadow-xs"
+                      onClick={() => setActiveCertificate(cert)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          setActiveCertificate(cert);
+                        }
+                      }}
+                      aria-label={`View ${cert.title} Certificate`}
+                    >
+                      <img
+                        src={cert.image}
+                        alt={`${cert.title} Certificate`}
+                        className="w-full h-full object-cover object-top transition-transform duration-500 group-hover/img:scale-[1.03]"
+                        loading="lazy"
+                      />
+                      {/* Hover Overlay with View Certificate Pill */}
+                      <div className="absolute inset-0 bg-[#292522]/30 dark:bg-[#141210]/40 backdrop-blur-[2px] opacity-0 group-hover/img:opacity-100 transition-opacity duration-250 flex items-center justify-center">
+                        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFFCF7] dark:bg-[#24201D] text-[#292522] dark:text-[#F5EFEB] text-xs font-serif font-semibold shadow-lg border border-[#DED3C5] dark:border-[#38332E]">
+                          <Maximize2 className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B]" />
+                          <span>View Certificate</span>
+                        </span>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Footer Details: Platform/Organization & Completion Status */}
@@ -151,6 +253,12 @@ export default function CertificationsSection() {
         </div>
 
       </div>
+
+      {/* Lightbox Modal */}
+      <CertificateLightbox
+        cert={activeCertificate}
+        onClose={() => setActiveCertificate(null)}
+      />
     </section>
   );
 }

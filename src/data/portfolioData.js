@@ -120,7 +120,7 @@ export const projectsData = [
     accentGlow: "rgba(168, 135, 90, 0.15)",
     githubUrl: "https://github.com/krupabt/SmartSupport-AI",
     github: "https://github.com/krupabt/SmartSupport-AI",
-    demoUrl: "",
+    demoUrl: "https://smartsupport-ai-gamma.vercel.app",
     demoVideo: "",
     images: [
       "/projects/smartsupport/home.png",
@@ -144,7 +144,7 @@ export const projectsData = [
     accentGlow: "rgba(168, 135, 90, 0.15)",
     githubUrl: "https://github.com/krupabt/MerchantPilot-AI",
     github: "https://github.com/krupabt/MerchantPilot-AI",
-    demoUrl: "",
+    demoUrl: "https://merchantpilot-ai.vercel.app",
     demoVideo: "",
     images: [
       "/projects/merchantpilot/home.png",
@@ -272,17 +272,19 @@ export const educationData = [
 export const certificationsData = [
   {
     title: "Artificial Intelligence and Machine Learning",
-    issuer: "Coursera",
+    issuer: "Infosys Springboard",
     issuerType: "Platform",
-    date: "January 2026",
-    icon: "Brain"
+    date: "August 2025",
+    icon: "Brain",
+    image: "/certificates/infosys-ai-ml.png"
   },
   {
     title: "Software Engineering Job Simulation",
     issuer: "JPMorgan Chase & Co.",
     issuerType: "Organization",
     date: "April 2026",
-    icon: "Code2"
+    icon: "Code2",
+    image: "/certificates/jpmorgan-software-engineering.png"
   },
   {
     title: "TCS iON Career Edge – Young Professional",
