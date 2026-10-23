@@ -25,7 +25,7 @@ function ProjectImageLightbox({ activeImage, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10 bg-[#292522]/95 backdrop-blur-xl transition-all duration-300 animate-in fade-in"
+      className="fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-6 md:p-10 bg-[#292522]/95 backdrop-blur-xl transition-all duration-300 animate-in fade-in"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -366,7 +366,7 @@ export default function ProjectsSection() {
   return (
     <section
       id="work"
-      className="relative py-32 sm:py-40 lg:py-48 bg-[#F7F3ED] dark:bg-[#141210] text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
+      className="relative scroll-mt-20 sm:scroll-mt-24 py-32 sm:py-40 lg:py-48 bg-[#F7F3ED] dark:bg-[#141210] text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
       role="region"
       aria-label="Selected Engineering Work"
     >

@@ -84,10 +84,10 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ease-out font-serif ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out font-serif ${
         scrolled
-          ? 'py-3 sm:py-3.5 bg-[#F7F3ED]/92 dark:bg-[#141210]/92 backdrop-blur-md border-b border-[#DED3C5] dark:border-[#38332E] shadow-[0_4px_20px_-4px_rgba(41,37,34,0.06)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.3)]'
-          : 'py-4 sm:py-6 bg-[#F7F3ED]/70 dark:bg-[#141210]/70 backdrop-blur-sm border-b border-[#DED3C5]/40 dark:border-[#38332E]/40'
+          ? 'py-3 sm:py-3.5 bg-[#F7F3ED]/95 dark:bg-[#141210]/95 backdrop-blur-md border-b border-[#DED3C5] dark:border-[#38332E] shadow-[0_4px_20px_-4px_rgba(41,37,34,0.06)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.3)]'
+          : 'py-4 sm:py-5 bg-[#F7F3ED]/90 dark:bg-[#141210]/90 backdrop-blur-md border-b border-[#DED3C5]/40 dark:border-[#38332E]/40'
       }`}
       role="banner"
     >

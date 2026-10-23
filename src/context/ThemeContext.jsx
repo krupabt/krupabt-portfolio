@@ -4,16 +4,17 @@ const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => {
-    // 1. Check localStorage first
-    const saved = localStorage.getItem('portfolio-theme');
-    if (saved === 'dark' || saved === 'light') {
-      return saved;
-    }
-    // 2. Respect system preference
-    if (typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    try {
+      // 1. Check localStorage first: if user chose light, restore light
+      const saved = typeof window !== 'undefined' ? localStorage.getItem('portfolio-theme') : null;
+      if (saved === 'light') {
+        return 'light';
+      }
+      // 2. Default to dark for all new visitors or explicitly dark
+      return 'dark';
+    } catch (e) {
       return 'dark';
     }
-    return 'light';
   });
 
   const transitionTimerRef = useRef(null);
@@ -29,21 +30,10 @@ export function ThemeProvider({ children }) {
       root.classList.add('light');
       root.style.colorScheme = 'light';
     }
-    localStorage.setItem('portfolio-theme', theme);
+    try {
+      localStorage.setItem('portfolio-theme', theme);
+    } catch (e) {}
   }, [theme]);
-
-  // Listen for system preference changes when no explicit stored preference is set
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e) => {
-      const saved = localStorage.getItem('portfolio-theme');
-      if (!saved) {
-        triggerThemeChange(e.matches ? 'dark' : 'light');
-      }
-    };
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
 
   const triggerThemeChange = (nextTheme) => {
     const root = document.documentElement;

@@ -98,7 +98,7 @@ export default function FirstScreenHero() {
     <section
       id="home"
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col justify-between pt-28 sm:pt-32 pb-12 text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
+      className="relative scroll-mt-20 sm:scroll-mt-24 min-h-screen flex flex-col justify-between pt-28 sm:pt-32 pb-12 text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
       role="region"
       aria-label="Home and Personal Introduction"
     >

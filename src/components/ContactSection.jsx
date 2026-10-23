@@ -33,7 +33,7 @@ export default function ContactSection() {
     <footer
       id="contact"
       ref={sectionRef}
-      className="relative pt-36 sm:pt-48 pb-16 bg-[#EDE4D8] dark:bg-[#1A1815] text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
+      className="relative scroll-mt-20 sm:scroll-mt-24 pt-36 sm:pt-48 pb-16 bg-[#EDE4D8] dark:bg-[#1A1815] text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
       role="contentinfo"
       aria-label="Contact and Social Links"
     >

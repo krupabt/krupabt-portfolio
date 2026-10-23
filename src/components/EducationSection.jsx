@@ -28,7 +28,7 @@ export default function EducationSection() {
     <section
       id="education"
       ref={sectionRef}
-      className="relative py-32 sm:py-40 lg:py-48 bg-[#EDE4D8] dark:bg-[#1A1815] text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
+      className="relative scroll-mt-20 sm:scroll-mt-24 py-32 sm:py-40 lg:py-48 bg-[#EDE4D8] dark:bg-[#1A1815] text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
       role="region"
       aria-label="Academic Education"
     >

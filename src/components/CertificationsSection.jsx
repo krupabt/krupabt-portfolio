@@ -36,7 +36,7 @@ export default function CertificationsSection() {
     <section
       id="certifications"
       ref={sectionRef}
-      className="relative py-28 sm:py-36 lg:py-44 bg-[#F7F3ED] dark:bg-[#141210] text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
+      className="relative scroll-mt-20 sm:scroll-mt-24 py-28 sm:py-36 lg:py-44 bg-[#F7F3ED] dark:bg-[#141210] text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
       role="region"
       aria-label="Verified Certifications"
     >

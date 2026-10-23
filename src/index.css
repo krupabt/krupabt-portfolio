@@ -9,8 +9,13 @@
 
   html {
     scroll-behavior: smooth;
-    color-scheme: light;
+    scroll-padding-top: 5rem;
+    color-scheme: dark;
     font-family: "Times New Roman", Times, serif;
+  }
+
+  html.light {
+    color-scheme: light;
   }
 
   html.dark {
