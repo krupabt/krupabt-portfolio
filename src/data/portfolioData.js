@@ -90,14 +90,15 @@ export const trainingProgrammesData = [
     organization: "Infosys",
     cohort: "Cohort 9",
     track: "Artificial Intelligence (AI)",
-    period: "2026",
-    status: "In Progress",
+    period: "July 2026 – Sept 2026",
+    status: "Completed",
     type: "Professional Development Programme",
-    description: "Selected for the Infosys Pragati: Path to Future programme (Cohort 9) under the Artificial Intelligence learning track, focusing on technical upskilling, foundational AI methodologies, and industry readiness.",
+    description: "Successfully participated and completed the mandatory assignment for the Infosys Pragati: Path to Future programme (Cohort 9) under the Artificial Intelligence learning track, earning an official Certificate of Completion.",
+    certificateImage: "/certificates/infosys-pragati-cohort-9.png",
     highlights: [
       "Specialized learning track focused on Artificial Intelligence and machine learning principles.",
       "Structured professional development curriculum designed for industry preparation and technical problem-solving.",
-      "Collaborative learning cohort emphasizing modern engineering mindsets."
+      "Awarded Certificate of Completion issued on October 15, 2026 by Infosys Springboard."
     ],
     technologies: ["Artificial Intelligence (AI)", "Machine Learning", "Professional Development", "Cohort 9"]
   }
@@ -270,6 +271,14 @@ export const educationData = [
 ];
 
 export const certificationsData = [
+  {
+    title: "Pragati: Path to Future – Cohort 9",
+    issuer: "Infosys Springboard",
+    issuerType: "Organization",
+    date: "October 2026",
+    icon: "Sparkles",
+    image: "/certificates/infosys-pragati-cohort-9.png"
+  },
   {
     title: "Artificial Intelligence and Machine Learning",
     issuer: "Infosys Springboard",

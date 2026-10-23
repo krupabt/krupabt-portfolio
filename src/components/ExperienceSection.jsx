@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Calendar, MapPin, CheckCircle2, Sparkles } from 'lucide-react';
+import { Calendar, MapPin, CheckCircle2, Sparkles, Award } from 'lucide-react';
 import { experienceData, trainingProgrammesData } from '../data/portfolioData';
 
 export default function ExperienceSection() {
@@ -269,16 +269,28 @@ export default function ExperienceSection() {
                     ))}
                   </div>
 
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2 pt-4 border-t border-[#DED3C5] dark:border-[#38332E]">
-                    {item.technologies.map((t) => (
-                      <span
-                        key={t}
-                        className="px-3 py-1.5 text-xs font-serif text-[#292522] dark:text-[#F5EFEB] bg-[#EDE4D8] dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] rounded-lg pill-hover-effect hover:border-[#A8875A] dark:hover:border-[#C4A67B] hover:bg-[#FFFCF7] dark:hover:bg-[#2D2824]"
+                  {/* Tags & Certificate Link */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-[#DED3C5] dark:border-[#38332E]">
+                    <div className="flex flex-wrap gap-2">
+                      {item.technologies.map((t) => (
+                        <span
+                          key={t}
+                          className="px-3 py-1.5 text-xs font-serif text-[#292522] dark:text-[#F5EFEB] bg-[#EDE4D8] dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] rounded-lg pill-hover-effect hover:border-[#A8875A] dark:hover:border-[#C4A67B] hover:bg-[#FFFCF7] dark:hover:bg-[#2D2824]"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+
+                    {item.certificateImage && (
+                      <a
+                        href="#certifications"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-serif font-bold tracking-wider uppercase text-[#292522] dark:text-[#F5EFEB] bg-[#EDE4D8] dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] hover:text-[#A8875A] dark:hover:text-[#C4A67B] transition-all duration-200 shadow-xs whitespace-nowrap self-start sm:self-auto"
                       >
-                        {t}
-                      </span>
-                    ))}
+                        <Award className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B]" />
+                        <span>View Certificate</span>
+                      </a>
+                    )}
                   </div>
                 </div>
               ))}
