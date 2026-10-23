@@ -15,6 +15,7 @@ export default function Header() {
   const navLinks = [
     { label: 'ABOUT', targetId: 'about' },
     { label: 'WORK', targetId: 'work' },
+    { label: 'OPEN SOURCE CONTRIBUTIONS', targetId: 'open-source' },
     { label: 'EXPERIENCE', targetId: 'experience' },
     { label: 'EDUCATION', targetId: 'education' },
     { label: 'CERTIFICATIONS', targetId: 'certifications' },
@@ -112,8 +113,8 @@ export default function Header() {
         </a>
 
         {/* Right: Desktop Navigation + Theme Toggle + Subtle Socials */}
-        <div className="hidden lg:flex items-center gap-6 xl:gap-7">
-          <nav className="flex items-center gap-5 xl:gap-6" aria-label="Main Navigation">
+        <div className="hidden lg:flex items-center gap-4 xl:gap-6">
+          <nav className="flex items-center gap-3.5 xl:gap-5" aria-label="Main Navigation">
             {navLinks.map((link) => {
               const isActive = activeSection === link.targetId;
               return (
@@ -121,7 +122,7 @@ export default function Header() {
                   key={link.label}
                   href={`#${link.targetId}`}
                   onClick={(e) => scrollToSection(e, link.targetId)}
-                  className={`text-sm font-semibold tracking-[0.12em] transition-all duration-250 relative py-1.5 px-1 rounded hover:-translate-y-0.5 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] group ${
+                  className={`text-xs xl:text-sm font-semibold tracking-[0.08em] xl:tracking-[0.11em] whitespace-nowrap transition-all duration-250 relative py-1.5 px-1 rounded hover:-translate-y-0.5 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B] group ${
                     isActive
                       ? 'text-[#292522] dark:text-[#F5EFEB]'
                       : 'text-[#5F5750] dark:text-[#D1C8C0] hover:text-[#292522] dark:hover:text-[#F5EFEB]'

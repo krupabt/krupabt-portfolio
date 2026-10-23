@@ -179,19 +179,19 @@ export default function OpenSourceSection() {
                   <ArrowUpRight className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B] transition-transform duration-250 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
                 </a>
 
-                {/* Branch Reference Link */}
+                {/* View Contribution Branch — Button */}
                 {item.branchUrl && (
                   <a
                     href={item.branchUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-hover-effect group/btn inline-flex items-center gap-2 px-4 py-3 rounded-xl text-xs font-serif text-[#7D736A] dark:text-[#9E9389] hover:text-[#292522] dark:hover:text-[#F5EFEB] hover:bg-[#EDE4D8]/60 dark:hover:bg-[#1C1917] border border-transparent hover:border-[#DED3C5] dark:hover:border-[#38332E]"
-                    title="View Contribution Branch"
-                    aria-label="View Contribution Branch on GitHub"
+                    className="btn-hover-effect group/btn inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl text-xs font-bold tracking-[0.14em] uppercase text-[#292522] dark:text-[#F5EFEB] hover:text-[#292522] dark:hover:text-[#F5EFEB] bg-[#FFFCF7] dark:bg-[#24201D] hover:bg-[#EDE4D8] dark:hover:bg-[#2D2824] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A8875A] dark:focus-visible:ring-[#C4A67B]"
+                    title="View My Contribution Branch on GitHub"
+                    aria-label="View My Contribution Branch on GitHub"
                   >
-                    <GitPullRequest className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B]" />
-                    <span className="font-mono text-[11px]">{item.branchName}</span>
-                    <ArrowUpRight className="w-3 h-3 text-[#7D736A] dark:text-[#9E9389] transition-transform duration-250 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                    <GitPullRequest className="w-4 h-4 text-[#A8875A] dark:text-[#C4A67B]" />
+                    <span>VIEW CONTRIBUTION BRANCH</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B] transition-transform duration-250 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
                   </a>
                 )}
               </div>
