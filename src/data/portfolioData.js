@@ -219,8 +219,8 @@ export const educationData = [
   },
   {
     degree: "Pre-University Course (PUC) – PCMB",
-    institution: "BGS PU College",
-    location: "Bengaluru, India",
+    institution: "Govt PU College for Girls",
+    location: "Thirthahalli, India",
     period: "May 2021 – May 2023",
     score: "87.6%",
     highlights: "Physics, Chemistry, Mathematics, and Biology foundations with analytical problem-solving and laboratory sciences."
