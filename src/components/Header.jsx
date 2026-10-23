@@ -77,7 +77,13 @@ export default function Header() {
     } else {
       const elem = document.getElementById(targetId);
       if (elem) {
-        elem.scrollIntoView({ behavior: 'smooth' });
+        const headerOffset = 76;
+        const elemPosition = elem.getBoundingClientRect().top;
+        const offsetPosition = elemPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({
+          top: Math.max(0, offsetPosition),
+          behavior: 'smooth',
+        });
       }
     }
   };

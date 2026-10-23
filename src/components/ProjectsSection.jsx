@@ -151,7 +151,7 @@ function ProjectImageCard({ project, onOpenLightbox }) {
 function ProjectSceneItem({ project, idx, onOpenLightbox }) {
   const isEven = idx % 2 === 0;
   const itemRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
@@ -161,7 +161,7 @@ function ProjectSceneItem({ project, idx, onOpenLightbox }) {
           setIsVisible(true);
         }
       },
-      { threshold: 0.16, rootMargin: '0px 0px -10% 0px' }
+      { threshold: 0, rootMargin: '100px 0px' }
     );
 
     if (itemRef.current) {
@@ -170,9 +170,6 @@ function ProjectSceneItem({ project, idx, onOpenLightbox }) {
 
     return () => observer.disconnect();
   }, []);
-
-  const imageInitialTranslate = isEven ? '-80px' : '80px';
-  const textInitialTranslate = isEven ? '60px' : '-60px';
 
   return (
     <div
@@ -199,12 +196,8 @@ function ProjectSceneItem({ project, idx, onOpenLightbox }) {
             isEven ? 'lg:order-1' : 'lg:order-2'
           }`}
           style={{
-            transition: 'opacity 1050ms cubic-bezier(0.22, 1, 0.36, 1), transform 1050ms cubic-bezier(0.22, 1, 0.36, 1), filter 1050ms cubic-bezier(0.22, 1, 0.36, 1)',
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible
-              ? (isHovered ? 'translateY(-3px) scale(1.008)' : 'translate(0px, 0px) scale(1)')
-              : `translateX(${imageInitialTranslate}) scale(1.08)`,
-            filter: isVisible ? 'blur(0px)' : 'blur(8px)',
+            transition: 'transform 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+            transform: isHovered ? 'translateY(-3px) scale(1.008)' : 'translate(0px, 0px) scale(1)',
           }}
           id={`media-${project.id}`}
         >
@@ -228,11 +221,6 @@ function ProjectSceneItem({ project, idx, onOpenLightbox }) {
           className={`lg:col-span-6 flex flex-col items-start space-y-6 ${
             isEven ? 'lg:order-2' : 'lg:order-1'
           }`}
-          style={{
-            transition: 'opacity 900ms cubic-bezier(0.22, 1, 0.36, 1), transform 900ms cubic-bezier(0.22, 1, 0.36, 1)',
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? 'translateX(0px)' : `translateX(${textInitialTranslate})`,
-          }}
         >
           {/* Project Number & Subtitle */}
           <div className="flex items-center gap-4">
@@ -343,7 +331,7 @@ function ProjectSceneItem({ project, idx, onOpenLightbox }) {
 }
 
 export default function ProjectsSection() {
-  const [headerVisible, setHeaderVisible] = useState(false);
+  const [headerVisible, setHeaderVisible] = useState(true);
   const [activeLightboxImage, setActiveLightboxImage] = useState(null);
   const headerRef = useRef(null);
 
@@ -354,7 +342,7 @@ export default function ProjectsSection() {
           setHeaderVisible(true);
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0 }
     );
 
     if (headerRef.current) {
@@ -366,7 +354,7 @@ export default function ProjectsSection() {
   return (
     <section
       id="work"
-      className="relative scroll-mt-20 sm:scroll-mt-24 py-32 sm:py-40 lg:py-48 bg-[#F7F3ED] dark:bg-[#141210] text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
+      className="relative scroll-mt-20 sm:scroll-mt-24 pt-10 sm:pt-14 lg:pt-16 pb-28 sm:pb-36 lg:pb-40 bg-[#F7F3ED] dark:bg-[#141210] text-[#292522] dark:text-[#F5EFEB] transition-colors duration-300"
       role="region"
       aria-label="Selected Engineering Work"
     >
@@ -376,20 +364,20 @@ export default function ProjectsSection() {
       {/* ─────────────────────────────────────────────────────────────
           ATMOSPHERIC BRONZE LIGHT SOURCES BEHIND WORK SECTION
       ───────────────────────────────────────────────────────────── */}
-      <div
-        className="absolute top-1/4 right-0 w-[600px] sm:w-[800px] h-[600px] sm:h-[800px] rounded-full blur-[170px] pointer-events-none dark:opacity-25"
-        style={{
-          background: 'radial-gradient(circle, rgba(168, 135, 90, 0.08) 0%, rgba(237, 228, 216, 0.4) 50%, transparent 80%)',
-        }}
-        aria-hidden="true"
-      />
-      <div
-        className="absolute top-2/3 left-0 w-[550px] h-[550px] rounded-full blur-[160px] pointer-events-none dark:opacity-25"
-        style={{
-          background: 'radial-gradient(circle, rgba(196, 166, 123, 0.06) 0%, rgba(247, 243, 237, 0.5) 50%, transparent 75%)',
-        }}
-        aria-hidden="true"
-      />
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute top-1/4 right-0 w-[600px] sm:w-[800px] h-[600px] sm:h-[800px] rounded-full blur-[170px] pointer-events-none dark:opacity-25"
+          style={{
+            background: 'radial-gradient(circle, rgba(168, 135, 90, 0.08) 0%, rgba(237, 228, 216, 0.4) 50%, transparent 80%)',
+          }}
+        />
+        <div
+          className="absolute top-2/3 left-0 w-[550px] h-[550px] rounded-full blur-[160px] pointer-events-none dark:opacity-25"
+          style={{
+            background: 'radial-gradient(circle, rgba(196, 166, 123, 0.06) 0%, rgba(247, 243, 237, 0.5) 50%, transparent 75%)',
+          }}
+        />
+      </div>
 
       {/* Lightbox Preview Modal */}
       <ProjectImageLightbox
@@ -402,12 +390,7 @@ export default function ProjectsSection() {
         {/* Section Header */}
         <div
           ref={headerRef}
-          className="mb-24 sm:mb-32"
-          style={{
-            transition: 'opacity 800ms cubic-bezier(0.22, 1, 0.36, 1), transform 800ms cubic-bezier(0.22, 1, 0.36, 1)',
-            opacity: headerVisible ? 1 : 0,
-            transform: headerVisible ? 'translateY(0px)' : 'translateY(30px)',
-          }}
+          className="mb-14 sm:mb-20"
         >
           <div className="inline-flex items-center gap-2.5 mb-4 px-3.5 py-1.5 rounded-full bg-[#EDE4D8] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-[#A8875A] dark:bg-[#C4A67B] animate-pulse" />
@@ -426,7 +409,7 @@ export default function ProjectsSection() {
         </div>
 
         {/* Alternating Project Scenes */}
-        <div className="space-y-32 sm:space-y-40 lg:space-y-48">
+        <div className="space-y-24 sm:space-y-32 lg:space-y-36">
           {projectsData.map((project, idx) => (
             <ProjectSceneItem
               key={project.id}

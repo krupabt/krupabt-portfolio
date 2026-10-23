@@ -41,7 +41,9 @@ export default function LandingPage() {
         } else {
           const target = document.getElementById(targetId);
           if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
+            const headerOffset = 76;
+            const targetPos = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+            window.scrollTo({ top: Math.max(0, targetPos), behavior: 'smooth' });
           }
         }
       }, 150);
@@ -66,7 +68,9 @@ export default function LandingPage() {
         } else {
           const target = document.getElementById(targetId);
           if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
+            const headerOffset = 76;
+            const targetPos = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+            window.scrollTo({ top: Math.max(0, targetPos), behavior: 'smooth' });
           }
         }
       }, 60);
@@ -96,7 +100,9 @@ export default function LandingPage() {
       setTimeout(() => {
         const target = document.getElementById(targetSection);
         if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
+          const headerOffset = 76;
+          const targetPos = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+          window.scrollTo({ top: Math.max(0, targetPos), behavior: 'smooth' });
         }
       }, 100);
     }
@@ -109,14 +115,14 @@ export default function LandingPage() {
         <CinematicIntro onStartEnter={handleEnterClick} />
       ) : (
         /* Main Portfolio Website (Revealed upon clicking Enter My Portfolio) */
-        <div className="animate-main-reveal">
+        <div>
           {/* Global Cinematic Atmospheric Background System */}
           <CinematicBackground />
 
-          {/* Sticky Editorial Header */}
+          {/* Fixed Editorial Header — Always pinned to top of screen */}
           <Header />
 
-          <main className="relative z-10">
+          <main className="relative z-10 animate-main-reveal">
             {/* Stage 1: Home / Personal Intro */}
             <FirstScreenHero />
 

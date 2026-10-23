@@ -90,7 +90,9 @@ export default function FirstScreenHero() {
     }
     const target = document.getElementById('work');
     if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
+      const headerOffset = 76;
+      const targetPos = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+      window.scrollTo({ top: Math.max(0, targetPos), behavior: 'smooth' });
     }
   };
 
