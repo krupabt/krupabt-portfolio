@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Calendar, MapPin, CheckCircle2 } from 'lucide-react';
-import { experienceData } from '../data/portfolioData';
+import { Calendar, MapPin, CheckCircle2, Sparkles } from 'lucide-react';
+import { experienceData, trainingProgrammesData } from '../data/portfolioData';
 
 export default function ExperienceSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -182,6 +182,109 @@ export default function ExperienceSection() {
             </div>
           ))}
         </div>
+
+        {/* ─────────────────────────────────────────────────────────────
+            TRAINING & PROFESSIONAL DEVELOPMENT SUBSECTION
+            (Cohort learning programmes, NOT employment/internship)
+        ───────────────────────────────────────────────────────────── */}
+        {trainingProgrammesData && trainingProgrammesData.length > 0 && (
+          <div
+            className="mt-20 sm:mt-24 pt-16 border-t border-[#DED3C5] dark:border-[#38332E]"
+            style={{
+              transition: 'opacity 800ms cubic-bezier(0.22, 1, 0.36, 1), transform 800ms cubic-bezier(0.22, 1, 0.36, 1)',
+              transitionDelay: '400ms',
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateY(0px)' : 'translateY(24px)',
+            }}
+          >
+            {/* Subsection Eyebrow & Header */}
+            <div className="mb-8 sm:mb-10">
+              <div className="inline-flex items-center gap-2.5 mb-3 px-3.5 py-1.5 rounded-full bg-[#EDE4D8] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] shadow-sm">
+                <Sparkles className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B]" />
+                <span className="text-xs font-serif tracking-[0.22em] uppercase text-[#A8875A] dark:text-[#C4A67B] font-bold">
+                  TRAINING & DEVELOPMENT
+                </span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#292522] dark:text-[#F5EFEB]">
+                Specialized Learning Programmes.
+              </h3>
+              <p className="mt-2 text-sm sm:text-base text-[#5F5750] dark:text-[#D1C8C0] max-w-xl leading-relaxed">
+                Competitive technical learning cohorts and industry upskilling tracks building future-ready engineering competencies.
+              </p>
+            </div>
+
+            {/* Programme Cards */}
+            <div className="space-y-6">
+              {trainingProgrammesData.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="p-8 sm:p-10 rounded-[22px] bg-[#FFFCF7] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] card-hover-subtle transition-all duration-300 shadow-[0_10px_30px_-6px_rgba(41,37,34,0.06)] dark:shadow-[0_10px_30px_-6px_rgba(0,0,0,0.3)] space-y-6 group"
+                >
+                  {/* Meta Row: Type, Title, Organization, Cohort, Track, Status, Period */}
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-[#DED3C5] dark:border-[#38332E] pb-6">
+                    <div className="space-y-2">
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EDE4D8]/80 dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] text-[11px] font-serif text-[#A8875A] dark:text-[#C4A67B] font-bold uppercase tracking-wider">
+                        <Sparkles className="w-3 h-3 text-[#A8875A] dark:text-[#C4A67B]" />
+                        <span>{item.type}</span>
+                      </div>
+                      
+                      <h4 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#292522] dark:text-[#F5EFEB] tracking-tight group-hover:text-[#A8875A] dark:group-hover:text-[#C4A67B] transition-colors duration-250">
+                        {item.programme}
+                      </h4>
+
+                      <div className="flex flex-wrap items-center gap-2 text-sm text-[#5F5750] dark:text-[#D1C8C0] font-serif">
+                        <span className="font-bold text-[#A8875A] dark:text-[#C4A67B]">{item.organization}</span>
+                        <span className="text-[#DED3C5] dark:text-[#38332E]">·</span>
+                        <span className="font-semibold text-[#292522] dark:text-[#F5EFEB]">{item.cohort}</span>
+                        <span className="text-[#DED3C5] dark:text-[#38332E]">·</span>
+                        <span className="text-[#7D736A] dark:text-[#9E9389] font-medium">Learning Track: {item.track}</span>
+                      </div>
+                    </div>
+
+                    {/* Status Pill & Year */}
+                    <div className="flex flex-wrap sm:flex-col sm:items-end gap-2.5">
+                      <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EDE4D8] dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] text-xs font-serif font-bold text-[#292522] dark:text-[#F5EFEB] shadow-xs">
+                        <span className="w-2 h-2 rounded-full bg-emerald-600 dark:bg-emerald-400 animate-pulse" />
+                        <span>{item.status}</span>
+                      </div>
+                      <div className="inline-flex items-center gap-1.5 text-xs font-serif text-[#7D736A] dark:text-[#9E9389] px-1">
+                        <Calendar className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B]" />
+                        <span>{item.period}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Accurate Description */}
+                  <p className="text-sm sm:text-base text-[#5F5750] dark:text-[#D1C8C0] leading-relaxed font-normal">
+                    {item.description}
+                  </p>
+
+                  {/* Highlights */}
+                  <div className="space-y-3 pt-1">
+                    {item.highlights.map((bullet, bIdx) => (
+                      <div key={bIdx} className="flex items-start gap-3.5 text-sm sm:text-base font-normal text-[#5F5750] dark:text-[#D1C8C0] leading-relaxed">
+                        <CheckCircle2 className="w-4 h-4 text-[#A8875A] dark:text-[#C4A67B] mt-1 flex-shrink-0" />
+                        <span>{bullet}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 pt-4 border-t border-[#DED3C5] dark:border-[#38332E]">
+                    {item.technologies.map((t) => (
+                      <span
+                        key={t}
+                        className="px-3 py-1.5 text-xs font-serif text-[#292522] dark:text-[#F5EFEB] bg-[#EDE4D8] dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] rounded-lg pill-hover-effect hover:border-[#A8875A] dark:hover:border-[#C4A67B] hover:bg-[#FFFCF7] dark:hover:bg-[#2D2824]"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
       </div>
     </section>

@@ -84,6 +84,25 @@ export const experienceData = [
   }
 ];
 
+export const trainingProgrammesData = [
+  {
+    programme: "Infosys Pragati: Path to Future",
+    organization: "Infosys",
+    cohort: "Cohort 9",
+    track: "Artificial Intelligence (AI)",
+    period: "2026",
+    status: "In Progress",
+    type: "Professional Development Programme",
+    description: "Selected for the Infosys Pragati: Path to Future programme (Cohort 9) under the Artificial Intelligence learning track, focusing on technical upskilling, foundational AI methodologies, and industry readiness.",
+    highlights: [
+      "Specialized learning track focused on Artificial Intelligence and machine learning principles.",
+      "Structured professional development curriculum designed for industry preparation and technical problem-solving.",
+      "Collaborative learning cohort emphasizing modern engineering mindsets."
+    ],
+    technologies: ["Artificial Intelligence (AI)", "Machine Learning", "Professional Development", "Cohort 9"]
+  }
+];
+
 export const projectsData = [
   {
     id: "smart-support-ai",
