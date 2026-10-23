@@ -227,6 +227,29 @@ export const projectsData = [
   }
 ];
 
+export const openSourceData = [
+  {
+    id: "briefly-ai",
+    project: "Text Summarizer Web Application — Briefly AI",
+    repoName: "sharathgowdaur-jpg/Text-Summarizer-Web-Application",
+    type: "Open-Source Contribution",
+    status: "Merged",
+    statusDetail: "Successfully merged Pull Request #1",
+    repoUrl: "https://github.com/sharathgowdaur-jpg/Text-Summarizer-Web-Application",
+    prUrl: "https://github.com/sharathgowdaur-jpg/Text-Summarizer-Web-Application/pull/1",
+    branchUrl: "https://github.com/krupabt/Text-Summarizer-Web-Application/tree/feature/briefly-ai-redesign",
+    branchName: "feature/briefly-ai-redesign",
+    description: "Contributed to an open-source text summarization application by improving its user interface and summarization functionality. Enhanced the workspace with multiple summary styles, summary length controls, PDF/TXT file uploads, light and dark themes, and automated tests.",
+    technologies: ["HTML", "CSS", "JavaScript", "Python", "FastAPI"],
+    highlights: [
+      "Enhanced workspace interface with multiple summary styles and granular length controls.",
+      "Integrated document upload pipelines supporting both PDF and TXT file extraction.",
+      "Engineered responsive user interface with seamless light and dark theme switching.",
+      "Implemented automated test suites validating endpoint logic and summarization flows."
+    ]
+  }
+];
+
 export const educationData = [
   {
     degree: "Bachelor of Engineering (B.E.) – Information Science Engineering",

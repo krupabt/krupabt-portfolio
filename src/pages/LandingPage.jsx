@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import FirstScreenHero from '../components/FirstScreenHero';
 import AboutSection from '../components/AboutSection';
 import ProjectsSection from '../components/ProjectsSection';
+import OpenSourceSection from '../components/OpenSourceSection';
 import SkillsSection from '../components/SkillsSection';
 import ExperienceSection from '../components/ExperienceSection';
 import EducationSection from '../components/EducationSection';
@@ -132,7 +133,10 @@ export default function LandingPage() {
             {/* Stage 3: Selected Work */}
             <ProjectsSection />
 
-            {/* Stage 4: Capabilities */}
+            {/* Stage 4: Open Source Contributions */}
+            <OpenSourceSection />
+
+            {/* Stage 5: Capabilities */}
             <SkillsSection />
 
             {/* Stage 5: Professional Experience */}
