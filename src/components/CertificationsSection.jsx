@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Award, Calendar, CheckCircle2, Brain, Code2, TrendingUp, Terminal, Maximize2, X, Sparkles } from 'lucide-react';
+import { Award, Calendar, CheckCircle2, Brain, Code2, TrendingUp, Terminal, Maximize2, X, Sparkles, Layers, Cpu, Network, Workflow } from 'lucide-react';
 import { certificationsData } from '../data/portfolioData';
 
 // Map icon types to Lucide components
@@ -10,6 +10,10 @@ const iconMap = {
   Terminal: Terminal,
   Sparkles: Sparkles,
   Award: Award,
+  Layers: Layers,
+  Cpu: Cpu,
+  Network: Network,
+  Workflow: Workflow,
 };
 
 // Modal / Lightbox for full certificate preview

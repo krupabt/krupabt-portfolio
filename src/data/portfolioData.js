@@ -280,12 +280,36 @@ export const certificationsData = [
     image: "/certificates/infosys-pragati-cohort-9.png"
   },
   {
-    title: "Artificial Intelligence and Machine Learning",
-    issuer: "Infosys Springboard",
+    title: "Deep Learning Specialization",
+    issuer: "DeepLearning.AI",
     issuerType: "Platform",
-    date: "August 2025",
-    icon: "Brain",
-    image: "/certificates/infosys-ai-ml.png"
+    date: "February 2026",
+    icon: "Layers",
+    image: "/certificates/deep-learning-specialization.png"
+  },
+  {
+    title: "AI Capstone Project with Deep Learning",
+    issuer: "IBM",
+    issuerType: "Organization",
+    date: "February 2026",
+    icon: "Cpu",
+    image: "/certificates/ibm-ai-capstone-deep-learning.png"
+  },
+  {
+    title: "Introduction to Deep Learning & Neural Networks with Keras",
+    issuer: "IBM",
+    issuerType: "Organization",
+    date: "February 2026",
+    icon: "Network",
+    image: "/certificates/ibm-deep-learning-keras.png"
+  },
+  {
+    title: "Structuring Machine Learning Projects",
+    issuer: "DeepLearning.AI",
+    issuerType: "Platform",
+    date: "February 2026",
+    icon: "Workflow",
+    image: "/certificates/deeplearning-structuring-ml-projects.png"
   },
   {
     title: "Software Engineering Job Simulation",
@@ -296,11 +320,12 @@ export const certificationsData = [
     image: "/certificates/jpmorgan-software-engineering.png"
   },
   {
-    title: "TCS iON Career Edge – Young Professional",
-    issuer: "TCS iON",
-    issuerType: "Organization",
-    date: "September 2025",
-    icon: "TrendingUp"
+    title: "Artificial Intelligence and Machine Learning",
+    issuer: "Infosys Springboard",
+    issuerType: "Platform",
+    date: "August 2025",
+    icon: "Brain",
+    image: "/certificates/infosys-ai-ml.png"
   },
   {
     title: "Introduction to Python",
