@@ -77,7 +77,7 @@ export default function ContactSection() {
 
         {/* Grand Headline: LET'S BUILD SOMETHING MEANINGFUL. */}
         <h2
-          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.05] text-[#292522] dark:text-[#F5EFEB] max-w-4xl text-balance mb-8"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.08] text-[#292522] dark:text-[#F5EFEB] max-w-3xl text-balance mb-8"
           style={{
             transition: 'opacity 1100ms cubic-bezier(0.22, 1, 0.36, 1) 100ms, transform 1100ms cubic-bezier(0.22, 1, 0.36, 1) 100ms, filter 1100ms cubic-bezier(0.22, 1, 0.36, 1) 100ms',
             opacity: isVisible ? 1 : 0,

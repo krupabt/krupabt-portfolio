@@ -56,7 +56,7 @@ export default function Contact() {
             GET IN TOUCH
           </div>
           
-          <h2 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight text-white leading-none mb-6">
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-white leading-none mb-6">
             LET'S BUILD <br />
             <span className="text-blue-400">SOMETHING USEFUL.</span>
           </h2>
