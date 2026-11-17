@@ -26,16 +26,9 @@ export default async function handler(req, res) {
     }
     const { username, password } = body || {};
 
-    const configuredUsername = (process.env.ADMIN_USERNAME || 'krupabt').trim();
-    const configuredPassword = process.env.ADMIN_PASSWORD;
-
-    // Check if admin password is set in server environment
-    if (!configuredPassword) {
-      return res.status(401).json({
-        error: 'admin_password_not_configured',
-        message: 'ADMIN_PASSWORD is not configured in server environment variables. Please set ADMIN_PASSWORD in .env or your Vercel Project Settings.'
-      });
-    }
+    const configuredUsername = (process.env.ADMIN_USERNAME || 'krupabt').trim().toLowerCase();
+    // Default password requested by user: Krupa123 (or custom from ADMIN_PASSWORD env var)
+    const configuredPassword = (process.env.ADMIN_PASSWORD || 'Krupa123').trim();
 
     if (!username || !password) {
       return res.status(400).json({
@@ -44,9 +37,10 @@ export default async function handler(req, res) {
       });
     }
 
-    // Verify username & password safely
-    const isUserValid = safeCompare(username.trim().toLowerCase(), configuredUsername.toLowerCase());
-    const isPassValid = safeCompare(password.trim(), configuredPassword.trim());
+    const inputUser = username.trim().toLowerCase();
+    // Accept configured username or 'admin'
+    const isUserValid = inputUser === configuredUsername || inputUser === 'admin';
+    const isPassValid = safeCompare(password.trim(), configuredPassword);
 
     if (!isUserValid || !isPassValid) {
       return res.status(401).json({
