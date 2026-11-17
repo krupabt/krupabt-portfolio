@@ -121,7 +121,7 @@ export default async function handler(req, res) {
     let source = body.source;
     if (!source) {
       const ref = (body.referrer || req.headers['referer'] || '').toLowerCase();
-      if (!ref || ref.includes('localhost') || ref.includes('krupabt.vercel.app')) source = 'Direct';
+      if (!ref || ref.includes('localhost') || ref.includes('krupabt-portfolio.vercel.app') || ref.includes('krupabt.vercel.app')) source = 'Direct';
       else if (ref.includes('linkedin.com')) source = 'LinkedIn';
       else if (ref.includes('github.com')) source = 'GitHub';
       else if (ref.includes('google.')) source = 'Google';
