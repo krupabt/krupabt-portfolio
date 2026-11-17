@@ -27,16 +27,6 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: true, ignored: 'dnt' });
     }
 
-    // 2. Check Admin / Owner Exclude Cookie
-    const cookieHeader = req.headers['cookie'] || '';
-    if (
-      cookieHeader.includes('portfolio_admin_logged_in=1') ||
-      cookieHeader.includes('portfolio_admin_token=') ||
-      cookieHeader.includes('portfolio_owner_session=')
-    ) {
-      return res.status(200).json({ ok: true, ignored: 'admin_session' });
-    }
-
     // Parse Body
     let body = req.body;
     if (typeof body === 'string') {
@@ -48,7 +38,7 @@ export default async function handler(req, res) {
     }
     body = body || {};
 
-    // Do not track owner/admin routes
+    // Do not track internal owner/admin routes
     if (body.page && (body.page.startsWith('/admin') || body.page.startsWith('/owner'))) {
       return res.status(200).json({ ok: true, ignored: 'owner_route' });
     }

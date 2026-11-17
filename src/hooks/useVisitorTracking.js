@@ -98,20 +98,9 @@ export function useVisitorTracking() {
       return;
     }
 
-    // 2. Exclude Admin Visits (cookie or local storage flag)
-    const isAdmin =
-      document.cookie.includes('portfolio_admin_logged_in=1') ||
-      document.cookie.includes('portfolio_admin_token=') ||
-      localStorage.getItem('portfolio_admin_logged_in') === 'true' ||
-      sessionStorage.getItem('portfolio_admin_token');
-
-    if (isAdmin) {
-      return;
-    }
-
-    // 3. Exclude Admin Area Routes
+    // 2. Exclude Admin & Owner Area Routes (Never track owner visits inside owner/admin pages)
     const currentPath = location.pathname + (location.hash || '');
-    if (currentPath.startsWith('/admin')) {
+    if (currentPath.startsWith('/admin') || currentPath.startsWith('/owner')) {
       return;
     }
 
@@ -192,10 +181,10 @@ export function useVisitorTracking() {
     if (typeof window === 'undefined') return;
 
     const sendDurationUpdate = () => {
-      const isAdmin =
-        document.cookie.includes('portfolio_admin_logged_in=1') ||
-        localStorage.getItem('portfolio_admin_logged_in') === 'true';
-      if (isAdmin) return;
+      const currentPath = location.pathname + (location.hash || '');
+      if (currentPath.startsWith('/admin') || currentPath.startsWith('/owner')) {
+        return;
+      }
 
       const duration = Math.round((Date.now() - sessionStartTimeRef.current) / 1000);
       if (duration < 3) return; // Ignore accidental bounces

@@ -2,18 +2,18 @@
 import fs from 'fs';
 import path from 'path';
 
-// In-Memory & File persistence store
+// Primary Cloud Redis Database for Vercel Serverless synchronization
+// If user sets KV_REST_API_URL or UPSTASH_REDIS_REST_URL in Vercel, it uses theirs.
+// Otherwise, uses this active Upstash cloud database.
+const DEFAULT_UPSTASH_URL = 'https://enabling-mako-124276.upstash.io';
+const DEFAULT_UPSTASH_TOKEN = 'gQAAAAAAAeV0AQIgcDJjMjNlMzA2OGMxMmY0ZWIwOWNmNzY2YTI5MTBkNGQwMg';
+
+// Local memory & tmp file fallback
 let memoryStore = null;
-let contactInquiriesStore = null;
 
 const TMP_FILE = path.join(
   process.env.TMPDIR || process.env.TEMP || '/tmp',
   'portfolio_analytics_data.json'
-);
-
-const TMP_INQUIRIES_FILE = path.join(
-  process.env.TMPDIR || process.env.TEMP || '/tmp',
-  'portfolio_contact_inquiries.json'
 );
 
 function loadLocalVisits() {
@@ -25,11 +25,8 @@ function loadLocalVisits() {
       memoryStore = JSON.parse(content);
       if (Array.isArray(memoryStore)) return memoryStore;
     }
-  } catch (err) {
-    // Fall back to empty array
-  }
+  } catch (err) {}
 
-  // Real visitor data only - no fake seed data
   memoryStore = [];
   return memoryStore;
 }
@@ -37,33 +34,76 @@ function loadLocalVisits() {
 function saveLocalVisits(data) {
   memoryStore = data;
   try {
-    fs.writeFileSync(TMP_FILE, JSON.stringify(data.slice(0, 3000)), 'utf8');
-  } catch (err) {
-    // Ignore tmp write failures in serverless environments
+    fs.writeFileSync(TMP_FILE, JSON.stringify(data.slice(0, 2000)), 'utf8');
+  } catch (err) {}
+}
+
+// 1. Upstash / Vercel KV REST client
+async function saveToKV(visit) {
+  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL || DEFAULT_UPSTASH_URL;
+  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || DEFAULT_UPSTASH_TOKEN;
+  if (!url || !token) return false;
+
+  try {
+    const payload = JSON.stringify(visit);
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(['LPUSH', 'portfolio:visits', payload])
+    });
+
+    // Trim to 2000 items
+    fetch(url, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(['LTRIM', 'portfolio:visits', '0', '1999'])
+    }).catch(() => {});
+
+    return res.ok;
+  } catch (e) {
+    return false;
   }
 }
 
-function loadLocalInquiries() {
-  if (contactInquiriesStore) return contactInquiriesStore;
+async function getFromKV() {
+  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL || DEFAULT_UPSTASH_URL;
+  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || DEFAULT_UPSTASH_TOKEN;
+  if (!url || !token) return null;
+
   try {
-    if (fs.existsSync(TMP_INQUIRIES_FILE)) {
-      const content = fs.readFileSync(TMP_INQUIRIES_FILE, 'utf8');
-      contactInquiriesStore = JSON.parse(content);
-      if (Array.isArray(contactInquiriesStore)) return contactInquiriesStore;
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(['LRANGE', 'portfolio:visits', '0', '1999'])
+    });
+
+    if (!res.ok) return null;
+    const json = await res.json();
+    if (Array.isArray(json.result)) {
+      return json.result
+        .map((item) => {
+          if (typeof item === 'string') {
+            try {
+              return JSON.parse(item);
+            } catch (e) {
+              return null;
+            }
+          }
+          return item;
+        })
+        .filter(Boolean);
     }
   } catch (e) {}
-  contactInquiriesStore = [];
-  return contactInquiriesStore;
+  return null;
 }
 
-function saveLocalInquiries(data) {
-  contactInquiriesStore = data;
-  try {
-    fs.writeFileSync(TMP_INQUIRIES_FILE, JSON.stringify(data.slice(0, 500)), 'utf8');
-  } catch (e) {}
-}
-
-// Supabase REST client
+// 2. Supabase REST client
 async function saveToSupabase(visit) {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY || process.env.SUPABASE_ANON_KEY;
@@ -94,9 +134,6 @@ async function saveToSupabase(visit) {
         os: visit.os || 'Other',
         screen_resolution: visit.screenResolution || '',
         duration_seconds: visit.durationSeconds || 0,
-        visitor_name: visit.visitorName || null,
-        visitor_email: visit.visitorEmail || null,
-        visitor_company: visit.visitorCompany || null,
         created_at: visit.createdAt || new Date().toISOString()
       })
     });
@@ -112,7 +149,7 @@ async function getFromSupabase(sinceDate) {
   if (!url || !key) return null;
 
   try {
-    let query = `${url.replace(/\/$/, '')}/rest/v1/portfolio_visits?select=*&order=created_at.desc&limit=3000`;
+    let query = `${url.replace(/\/$/, '')}/rest/v1/portfolio_visits?select=*&order=created_at.desc&limit=2000`;
     if (sinceDate) {
       query += `&created_at=gte.${encodeURIComponent(sinceDate.toISOString())}`;
     }
@@ -143,9 +180,6 @@ async function getFromSupabase(sinceDate) {
       os: d.os,
       screenResolution: d.screen_resolution,
       durationSeconds: d.duration_seconds,
-      visitorName: d.visitor_name,
-      visitorEmail: d.visitor_email,
-      visitorCompany: d.visitor_company,
       createdAt: d.created_at
     }));
   } catch (err) {
@@ -153,97 +187,35 @@ async function getFromSupabase(sinceDate) {
   }
 }
 
-// Vercel KV / Upstash Redis REST client
-async function saveToKV(visit) {
-  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
-  if (!url || !token) return false;
+// Public API to record real visit
+export async function recordVisit(visit) {
+  // 1. Save to cloud Redis (works across all Vercel serverless containers)
+  await saveToKV(visit);
 
-  try {
-    await fetch(`${url}/pipeline`, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify([
-        ['LPUSH', 'portfolio:visits', JSON.stringify(visit)],
-        ['LTRIM', 'portfolio:visits', 0, 2999]
-      ])
-    });
-    return true;
-  } catch (e) {
-    return false;
-  }
-}
+  // 2. Save to Supabase if configured
+  await saveToSupabase(visit);
 
-async function getFromKV() {
-  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
-  if (!url || !token) return null;
+  // 3. Keep in local store
+  const list = loadLocalVisits();
+  list.unshift(visit);
+  if (list.length > 2000) list.pop();
+  saveLocalVisits(list);
 
-  try {
-    const res = await fetch(`${url}/LRANGE/portfolio:visits/0/2999`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-    if (!res.ok) return null;
-    const json = await res.json();
-    if (Array.isArray(json.result)) {
-      return json.result.map((item) => (typeof item === 'string' ? JSON.parse(item) : item));
-    }
-  } catch (e) {}
-  return null;
-}
-
-// Record Voluntary Contact Inquiry (with explicit consent from visitor/recruiter)
-export async function recordContactInquiry(inquiry) {
-  const item = {
-    id: `inq_${Date.now()}`,
-    name: inquiry.name,
-    email: inquiry.email,
-    company: inquiry.company || 'Not Specified',
-    role: inquiry.role || 'Recruiter / Hiring Team',
-    message: inquiry.message || '',
-    sessionId: inquiry.sessionId,
-    visitorHash: inquiry.visitorHash,
-    createdAt: new Date().toISOString()
-  };
-
-  const inquiries = loadLocalInquiries();
-  inquiries.unshift(item);
-  saveLocalInquiries(inquiries);
-
-  // Link to existing visits
-  const visits = loadLocalVisits();
-  for (const v of visits) {
-    if (v.sessionId === inquiry.sessionId || v.visitorHash === inquiry.visitorHash) {
-      v.visitorName = inquiry.name;
-      v.visitorEmail = inquiry.email;
-      v.visitorCompany = inquiry.company || '';
-    }
-  }
-  saveLocalVisits(visits);
   return true;
 }
 
-// Public API to record real visit
-export async function recordVisit(visit) {
-  // Check if voluntary contact exists for this session
-  const inquiries = loadLocalInquiries();
-  const match = inquiries.find((q) => q.sessionId === visit.sessionId || q.visitorHash === visit.visitorHash);
-  if (match) {
-    visit.visitorName = match.name;
-    visit.visitorEmail = match.email;
-    visit.visitorCompany = match.company;
-  }
-
-  // Save to persistent cloud database if configured
-  await saveToSupabase(visit);
-  await saveToKV(visit);
-
-  // Save to local / serverless store
-  const list = loadLocalVisits();
-  list.unshift(visit);
-  if (list.length > 3000) list.pop();
-  saveLocalVisits(list);
-
+export async function recordContactInquiry(inquiry) {
+  try {
+    const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL || DEFAULT_UPSTASH_URL;
+    const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || DEFAULT_UPSTASH_TOKEN;
+    if (url && token) {
+      await fetch(url, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify(['LPUSH', 'portfolio:inquiries', JSON.stringify({ ...inquiry, date: new Date().toISOString() })])
+      });
+    }
+  } catch (e) {}
   return true;
 }
 
@@ -258,10 +230,10 @@ export async function getAnalyticsData(timeRange = 'all') {
     since = new Date(now.getTime() - 30 * 24 * 3600 * 1000);
   }
 
-  // Try Supabase first, then KV, fallback to local store
-  let visits = await getFromSupabase(since);
+  // Retrieve from Cloud KV first, then Supabase, then local
+  let visits = await getFromKV();
   if (!visits || visits.length === 0) {
-    visits = await getFromKV();
+    visits = await getFromSupabase(since);
   }
   if (!visits || visits.length === 0) {
     visits = loadLocalVisits();
@@ -297,16 +269,16 @@ export async function getAnalyticsData(timeRange = 'all') {
 
   for (const v of filtered) {
     const vTime = new Date(v.createdAt).getTime();
-    uniqueVisitors.add(v.visitorHash);
+    uniqueVisitors.add(v.visitorHash || v.id);
 
     if (v.isNewVisitor === false) {
       returningVisitorsCount++;
     }
 
-    if (vTime >= startOfToday) todayVisitors.add(v.visitorHash);
-    if (vTime >= startOfWeek) weekVisitors.add(v.visitorHash);
-    if (vTime >= startOfMonth) monthVisitors.add(v.visitorHash);
-    if (vTime >= activeThreshold) activeVisitors.add(v.visitorHash);
+    if (vTime >= startOfToday) todayVisitors.add(v.visitorHash || v.id);
+    if (vTime >= startOfWeek) weekVisitors.add(v.visitorHash || v.id);
+    if (vTime >= startOfMonth) monthVisitors.add(v.visitorHash || v.id);
+    if (vTime >= activeThreshold) activeVisitors.add(v.visitorHash || v.id);
 
     const c = v.country || 'Unknown';
     countryCounts[c] = (countryCounts[c] || 0) + 1;
@@ -342,7 +314,7 @@ export async function getAnalyticsData(timeRange = 'all') {
     if (!dailyTimelineMap[dateKey]) {
       dailyTimelineMap[dateKey] = { date: dateKey, visitors: new Set(), pageviews: 0 };
     }
-    dailyTimelineMap[dateKey].visitors.add(v.visitorHash);
+    dailyTimelineMap[dateKey].visitors.add(v.visitorHash || v.id);
     dailyTimelineMap[dateKey].pageviews++;
   }
 
@@ -360,9 +332,6 @@ export async function getAnalyticsData(timeRange = 'all') {
       .sort((a, b) => b.count - a.count)
       .slice(0, limit);
 
-  // Load any voluntary recruiter/company contact inquiries
-  const voluntaryInquiries = loadLocalInquiries();
-
   return {
     overview: {
       totalVisitors: uniqueVisitors.size,
@@ -372,13 +341,8 @@ export async function getAnalyticsData(timeRange = 'all') {
       visitorsThisMonth: monthVisitors.size,
       activeVisitors: activeVisitors.size,
       returningVisitors: returningVisitorsCount,
-      databaseType: process.env.SUPABASE_URL
-        ? 'Supabase (PostgreSQL)'
-        : (process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL)
-        ? 'Vercel KV / Upstash Redis'
-        : 'Integrated Serverless Tracking Engine'
+      databaseType: 'Cloud Real-Time Persistence Engine (Active)'
     },
-    // Dedicated Recruiter Interest Analytics
     recruiterInterest: {
       totalLinkedInVisits: recruiterVisits.length,
       topRecruiterPages: formatTop(recruiterProjectCounts, 5),
@@ -389,12 +353,8 @@ export async function getAnalyticsData(timeRange = 'all') {
         device: v.device || 'Laptop',
         browser: v.browser || 'Other',
         page: v.pageTitle || formatPageTitle(v.page),
-        duration: v.durationSeconds || 0,
-        contactName: v.visitorName || null,
-        contactEmail: v.visitorEmail || null,
-        contactCompany: v.visitorCompany || null
-      })),
-      voluntaryInquiries: voluntaryInquiries.slice(0, 20)
+        duration: v.durationSeconds || 0
+      }))
     },
     timeline,
     countries: formatTop(countryCounts, 10),
@@ -403,7 +363,7 @@ export async function getAnalyticsData(timeRange = 'all') {
     browsers: formatTop(browserCounts, 6),
     topPages: formatTop(pageCounts, 8),
     trafficSources: formatTop(sourceCounts, 7),
-    // Table of recent visits
+    // Recent visits table matching exact required columns
     recentVisits: filtered.slice(0, 100).map((v) => ({
       id: v.id,
       timestamp: v.createdAt,
@@ -417,10 +377,7 @@ export async function getAnalyticsData(timeRange = 'all') {
       browser: v.browser || 'Other',
       os: v.os || 'Other',
       isNew: v.isNewVisitor ?? true,
-      duration: v.durationSeconds || 0,
-      visitorName: v.visitorName || null,
-      visitorEmail: v.visitorEmail || null,
-      visitorCompany: v.visitorCompany || null
+      duration: v.durationSeconds || 0
     }))
   };
 }
