@@ -27,10 +27,10 @@ export default async function handler(req, res) {
     }
 
     const payload = verifyToken(token);
-    if (!payload || payload.role !== 'admin') {
+    if (!payload || (payload.role !== 'admin' && payload.role !== 'owner')) {
       return res.status(401).json({
         error: 'unauthorized',
-        message: 'Invalid or expired admin session token.'
+        message: 'Invalid or expired owner session token.'
       });
     }
 

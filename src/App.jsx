@@ -5,6 +5,8 @@ import LandingPage from './pages/LandingPage';
 import WorkPage from './pages/WorkPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
+import OwnerLoginPage from './pages/OwnerLoginPage';
+import OwnerVisitorsPage from './pages/OwnerVisitorsPage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import AdminAnalyticsPage from './pages/AdminAnalyticsPage';
 import { useVisitorTracking } from './hooks/useVisitorTracking';
@@ -23,9 +25,13 @@ function PortfolioApp() {
       <Route path="/about" element={<AboutPage />} />
       <Route path="/contact" element={<ContactPage />} />
 
-      {/* Private Admin Analytics Portal */}
-      <Route path="/admin/login" element={<AdminLoginPage />} />
-      <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
+      {/* Hidden Owner-Only Visitor Tracking Feature */}
+      <Route path="/owner-login" element={<OwnerLoginPage />} />
+      <Route path="/owner/visitors" element={<OwnerVisitorsPage />} />
+
+      {/* Admin aliases */}
+      <Route path="/admin/login" element={<OwnerLoginPage />} />
+      <Route path="/admin/analytics" element={<OwnerVisitorsPage />} />
 
       {/* Redirect legacy /krupabt and any unknown routes to root */}
       <Route path="/krupabt/*" element={<Navigate to="/" replace />} />

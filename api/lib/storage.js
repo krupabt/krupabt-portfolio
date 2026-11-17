@@ -1,64 +1,19 @@
-// Analytics Storage Adapter for Portfolio Tracking
+// Analytics Storage Adapter for Portfolio Tracking (Real visits only)
 import fs from 'fs';
 import path from 'path';
 
-// Seed sample baseline data if brand new store
-function getInitialSeedData() {
-  const now = new Date();
-  const sampleVisits = [];
-  const cities = [
-    { city: 'Bengaluru', region: 'Karnataka', country: 'IN' },
-    { city: 'San Francisco', region: 'California', country: 'US' },
-    { city: 'London', region: 'England', country: 'GB' },
-    { city: 'New York', region: 'New York', country: 'US' },
-    { city: 'Berlin', region: 'Berlin', country: 'DE' },
-    { city: 'Singapore', region: 'Central', country: 'SG' },
-    { city: 'Toronto', region: 'Ontario', country: 'CA' },
-    { city: 'Mumbai', region: 'Maharashtra', country: 'IN' }
-  ];
-  const sources = ['LinkedIn', 'GitHub', 'Direct', 'Google', 'X (Twitter)'];
-  const pages = ['/', '/#projects', '/#about', '/#certifications', '/#opensource', '/#experience'];
-  const devices = ['Desktop', 'Desktop', 'Desktop', 'Mobile', 'Mobile', 'Tablet'];
-  const browsers = ['Chrome', 'Chrome', 'Safari', 'Firefox', 'Edge'];
-  const osList = ['Windows', 'macOS', 'iOS', 'Android', 'Linux'];
-
-  for (let i = 28; i >= 0; i--) {
-    const dayDate = new Date(now.getTime() - i * 24 * 3600 * 1000);
-    // 3 to 12 visits per day
-    const count = 4 + Math.floor((Math.sin(i * 0.5) + 1) * 4);
-    for (let j = 0; j < count; j++) {
-      const loc = cities[(i + j) % cities.length];
-      const visitDate = new Date(dayDate.getTime() + j * 3600 * 1000 * 2);
-      sampleVisits.push({
-        id: `seed_${i}_${j}`,
-        visitorHash: `v_hash_${(i * 7 + j) % 35}`,
-        sessionId: `s_hash_${i}_${j}`,
-        isNewVisitor: j % 2 === 0,
-        page: pages[(i + j) % pages.length],
-        referrer: sources[(i + j) % sources.length] === 'Direct' ? '' : `https://${sources[(i + j) % sources.length].toLowerCase()}.com`,
-        source: sources[(i + j) % sources.length],
-        country: loc.country,
-        region: loc.region,
-        city: loc.city,
-        device: devices[(i + j) % devices.length],
-        browser: browsers[(i + j) % browsers.length],
-        os: osList[(i + j) % osList.length],
-        screenResolution: '1920x1080',
-        durationSeconds: 45 + ((i * 13 + j * 17) % 240),
-        createdAt: visitDate.toISOString()
-      });
-    }
-  }
-
-  return sampleVisits;
-}
-
-// In-Memory fallback store
+// In-Memory & File persistence store
 let memoryStore = null;
+let contactInquiriesStore = null;
 
 const TMP_FILE = path.join(
   process.env.TMPDIR || process.env.TEMP || '/tmp',
   'portfolio_analytics_data.json'
+);
+
+const TMP_INQUIRIES_FILE = path.join(
+  process.env.TMPDIR || process.env.TEMP || '/tmp',
+  'portfolio_contact_inquiries.json'
 );
 
 function loadLocalVisits() {
@@ -71,24 +26,44 @@ function loadLocalVisits() {
       if (Array.isArray(memoryStore)) return memoryStore;
     }
   } catch (err) {
-    // Fall back to memory
+    // Fall back to empty array
   }
 
-  memoryStore = getInitialSeedData();
-  saveLocalVisits(memoryStore);
+  // Real visitor data only - no fake seed data
+  memoryStore = [];
   return memoryStore;
 }
 
 function saveLocalVisits(data) {
   memoryStore = data;
   try {
-    fs.writeFileSync(TMP_FILE, JSON.stringify(data.slice(-2000)), 'utf8');
+    fs.writeFileSync(TMP_FILE, JSON.stringify(data.slice(0, 3000)), 'utf8');
   } catch (err) {
     // Ignore tmp write failures in serverless environments
   }
 }
 
-// Supabase REST client (no npm package required)
+function loadLocalInquiries() {
+  if (contactInquiriesStore) return contactInquiriesStore;
+  try {
+    if (fs.existsSync(TMP_INQUIRIES_FILE)) {
+      const content = fs.readFileSync(TMP_INQUIRIES_FILE, 'utf8');
+      contactInquiriesStore = JSON.parse(content);
+      if (Array.isArray(contactInquiriesStore)) return contactInquiriesStore;
+    }
+  } catch (e) {}
+  contactInquiriesStore = [];
+  return contactInquiriesStore;
+}
+
+function saveLocalInquiries(data) {
+  contactInquiriesStore = data;
+  try {
+    fs.writeFileSync(TMP_INQUIRIES_FILE, JSON.stringify(data.slice(0, 500)), 'utf8');
+  } catch (e) {}
+}
+
+// Supabase REST client
 async function saveToSupabase(visit) {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY || process.env.SUPABASE_ANON_KEY;
@@ -108,22 +83,25 @@ async function saveToSupabase(visit) {
         session_id: visit.sessionId,
         is_new_visitor: visit.isNewVisitor,
         page: visit.page,
+        page_title: visit.pageTitle || visit.page,
         referrer: visit.referrer || '',
         source: visit.source || 'Direct',
         country: visit.country || 'Unknown',
         region: visit.region || '',
         city: visit.city || '',
-        device: visit.device || 'Desktop',
+        device: visit.device || 'Laptop',
         browser: visit.browser || 'Other',
         os: visit.os || 'Other',
         screen_resolution: visit.screenResolution || '',
         duration_seconds: visit.durationSeconds || 0,
+        visitor_name: visit.visitorName || null,
+        visitor_email: visit.visitorEmail || null,
+        visitor_company: visit.visitorCompany || null,
         created_at: visit.createdAt || new Date().toISOString()
       })
     });
     return res.ok;
   } catch (err) {
-    console.error('Supabase save error:', err);
     return false;
   }
 }
@@ -134,7 +112,7 @@ async function getFromSupabase(sinceDate) {
   if (!url || !key) return null;
 
   try {
-    let query = `${url.replace(/\/$/, '')}/rest/v1/portfolio_visits?select=*&order=created_at.desc&limit=2000`;
+    let query = `${url.replace(/\/$/, '')}/rest/v1/portfolio_visits?select=*&order=created_at.desc&limit=3000`;
     if (sinceDate) {
       query += `&created_at=gte.${encodeURIComponent(sinceDate.toISOString())}`;
     }
@@ -154,6 +132,7 @@ async function getFromSupabase(sinceDate) {
       sessionId: d.session_id,
       isNewVisitor: d.is_new_visitor,
       page: d.page,
+      pageTitle: d.page_title || d.page,
       referrer: d.referrer,
       source: d.source,
       country: d.country,
@@ -164,94 +143,86 @@ async function getFromSupabase(sinceDate) {
       os: d.os,
       screenResolution: d.screen_resolution,
       durationSeconds: d.duration_seconds,
+      visitorName: d.visitor_name,
+      visitorEmail: d.visitor_email,
+      visitorCompany: d.visitor_company,
       createdAt: d.created_at
     }));
   } catch (err) {
-    console.error('Supabase query error:', err);
     return null;
   }
 }
 
-// Upstash / Vercel KV REST client
-async function saveToKV(visit) {
-  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
-  if (!url || !token) return false;
+// Record Voluntary Contact Inquiry (with explicit user consent)
+export async function recordContactInquiry(inquiry) {
+  const inquiries = loadLocalInquiries();
+  inquiries.unshift({
+    id: `inq_${Date.now()}`,
+    name: inquiry.name,
+    email: inquiry.email,
+    company: inquiry.company || '',
+    message: inquiry.message || '',
+    sessionId: inquiry.sessionId,
+    visitorHash: inquiry.visitorHash,
+    createdAt: new Date().toISOString()
+  });
+  saveLocalInquiries(inquiries);
 
-  try {
-    const payload = JSON.stringify(visit);
-    // LPUSH to analytics:visits and keep last 2000
-    await fetch(`${url}/pipeline`, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify([
-        ['LPUSH', 'analytics:visits', payload],
-        ['LTRIM', 'analytics:visits', 0, 1999]
-      ])
-    });
-    return true;
-  } catch (err) {
-    return false;
-  }
-}
-
-async function getFromKV() {
-  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
-  if (!url || !token) return null;
-
-  try {
-    const res = await fetch(`${url}/LRANGE/analytics:visits/0/1999`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-    if (!res.ok) return null;
-    const json = await res.json();
-    if (Array.isArray(json.result)) {
-      return json.result.map((item) => (typeof item === 'string' ? JSON.parse(item) : item));
+  // Link to existing visit records if present
+  const visits = loadLocalVisits();
+  for (const v of visits) {
+    if (v.sessionId === inquiry.sessionId || v.visitorHash === inquiry.visitorHash) {
+      v.visitorName = inquiry.name;
+      v.visitorEmail = inquiry.email;
+      v.visitorCompany = inquiry.company || '';
     }
-  } catch (err) {
-    //
   }
-  return null;
+  saveLocalVisits(visits);
+  return true;
 }
 
-// Public API
+// Public API to record real visit
 export async function recordVisit(visit) {
-  // Try Supabase first
-  const supabaseSuccess = await saveToSupabase(visit);
-  // Try KV
-  await saveToKV(visit);
+  // Check if voluntary contact exists for this session
+  const inquiries = loadLocalInquiries();
+  const match = inquiries.find((q) => q.sessionId === visit.sessionId || q.visitorHash === visit.visitorHash);
+  if (match) {
+    visit.visitorName = match.name;
+    visit.visitorEmail = match.email;
+    visit.visitorCompany = match.company;
+  }
 
-  // Always keep in local/memory store as fallback
+  // Save to Supabase if configured
+  await saveToSupabase(visit);
+
+  // Save to local / serverless store
   const list = loadLocalVisits();
   list.unshift(visit);
-  if (list.length > 2500) list.pop();
+  if (list.length > 3000) list.pop();
   saveLocalVisits(list);
 
   return true;
 }
 
-export async function getAnalyticsData(timeRange = '30d') {
-  // Determine cutoff date
+export async function getAnalyticsData(timeRange = 'all') {
   const now = new Date();
-  let since = new Date(now.getTime() - 30 * 24 * 3600 * 1000);
-  if (timeRange === '24h') since = new Date(now.getTime() - 24 * 3600 * 1000);
-  else if (timeRange === '7d') since = new Date(now.getTime() - 7 * 24 * 3600 * 1000);
-  else if (timeRange === 'all') since = new Date(0);
-
-  // Try Supabase first
-  let visits = await getFromSupabase(since);
-  if (!visits || visits.length === 0) {
-    // Try KV
-    visits = await getFromKV();
+  let since = null;
+  if (timeRange === '24h' || timeRange === 'today') {
+    since = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  } else if (timeRange === '7d' || timeRange === 'week') {
+    since = new Date(now.getTime() - 7 * 24 * 3600 * 1000);
+  } else if (timeRange === '30d' || timeRange === 'month') {
+    since = new Date(now.getTime() - 30 * 24 * 3600 * 1000);
   }
-  if (!visits || visits.length === 0) {
-    // Use local store
+
+  // Try Supabase first, fallback to local store
+  let visits = await getFromSupabase(since);
+  if (!visits) {
     visits = loadLocalVisits();
   }
 
-  // Filter by time range
-  const filtered = visits.filter((v) => new Date(v.createdAt) >= since);
+  // Filter by time range if set
+  const filtered = since ? visits.filter((v) => new Date(v.createdAt) >= since) : visits;
 
   // Aggregate Metrics
   const uniqueVisitors = new Set();
@@ -269,13 +240,9 @@ export async function getAnalyticsData(timeRange = '30d') {
   const cityCounts = {};
   const deviceCounts = {};
   const browserCounts = {};
-  const osCounts = {};
   const pageCounts = {};
   const sourceCounts = {};
   const dailyTimelineMap = {};
-
-  let totalDuration = 0;
-  let durationCount = 0;
 
   for (const v of filtered) {
     const vTime = new Date(v.createdAt).getTime();
@@ -286,7 +253,6 @@ export async function getAnalyticsData(timeRange = '30d') {
     if (vTime >= startOfMonth) monthVisitors.add(v.visitorHash);
     if (vTime >= activeThreshold) activeVisitors.add(v.visitorHash);
 
-    // Geographic
     const c = v.country || 'Unknown';
     countryCounts[c] = (countryCounts[c] || 0) + 1;
 
@@ -295,30 +261,18 @@ export async function getAnalyticsData(timeRange = '30d') {
       cityCounts[cityKey] = (cityCounts[cityKey] || 0) + 1;
     }
 
-    // Tech
-    const dev = v.device || 'Desktop';
+    const dev = v.device || 'Laptop';
     deviceCounts[dev] = (deviceCounts[dev] || 0) + 1;
 
     const b = v.browser || 'Other';
     browserCounts[b] = (browserCounts[b] || 0) + 1;
 
-    const o = v.os || 'Other';
-    osCounts[o] = (osCounts[o] || 0) + 1;
-
-    // Pages & Sources
-    const p = v.page || '/';
+    const p = v.pageTitle || v.page || 'Home';
     pageCounts[p] = (pageCounts[p] || 0) + 1;
 
     const s = v.source || 'Direct';
     sourceCounts[s] = (sourceCounts[s] || 0) + 1;
 
-    // Duration
-    if (v.durationSeconds && v.durationSeconds > 0) {
-      totalDuration += v.durationSeconds;
-      durationCount++;
-    }
-
-    // Daily Timeline
     const dateKey = new Date(v.createdAt).toISOString().split('T')[0];
     if (!dailyTimelineMap[dateKey]) {
       dailyTimelineMap[dateKey] = { date: dateKey, visitors: new Set(), pageviews: 0 };
@@ -327,7 +281,6 @@ export async function getAnalyticsData(timeRange = '30d') {
     dailyTimelineMap[dateKey].pageviews++;
   }
 
-  // Format Daily Timeline (sorted chronological)
   const timeline = Object.keys(dailyTimelineMap)
     .sort()
     .map((k) => ({
@@ -336,7 +289,6 @@ export async function getAnalyticsData(timeRange = '30d') {
       pageviews: dailyTimelineMap[k].pageviews
     }));
 
-  // Format Top Lists
   const formatTop = (obj, limit = 8) =>
     Object.entries(obj)
       .map(([name, count]) => ({ name, count }))
@@ -350,30 +302,46 @@ export async function getAnalyticsData(timeRange = '30d') {
       visitorsToday: todayVisitors.size,
       visitorsThisWeek: weekVisitors.size,
       visitorsThisMonth: monthVisitors.size,
-      activeVisitors: Math.max(1, activeVisitors.size), // Minimum 1 for active admin viewer
-      avgDurationSeconds: durationCount ? Math.round(totalDuration / durationCount) : 74,
-      databaseType: process.env.SUPABASE_URL ? 'Supabase (PostgreSQL)' : process.env.KV_REST_API_URL ? 'Vercel KV / Redis' : 'Integrated High-Performance Store'
+      activeVisitors: activeVisitors.size,
+      databaseType: process.env.SUPABASE_URL ? 'Supabase (PostgreSQL)' : 'Integrated Real-Time Tracking Engine'
     },
     timeline,
     countries: formatTop(countryCounts, 10),
     cities: formatTop(cityCounts, 10),
     devices: formatTop(deviceCounts, 5),
     browsers: formatTop(browserCounts, 6),
-    operatingSystems: formatTop(osCounts, 6),
     topPages: formatTop(pageCounts, 8),
     trafficSources: formatTop(sourceCounts, 7),
-    recentVisits: filtered.slice(0, 30).map((v) => ({
+    // Table of recent visits
+    recentVisits: filtered.slice(0, 100).map((v) => ({
       id: v.id,
       timestamp: v.createdAt,
       country: v.country || 'Unknown',
+      region: v.region || '',
       city: v.city || 'Unknown',
       page: v.page || '/',
+      pageTitle: v.pageTitle || formatPageTitle(v.page),
       source: v.source || 'Direct',
-      device: v.device || 'Desktop',
+      device: v.device || 'Laptop',
       browser: v.browser || 'Other',
       os: v.os || 'Other',
       isNew: v.isNewVisitor ?? true,
-      duration: v.durationSeconds || 0
+      duration: v.durationSeconds || 0,
+      visitorName: v.visitorName || null,
+      visitorEmail: v.visitorEmail || null,
+      visitorCompany: v.visitorCompany || null
     }))
   };
+}
+
+// Friendly page title helper
+export function formatPageTitle(url = '/') {
+  if (!url || url === '/') return 'Home';
+  if (url.includes('#projects') || url.startsWith('/work')) return 'Projects';
+  if (url.includes('#opensource')) return 'Open Source';
+  if (url.includes('#about') || url.startsWith('/about')) return 'About';
+  if (url.includes('#certifications')) return 'Certifications';
+  if (url.includes('#experience')) return 'Experience';
+  if (url.includes('#contact') || url.startsWith('/contact')) return 'Contact';
+  return url;
 }

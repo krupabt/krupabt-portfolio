@@ -22,15 +22,16 @@ export default async function handler(req, res) {
     }
 
     const payload = verifyToken(token);
-    if (!payload || payload.role !== 'admin') {
+    if (!payload || (payload.role !== 'admin' && payload.role !== 'owner')) {
       return res.status(401).json({ authenticated: false });
     }
 
     return res.status(200).json({
       authenticated: true,
       user: {
-        username: payload.username || 'admin',
-        role: 'admin'
+        email: payload.email || 'krupabt83@gmail.com',
+        username: payload.username || 'krupabt',
+        role: payload.role || 'owner'
       }
     });
   } catch (err) {

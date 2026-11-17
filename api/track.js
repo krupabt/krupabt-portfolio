@@ -1,6 +1,6 @@
 // Vercel Serverless Function: POST /api/track
 import crypto from 'crypto';
-import { recordVisit } from './lib/storage.js';
+import { recordVisit, recordContactInquiry, formatPageTitle } from './lib/storage.js';
 
 export default async function handler(req, res) {
   // CORS Headers
@@ -27,9 +27,13 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: true, ignored: 'dnt' });
     }
 
-    // 2. Check Admin Exclude Cookie
+    // 2. Check Admin / Owner Exclude Cookie
     const cookieHeader = req.headers['cookie'] || '';
-    if (cookieHeader.includes('portfolio_admin_logged_in=1') || cookieHeader.includes('portfolio_admin_token=')) {
+    if (
+      cookieHeader.includes('portfolio_admin_logged_in=1') ||
+      cookieHeader.includes('portfolio_admin_token=') ||
+      cookieHeader.includes('portfolio_owner_session=')
+    ) {
       return res.status(200).json({ ok: true, ignored: 'admin_session' });
     }
 
@@ -44,9 +48,9 @@ export default async function handler(req, res) {
     }
     body = body || {};
 
-    // Do not track admin routes
-    if (body.page && body.page.startsWith('/admin')) {
-      return res.status(200).json({ ok: true, ignored: 'admin_route' });
+    // Do not track owner/admin routes
+    if (body.page && (body.page.startsWith('/admin') || body.page.startsWith('/owner'))) {
+      return res.status(200).json({ ok: true, ignored: 'owner_route' });
     }
 
     // 3. Privacy-preserving IP hashing (SHA-256 with rotating daily salt)
@@ -58,7 +62,7 @@ export default async function handler(req, res) {
       .digest('hex')
       .slice(0, 16);
 
-    // 4. Vercel Geo Detection
+    // 4. Location Detection (City, State, Country)
     let country = req.headers['x-vercel-ip-country'] || body.country || 'Unknown';
     let region = req.headers['x-vercel-ip-country-region'] || body.region || '';
     let city = 'Unknown';
@@ -73,43 +77,52 @@ export default async function handler(req, res) {
       city = body.city;
     }
 
-    // If on localhost or missing country, deduce from timezone if provided
+    // If missing country/city, deduce from timezone
     if ((country === 'Unknown' || country === 'XX') && body.timezone) {
       if (body.timezone.includes('Calcutta') || body.timezone.includes('Kolkata')) {
-        country = 'IN';
+        country = 'India';
         if (city === 'Unknown') city = 'Bengaluru';
       } else if (body.timezone.includes('New_York')) {
-        country = 'US';
+        country = 'United States';
         if (city === 'Unknown') city = 'New York';
       } else if (body.timezone.includes('Los_Angeles')) {
-        country = 'US';
+        country = 'United States';
         if (city === 'Unknown') city = 'Los Angeles';
       } else if (body.timezone.includes('London')) {
-        country = 'GB';
+        country = 'United Kingdom';
         if (city === 'Unknown') city = 'London';
       }
     }
 
-    // 5. Parse User-Agent
+    // Convert country codes to friendly names if needed
+    if (country === 'IN') country = 'India';
+    else if (country === 'US') country = 'United States';
+    else if (country === 'GB') country = 'United Kingdom';
+    else if (country === 'DE') country = 'Germany';
+    else if (country === 'SG') country = 'Singapore';
+    else if (country === 'CA') country = 'Canada';
+
+    // 5. Parse User-Agent & Device Type (Laptop or Mobile)
     const userAgent = req.headers['user-agent'] || '';
-    let device = body.device || 'Desktop';
+    let device = body.device;
     let browser = body.browser || 'Other';
     let os = body.os || 'Other';
 
-    if (!body.device || !body.browser || !body.os) {
-      // Device
+    if (!device) {
       if (/tablet|ipad/i.test(userAgent)) device = 'Tablet';
       else if (/mobile|iphone|android/i.test(userAgent)) device = 'Mobile';
-      else device = 'Desktop';
+      else device = 'Laptop';
+    } else if (device === 'Desktop') {
+      device = 'Laptop';
+    }
 
-      // Browser
+    if (!body.browser || !body.os) {
       if (/edg/i.test(userAgent)) browser = 'Edge';
       else if (/chrome|crios/i.test(userAgent)) browser = 'Chrome';
       else if (/firefox|fxios/i.test(userAgent)) browser = 'Firefox';
       else if (/safari/i.test(userAgent)) browser = 'Safari';
       else if (/opr\//i.test(userAgent)) browser = 'Opera';
 
-      // OS
       if (/windows/i.test(userAgent)) os = 'Windows';
       else if (/macintosh|mac os x/i.test(userAgent)) os = 'macOS';
       else if (/iphone|ipad|ipod/i.test(userAgent)) os = 'iOS';
@@ -121,20 +134,41 @@ export default async function handler(req, res) {
     let source = body.source;
     if (!source) {
       const ref = (body.referrer || req.headers['referer'] || '').toLowerCase();
-      if (!ref || ref.includes('localhost') || ref.includes('krupabt-portfolio.vercel.app') || ref.includes('krupabt.vercel.app')) source = 'Direct';
-      else if (ref.includes('linkedin.com')) source = 'LinkedIn';
-      else if (ref.includes('github.com')) source = 'GitHub';
-      else if (ref.includes('google.')) source = 'Google';
-      else if (ref.includes('twitter.com') || ref.includes('t.co') || ref.includes('x.com')) source = 'X (Twitter)';
-      else if (ref.includes('instagram.com')) source = 'Instagram';
-      else if (ref.includes('youtube.com')) source = 'YouTube';
-      else {
+      if (!ref || ref.includes('localhost') || ref.includes('krupabt-portfolio.vercel.app') || ref.includes('krupabt.vercel.app')) {
+        source = 'Direct Link';
+      } else if (ref.includes('linkedin.com')) {
+        source = 'LinkedIn';
+      } else if (ref.includes('github.com')) {
+        source = 'GitHub';
+      } else if (ref.includes('google.')) {
+        source = 'Google';
+      } else if (ref.includes('twitter.com') || ref.includes('t.co') || ref.includes('x.com')) {
+        source = 'X (Twitter)';
+      } else if (ref.includes('instagram.com')) {
+        source = 'Instagram';
+      } else if (ref.includes('youtube.com')) {
+        source = 'YouTube';
+      } else {
         try {
           source = new URL(ref).hostname.replace('www.', '');
         } catch (e) {
-          source = 'Direct';
+          source = 'Direct Link';
         }
       }
+    } else if (source === 'Direct') {
+      source = 'Direct Link';
+    }
+
+    // Voluntary contact details (only if visitor consented)
+    if (body.voluntaryContact && body.voluntaryContact.consent) {
+      await recordContactInquiry({
+        name: body.voluntaryContact.name,
+        email: body.voluntaryContact.email,
+        company: body.voluntaryContact.company,
+        message: body.voluntaryContact.message,
+        sessionId: body.sessionId,
+        visitorHash
+      });
     }
 
     // 7. Save Visit Record
@@ -144,6 +178,7 @@ export default async function handler(req, res) {
       sessionId: body.sessionId || `s_${Date.now()}`,
       isNewVisitor: body.isNewVisitor ?? true,
       page: body.page || '/',
+      pageTitle: formatPageTitle(body.page),
       referrer: body.referrer || '',
       source,
       country,

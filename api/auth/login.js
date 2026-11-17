@@ -24,57 +24,65 @@ export default async function handler(req, res) {
         body = {};
       }
     }
-    const { username, password } = body || {};
+    // Accept email or username
+    const identifier = (body.email || body.username || '').trim().toLowerCase();
+    const password = (body.password || '').trim();
 
-    const configuredUsername = (process.env.ADMIN_USERNAME || 'krupabt').trim().toLowerCase();
-    // Default password requested by user: Krupa123 (or custom from ADMIN_PASSWORD env var)
-    const configuredPassword = (process.env.ADMIN_PASSWORD || 'Krupa123').trim();
-
-    if (!username || !password) {
+    if (!identifier || !password) {
       return res.status(400).json({
         error: 'missing_fields',
-        message: 'Username and password are required.'
+        message: 'Admin email/username and password are required.'
       });
     }
 
-    const inputUser = username.trim().toLowerCase();
-    // Accept configured username or 'admin'
-    const isUserValid = inputUser === configuredUsername || inputUser === 'admin';
-    const isPassValid = safeCompare(password.trim(), configuredPassword);
+    const configuredEmail = (process.env.ADMIN_EMAIL || 'krupabt83@gmail.com').trim().toLowerCase();
+    const configuredUsername = (process.env.ADMIN_USERNAME || 'krupabt').trim().toLowerCase();
+    const configuredPassword = (process.env.ADMIN_PASSWORD || 'Krupa123').trim();
 
-    if (!isUserValid || !isPassValid) {
+    // Verify authorized owner account
+    const isOwnerValid =
+      identifier === configuredEmail ||
+      identifier === configuredUsername ||
+      identifier === 'admin';
+
+    const isPassValid = safeCompare(password, configuredPassword);
+
+    if (!isOwnerValid || !isPassValid) {
       return res.status(401).json({
         error: 'invalid_credentials',
-        message: 'Incorrect username or password.'
+        message: 'Invalid owner credentials. Access denied.'
       });
     }
 
-    // Generate JWT signed token
+    // Generate signed JWT session token
     const token = createToken({
+      email: configuredEmail,
       username: configuredUsername,
-      role: 'admin',
+      role: 'owner',
       iat: Math.floor(Date.now() / 1000)
     });
 
-    // Set secure HTTP-only cookie and exclusion cookie
     const isProd = process.env.NODE_ENV === 'production';
     const cookieFlags = `Path=/; Max-Age=${7 * 24 * 3600}; SameSite=Lax${isProd ? '; Secure' : ''}`;
 
     res.setHeader('Set-Cookie', [
       `portfolio_admin_token=${token}; HttpOnly; ${cookieFlags}`,
-      `portfolio_admin_logged_in=1; ${cookieFlags}`
+      `portfolio_admin_logged_in=1; ${cookieFlags}`,
+      `portfolio_owner_session=1; ${cookieFlags}`
     ]);
 
     return res.status(200).json({
       success: true,
       token,
+      redirect: '/owner/visitors',
       user: {
+        email: configuredEmail,
         username: configuredUsername,
-        role: 'admin'
+        role: 'owner'
       }
     });
   } catch (err) {
-    console.error('Login error:', err);
-    return res.status(500).json({ error: 'server_error', message: 'Internal server authentication error.' });
+    console.error('Owner Login Error:', err);
+    return res.status(500).json({ error: 'server_error', message: 'Authentication service error.' });
   }
 }
