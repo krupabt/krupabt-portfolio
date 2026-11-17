@@ -92,14 +92,14 @@ export default function CertificationsSection() {
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    // Triggers when 15% of the section enters the viewport
+    // Triggers reliably when entering viewport across desktop and mobile
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
         }
       },
-      { threshold: 0.15, rootMargin: '0px 0px -10% 0px' }
+      { threshold: 0.05, rootMargin: '50px 0px 0px 0px' }
     );
 
     if (sectionRef.current) {
@@ -113,7 +113,7 @@ export default function CertificationsSection() {
     <section
       id="certifications"
       ref={sectionRef}
-      className="relative scroll-mt-20 sm:scroll-mt-24 py-28 sm:py-36 lg:py-44 bg-[#F7F3ED] dark:bg-[#141210] text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
+      className="relative scroll-mt-20 sm:scroll-mt-24 py-24 sm:py-32 lg:py-36 bg-[#F7F3ED] dark:bg-[#141210] text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
       role="region"
       aria-label="Verified Certifications"
     >
@@ -156,7 +156,7 @@ export default function CertificationsSection() {
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.12] text-[#292522] dark:text-[#F5EFEB]">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.15] text-[#292522] dark:text-[#F5EFEB]">
             CERTIFICATIONS.
           </h2>
           <p className="mt-4 text-[#5F5750] dark:text-[#D1C8C0] text-base sm:text-lg font-normal max-w-xl leading-relaxed text-center">

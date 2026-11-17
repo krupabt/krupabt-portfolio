@@ -8,14 +8,14 @@ export default function OpenSourceSection() {
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    // Triggers when 15% of the section enters the viewport
+    // Triggers reliably when entering viewport across desktop and mobile
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
         }
       },
-      { threshold: 0.15, rootMargin: '0px 0px -10% 0px' }
+      { threshold: 0.05, rootMargin: '50px 0px 0px 0px' }
     );
 
     if (sectionRef.current) {
@@ -29,7 +29,7 @@ export default function OpenSourceSection() {
     <section
       id="open-source"
       ref={sectionRef}
-      className="relative scroll-mt-20 sm:scroll-mt-24 pt-16 sm:pt-20 lg:pt-24 pb-28 sm:pb-36 lg:pb-40 bg-[#F7F3ED] dark:bg-[#141210] text-[#292522] dark:text-[#F5EFEB] transition-colors duration-300"
+      className="relative scroll-mt-20 sm:scroll-mt-24 pt-12 sm:pt-16 pb-24 sm:pb-32 lg:pb-36 bg-[#F7F3ED] dark:bg-[#141210] text-[#292522] dark:text-[#F5EFEB] transition-colors duration-300"
       role="region"
       aria-label="Open Source Contributions"
     >
@@ -70,7 +70,7 @@ export default function OpenSourceSection() {
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.12] text-[#292522] dark:text-[#F5EFEB] max-w-3xl">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.15] text-[#292522] dark:text-[#F5EFEB] max-w-3xl">
             COLLABORATIVE DEVELOPMENT.
           </h2>
 
@@ -84,7 +84,7 @@ export default function OpenSourceSection() {
           {openSourceData.map((item) => (
             <div
               key={item.id}
-              className="p-8 sm:p-10 lg:p-12 rounded-[24px] bg-[#FFFCF7] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] card-hover-subtle transition-all duration-300 shadow-[0_10px_35px_-6px_rgba(41,37,34,0.06)] dark:shadow-[0_10px_35px_-6px_rgba(0,0,0,0.35)] space-y-7 group"
+              className="p-6 sm:p-8 md:p-10 lg:p-12 rounded-[24px] bg-[#FFFCF7] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] card-hover-subtle transition-all duration-300 shadow-[0_10px_35px_-6px_rgba(41,37,34,0.06)] dark:shadow-[0_10px_35px_-6px_rgba(0,0,0,0.35)] space-y-7 group"
               style={{
                 transition: 'opacity 850ms cubic-bezier(0.22, 1, 0.36, 1), transform 850ms cubic-bezier(0.22, 1, 0.36, 1)',
                 opacity: isVisible ? 1 : 0,

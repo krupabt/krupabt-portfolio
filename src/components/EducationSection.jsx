@@ -7,14 +7,14 @@ export default function EducationSection() {
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    // Triggers when 20% of the section enters the viewport
+    // Triggers reliably when entering viewport across desktop and mobile
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
         }
       },
-      { threshold: 0.2, rootMargin: '0px 0px -10% 0px' }
+      { threshold: 0.05, rootMargin: '50px 0px 0px 0px' }
     );
 
     if (sectionRef.current) {
@@ -28,7 +28,7 @@ export default function EducationSection() {
     <section
       id="education"
       ref={sectionRef}
-      className="relative scroll-mt-20 sm:scroll-mt-24 py-32 sm:py-40 lg:py-48 bg-[#EDE4D8] dark:bg-[#1A1815] text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
+      className="relative scroll-mt-20 sm:scroll-mt-24 py-24 sm:py-32 lg:py-36 bg-[#EDE4D8] dark:bg-[#1A1815] text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
       role="region"
       aria-label="Academic Education"
     >
@@ -71,7 +71,7 @@ export default function EducationSection() {
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.12] text-[#292522] dark:text-[#F5EFEB]">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.15] text-[#292522] dark:text-[#F5EFEB]">
             EDUCATION.
           </h2>
           <p className="mt-4 text-[#5F5750] dark:text-[#D1C8C0] text-base sm:text-lg font-normal max-w-xl leading-relaxed text-center">
@@ -79,21 +79,20 @@ export default function EducationSection() {
           </p>
         </div>
 
-        {/* Alternating Slide Items */}
-        <div className="space-y-8">
+        {/* Slide Items */}
+        <div className="space-y-6 sm:space-y-8">
           {educationData.map((edu, idx) => {
-            const initialTranslate = idx % 2 === 0 ? '-70px' : '70px';
-            const staggerDelay = 180 + idx * 180;
+            const staggerDelay = 150 + idx * 150;
 
             return (
               <div
                 key={idx}
-                className="p-8 sm:p-10 rounded-[20px] bg-[#FFFCF7] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] card-hover-subtle transition-all duration-300 shadow-[0_6px_24px_-4px_rgba(41,37,34,0.06)] dark:shadow-[0_6px_24px_-4px_rgba(0,0,0,0.3)] space-y-4"
+                className="p-6 sm:p-8 md:p-10 rounded-[22px] bg-[#FFFCF7] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] card-hover-subtle transition-all duration-300 shadow-[0_6px_24px_-4px_rgba(41,37,34,0.06)] dark:shadow-[0_6px_24px_-4px_rgba(0,0,0,0.3)] space-y-4"
                 style={{
-                  transition: 'opacity 850ms cubic-bezier(0.22, 1, 0.36, 1), transform 850ms cubic-bezier(0.22, 1, 0.36, 1)',
+                  transition: 'opacity 750ms cubic-bezier(0.22, 1, 0.36, 1), transform 750ms cubic-bezier(0.22, 1, 0.36, 1)',
                   transitionDelay: `${staggerDelay}ms`,
                   opacity: isVisible ? 1 : 0,
-                  transform: isVisible ? 'translateX(0px)' : `translateX(${initialTranslate})`,
+                  transform: isVisible ? 'translateY(0px)' : 'translateY(20px)',
                 }}
               >
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">

@@ -19,7 +19,7 @@ export default function AboutSection() {
           setIsVisible(true);
         }
       },
-      { threshold: 0.18, rootMargin: '0px 0px -10% 0px' }
+      { threshold: 0.05, rootMargin: '50px 0px 0px 0px' }
     );
 
     if (sectionRef.current) {
@@ -56,7 +56,7 @@ export default function AboutSection() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative scroll-mt-20 sm:scroll-mt-24 py-28 sm:py-36 lg:py-44 bg-[#EDE4D8] dark:bg-[#1A1815] text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
+      className="relative scroll-mt-20 sm:scroll-mt-24 py-24 sm:py-32 lg:py-36 bg-[#EDE4D8] dark:bg-[#1A1815] text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
       role="region"
       aria-label="About Krupa B T"
     >

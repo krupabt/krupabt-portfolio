@@ -239,7 +239,7 @@ export default function CinematicIntro({ onStartEnter }) {
               filter: step >= 5 ? 'blur(0px)' : 'blur(8px)',
             }}
           >
-            <h1 className="text-4xl min-[400px]:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-[-0.03em] text-[#292522] dark:text-[#F5EFEB] leading-none whitespace-nowrap">
+            <h1 className="text-4xl min-[400px]:text-5xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-[76px] font-bold tracking-[-0.03em] text-[#292522] dark:text-[#F5EFEB] leading-none sm:whitespace-nowrap">
               KRUPA B T
             </h1>
           </div>

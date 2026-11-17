@@ -168,7 +168,7 @@ export default function FirstScreenHero() {
                 transform: animState >= 1 ? 'translateY(0px)' : 'translateY(40px)',
               }}
             >
-              <h1 className="text-4xl min-[400px]:text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-bold tracking-[-0.03em] leading-[0.98] text-[#292522] dark:text-[#F5EFEB] lg:whitespace-nowrap">
+              <h1 className="text-4xl min-[400px]:text-5xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-[76px] font-bold tracking-[-0.03em] leading-[1.02] text-[#292522] dark:text-[#F5EFEB] lg:whitespace-nowrap">
                 KRUPA B T
               </h1>
             </div>

@@ -7,14 +7,14 @@ export default function ExperienceSection() {
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    // Triggers when 20-30% of the section enters the viewport
+    // Triggers reliably when entering viewport across desktop and mobile
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
         }
       },
-      { threshold: 0.22, rootMargin: '0px 0px -10% 0px' }
+      { threshold: 0.05, rootMargin: '50px 0px 0px 0px' }
     );
 
     if (sectionRef.current) {
@@ -28,7 +28,7 @@ export default function ExperienceSection() {
     <section
       id="experience"
       ref={sectionRef}
-      className="relative scroll-mt-20 sm:scroll-mt-24 py-32 sm:py-40 lg:py-48 bg-[#F7F3ED] dark:bg-[#141210] text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
+      className="relative scroll-mt-20 sm:scroll-mt-24 py-24 sm:py-32 lg:py-36 bg-[#F7F3ED] dark:bg-[#141210] text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
       role="region"
       aria-label="Professional Experience"
     >
@@ -57,11 +57,11 @@ export default function ExperienceSection() {
         
         {/* Section Header */}
         <div
-          className="mb-20 sm:mb-24"
+          className="mb-14 sm:mb-20"
           style={{
-            transition: 'opacity 800ms cubic-bezier(0.22, 1, 0.36, 1), transform 800ms cubic-bezier(0.22, 1, 0.36, 1)',
+            transition: 'opacity 750ms cubic-bezier(0.22, 1, 0.36, 1), transform 750ms cubic-bezier(0.22, 1, 0.36, 1)',
             opacity: isVisible ? 1 : 0,
-            transform: isVisible ? 'translateY(0px)' : 'translateY(30px)',
+            transform: isVisible ? 'translateY(0px)' : 'translateY(24px)',
           }}
         >
           <div className="inline-flex items-center gap-2.5 mb-4 px-3.5 py-1.5 rounded-full bg-[#EDE4D8] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] shadow-sm">
@@ -71,7 +71,7 @@ export default function ExperienceSection() {
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.12] text-[#292522] dark:text-[#F5EFEB] max-w-2xl">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.15] text-[#292522] dark:text-[#F5EFEB] max-w-2xl">
             PRACTICAL ENGINEERING.
           </h2>
           <p className="mt-4 text-[#5F5750] dark:text-[#D1C8C0] text-base sm:text-lg font-normal max-w-xl leading-relaxed">
@@ -80,10 +80,10 @@ export default function ExperienceSection() {
         </div>
 
         {/* Vertical Timeline Container with Visible Growing Line */}
-        <div className="relative pl-6 sm:pl-10 space-y-16">
+        <div className="relative pl-7 sm:pl-10 space-y-12 sm:space-y-16">
           
-          {/* Base Track */}
-          <div className="absolute left-0 top-3 bottom-3 w-[2px] bg-[#DED3C5] dark:bg-[#38332E] overflow-hidden rounded-full">
+          {/* Base Track Line */}
+          <div className="absolute left-[11px] sm:left-[15px] top-4 bottom-4 w-[2px] bg-[#DED3C5] dark:bg-[#38332E] overflow-hidden rounded-full">
             <div
               className="w-full bg-gradient-to-b from-[#A8875A] via-[#C4A67B] to-[#DED3C5] dark:to-[#38332E] rounded-full"
               style={{
@@ -99,19 +99,19 @@ export default function ExperienceSection() {
               key={idx}
               className="relative group"
               style={{
-                transition: 'opacity 850ms cubic-bezier(0.22, 1, 0.36, 1), transform 850ms cubic-bezier(0.22, 1, 0.36, 1)',
-                transitionDelay: `${400 + idx * 250}ms`,
+                transition: 'opacity 750ms cubic-bezier(0.22, 1, 0.36, 1), transform 750ms cubic-bezier(0.22, 1, 0.36, 1)',
+                transitionDelay: `${250 + idx * 180}ms`,
                 opacity: isVisible ? 1 : 0,
-                transform: isVisible ? 'translateX(0px)' : 'translateX(40px)',
+                transform: isVisible ? 'translateY(0px)' : 'translateY(20px)',
               }}
             >
               
-              {/* Pulsing Timeline Node */}
+              {/* Pulsing Timeline Node (Precisely centered on track line) */}
               <div
-                className="absolute -left-[31px] sm:-left-[47px] top-2 w-4 h-4 rounded-full bg-[#FFFCF7] dark:bg-[#24201D] border-2 border-[#A8875A] dark:border-[#C4A67B] flex items-center justify-center shadow-[0_0_10px_rgba(168,135,90,0.35)]"
+                className="absolute -left-[24px] sm:-left-[32px] top-6 sm:top-8 w-4 h-4 rounded-full bg-[#FFFCF7] dark:bg-[#24201D] border-2 border-[#A8875A] dark:border-[#C4A67B] flex items-center justify-center shadow-[0_0_10px_rgba(168,135,90,0.35)] z-10"
                 style={{
                   transition: 'opacity 600ms cubic-bezier(0.22, 1, 0.36, 1), transform 600ms cubic-bezier(0.22, 1, 0.36, 1)',
-                  transitionDelay: `${450 + idx * 250}ms`,
+                  transitionDelay: `${300 + idx * 180}ms`,
                   opacity: isVisible ? 1 : 0,
                   transform: isVisible ? 'scale(1)' : 'scale(0.5)',
                 }}
@@ -120,12 +120,15 @@ export default function ExperienceSection() {
               </div>
 
               {/* Experience Card */}
-              <div className="p-8 sm:p-10 rounded-[20px] bg-[#FFFCF7] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] card-hover-subtle transition-all duration-300 shadow-[0_10px_30px_-6px_rgba(41,37,34,0.06)] dark:shadow-[0_10px_30px_-6px_rgba(0,0,0,0.3)] space-y-6">
+              <div className="p-6 sm:p-8 md:p-10 rounded-[22px] bg-[#FFFCF7] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] card-hover-subtle transition-all duration-300 shadow-[0_10px_30px_-6px_rgba(41,37,34,0.06)] dark:shadow-[0_10px_30px_-6px_rgba(0,0,0,0.3)] space-y-6">
                 
                 {/* Meta Row: Role, Company, Period */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#DED3C5] dark:border-[#38332E] pb-6">
-                  <div>
-                    <h3 className="text-xl sm:text-2xl font-bold text-[#292522] dark:text-[#F5EFEB] tracking-tight">
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-[#DED3C5] dark:border-[#38332E] pb-5">
+                  <div className="min-w-0 flex-1">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EDE4D8]/80 dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] text-[11px] font-serif text-[#A8875A] dark:text-[#C4A67B] font-bold uppercase tracking-wider mb-2">
+                      <span>{exp.type || 'Internship'}</span>
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-bold text-[#292522] dark:text-[#F5EFEB] tracking-tight leading-snug">
                       {exp.role}
                     </h3>
                     <div className="text-base font-bold text-[#A8875A] dark:text-[#C4A67B] mt-1 font-serif">
@@ -133,20 +136,20 @@ export default function ExperienceSection() {
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap items-center gap-4 text-xs font-serif text-[#7D736A] dark:text-[#9E9389]">
-                    <div className="flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B]" />
-                      <span>{exp.period}</span>
+                  <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs font-serif text-[#7D736A] dark:text-[#9E9389] flex-shrink-0 sm:pt-1">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#EDE4D8]/80 dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] shadow-2xs">
+                      <Calendar className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B] flex-shrink-0" />
+                      <span className="font-semibold text-[#292522] dark:text-[#F5EFEB]">{exp.period}</span>
                     </div>
-                    <div className="flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B]" />
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#EDE4D8]/80 dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] shadow-2xs">
+                      <MapPin className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B] flex-shrink-0" />
                       <span>{exp.location}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Resume Bullets */}
-                <div className="space-y-3.5 pt-2">
+                <div className="space-y-3.5 pt-1">
                   {exp.bullets.map((bullet, bIdx) => (
                     <div key={bIdx} className="flex items-start gap-3.5 text-sm sm:text-base font-normal text-[#5F5750] dark:text-[#D1C8C0] leading-relaxed">
                       <CheckCircle2 className="w-4 h-4 text-[#A8875A] dark:text-[#C4A67B] mt-1 flex-shrink-0" />
@@ -189,10 +192,10 @@ export default function ExperienceSection() {
         ───────────────────────────────────────────────────────────── */}
         {trainingProgrammesData && trainingProgrammesData.length > 0 && (
           <div
-            className="mt-20 sm:mt-24 pt-16 border-t border-[#DED3C5] dark:border-[#38332E]"
+            className="mt-16 sm:mt-20 pt-12 sm:pt-16 border-t border-[#DED3C5] dark:border-[#38332E]"
             style={{
-              transition: 'opacity 800ms cubic-bezier(0.22, 1, 0.36, 1), transform 800ms cubic-bezier(0.22, 1, 0.36, 1)',
-              transitionDelay: '400ms',
+              transition: 'opacity 750ms cubic-bezier(0.22, 1, 0.36, 1), transform 750ms cubic-bezier(0.22, 1, 0.36, 1)',
+              transitionDelay: '300ms',
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? 'translateY(0px)' : 'translateY(24px)',
             }}
@@ -218,17 +221,17 @@ export default function ExperienceSection() {
               {trainingProgrammesData.map((item, idx) => (
                 <div
                   key={idx}
-                  className="p-8 sm:p-10 rounded-[22px] bg-[#FFFCF7] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] card-hover-subtle transition-all duration-300 shadow-[0_10px_30px_-6px_rgba(41,37,34,0.06)] dark:shadow-[0_10px_30px_-6px_rgba(0,0,0,0.3)] space-y-6 group"
+                  className="p-6 sm:p-8 md:p-10 rounded-[22px] bg-[#FFFCF7] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] card-hover-subtle transition-all duration-300 shadow-[0_10px_30px_-6px_rgba(41,37,34,0.06)] dark:shadow-[0_10px_30px_-6px_rgba(0,0,0,0.3)] space-y-6 group"
                 >
                   {/* Meta Row: Type, Title, Organization, Cohort, Track, Status, Period */}
-                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-[#DED3C5] dark:border-[#38332E] pb-6">
-                    <div className="space-y-2">
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-[#DED3C5] dark:border-[#38332E] pb-5">
+                    <div className="space-y-2 min-w-0 flex-1">
                       <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EDE4D8]/80 dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] text-[11px] font-serif text-[#A8875A] dark:text-[#C4A67B] font-bold uppercase tracking-wider">
                         <Sparkles className="w-3 h-3 text-[#A8875A] dark:text-[#C4A67B]" />
                         <span>{item.type}</span>
                       </div>
                       
-                      <h4 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#292522] dark:text-[#F5EFEB] tracking-tight group-hover:text-[#A8875A] dark:group-hover:text-[#C4A67B] transition-colors duration-250">
+                      <h4 className="text-xl sm:text-2xl font-bold text-[#292522] dark:text-[#F5EFEB] tracking-tight group-hover:text-[#A8875A] dark:group-hover:text-[#C4A67B] transition-colors duration-250 leading-snug">
                         {item.programme}
                       </h4>
 
@@ -241,8 +244,8 @@ export default function ExperienceSection() {
                       </div>
                     </div>
 
-                    {/* Status Pill & Year */}
-                    <div className="flex flex-wrap sm:flex-col sm:items-end gap-2.5">
+                    {/* Status Pill & Year (Never squeezed or clipped) */}
+                    <div className="flex flex-wrap sm:flex-col sm:items-end gap-2.5 flex-shrink-0">
                       <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EDE4D8] dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] text-xs font-serif font-bold text-[#292522] dark:text-[#F5EFEB] shadow-xs">
                         <span className="w-2 h-2 rounded-full bg-emerald-600 dark:bg-emerald-400 animate-pulse" />
                         <span>{item.status}</span>
@@ -285,7 +288,7 @@ export default function ExperienceSection() {
                     {item.certificateImage && (
                       <a
                         href="#certifications"
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-serif font-bold tracking-wider uppercase text-[#292522] dark:text-[#F5EFEB] bg-[#EDE4D8] dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] hover:text-[#A8875A] dark:hover:text-[#C4A67B] transition-all duration-200 shadow-xs whitespace-nowrap self-start sm:self-auto"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-serif font-bold tracking-wider uppercase text-[#292522] dark:text-[#F5EFEB] bg-[#EDE4D8] dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] hover:border-[#A8875A] dark:hover:border-[#C4A67B] hover:text-[#A8875A] dark:hover:text-[#C4A67B] transition-all duration-200 shadow-xs whitespace-nowrap self-start sm:self-auto flex-shrink-0"
                       >
                         <Award className="w-3.5 h-3.5 text-[#A8875A] dark:text-[#C4A67B]" />
                         <span>View Certificate</span>

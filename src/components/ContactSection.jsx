@@ -8,14 +8,14 @@ export default function ContactSection() {
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    // Triggers when 20-30% of the section enters the viewport
+    // Triggers reliably when entering viewport across desktop and mobile
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
         }
       },
-      { threshold: 0.22, rootMargin: '0px 0px -10% 0px' }
+      { threshold: 0.05, rootMargin: '50px 0px 0px 0px' }
     );
 
     if (sectionRef.current) {
@@ -33,7 +33,7 @@ export default function ContactSection() {
     <footer
       id="contact"
       ref={sectionRef}
-      className="relative scroll-mt-20 sm:scroll-mt-24 pt-36 sm:pt-48 pb-16 bg-[#EDE4D8] dark:bg-[#1A1815] text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
+      className="relative scroll-mt-20 sm:scroll-mt-24 pt-24 sm:pt-32 pb-16 bg-[#EDE4D8] dark:bg-[#1A1815] text-[#292522] dark:text-[#F5EFEB] overflow-hidden transition-colors duration-300"
       role="contentinfo"
       aria-label="Contact and Social Links"
     >

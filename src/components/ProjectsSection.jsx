@@ -235,7 +235,7 @@ function ProjectSceneItem({ project, idx, onOpenLightbox }) {
 
           {/* Project Title */}
           <h3
-            className={`text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#292522] dark:text-[#F5EFEB] leading-[1.18] transition-all duration-300 ${
+            className={`text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#292522] dark:text-[#F5EFEB] leading-[1.18] transition-all duration-300 ${
               isHovered ? 'text-[#A8875A] dark:text-[#C4A67B] translate-x-1' : ''
             }`}
           >
@@ -354,7 +354,7 @@ export default function ProjectsSection() {
   return (
     <section
       id="work"
-      className="relative scroll-mt-20 sm:scroll-mt-24 pt-10 sm:pt-14 lg:pt-16 pb-28 sm:pb-36 lg:pb-40 bg-[#F7F3ED] dark:bg-[#141210] text-[#292522] dark:text-[#F5EFEB] transition-colors duration-300"
+      className="relative scroll-mt-20 sm:scroll-mt-24 pt-12 sm:pt-16 pb-24 sm:pb-32 lg:pb-36 bg-[#F7F3ED] dark:bg-[#141210] text-[#292522] dark:text-[#F5EFEB] transition-colors duration-300"
       role="region"
       aria-label="Selected Engineering Work"
     >
@@ -399,7 +399,7 @@ export default function ProjectsSection() {
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.12] text-[#292522] dark:text-[#F5EFEB] max-w-3xl">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.15] text-[#292522] dark:text-[#F5EFEB] max-w-3xl">
             PRACTICAL SYSTEMS & APPLICATIONS.
           </h2>
 
