@@ -16,16 +16,25 @@ import {
   Moon,
   CheckCircle2,
   Filter,
-  UserCheck
+  UserCheck,
+  Briefcase,
+  Building,
+  Mail,
+  ExternalLink,
+  MessageSquare,
+  Lock,
+  Layers
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { LinkedinIcon } from '../components/Icons';
 
 export default function OwnerVisitorsPage() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const [filterDate, setFilterDate] = useState('all'); // 'all', 'today', 'week', 'month', or YYYY-MM-DD
+  const [filterDate, setFilterDate] = useState('all'); // 'all', 'today', 'week', 'month'
   const [customDate, setCustomDate] = useState('');
+  const [activeTab, setActiveTab] = useState('all'); // 'all' or 'recruiters'
   const navigate = useNavigate();
   const { isDark, toggleTheme } = useTheme();
 
@@ -87,6 +96,13 @@ export default function OwnerVisitorsPage() {
     return true;
   });
 
+  const recruiterVisits = (data?.recruiterInterest?.recruiterVisits || []).filter((v) => {
+    if (customDate) {
+      return v.timestamp.startsWith(customDate);
+    }
+    return true;
+  });
+
   return (
     <div className="min-h-screen bg-[#F7F3ED] dark:bg-[#141210] text-[#292522] dark:text-[#F5EFEB] transition-colors duration-300 font-sans">
       {/* ─────────────────────────────────────────────────────────────
@@ -109,7 +125,7 @@ export default function OwnerVisitorsPage() {
                 </span>
               </div>
               <span className="text-[11px] text-[#7D736A] dark:text-[#9E9389]">
-                Private Owner Portal
+                Private Owner Portal • Krupa B T
               </span>
             </div>
           </div>
@@ -153,11 +169,43 @@ export default function OwnerVisitorsPage() {
       ───────────────────────────────────────────────────────────── */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-8">
         
+        {/* Navigation Tabs (All Visitors vs Recruiter Interest) */}
+        <div className="flex items-center gap-3 border-b border-[#DED3C5] dark:border-[#38332E] pb-3">
+          <button
+            onClick={() => setActiveTab('all')}
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-serif font-bold transition-all duration-200 cursor-pointer ${
+              activeTab === 'all'
+                ? 'bg-[#292522] dark:bg-[#C4A67B] text-[#F7F3ED] dark:text-[#141210] shadow-sm'
+                : 'text-[#7D736A] dark:text-[#9E9389] hover:text-[#292522] dark:hover:text-[#F5EFEB]'
+            }`}
+          >
+            <Users className="w-4 h-4" />
+            <span>All Portfolio Visitors</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('recruiters')}
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-serif font-bold transition-all duration-200 cursor-pointer relative ${
+              activeTab === 'recruiters'
+                ? 'bg-[#292522] dark:bg-[#C4A67B] text-[#F7F3ED] dark:text-[#141210] shadow-sm'
+                : 'text-[#7D736A] dark:text-[#9E9389] hover:text-[#292522] dark:hover:text-[#F5EFEB]'
+            }`}
+          >
+            <Briefcase className="w-4 h-4 text-blue-500" />
+            <span>Recruiter Interest</span>
+            {data?.recruiterInterest?.totalLinkedInVisits > 0 && (
+              <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-blue-500 text-white font-mono">
+                {data.recruiterInterest.totalLinkedInVisits}
+              </span>
+            )}
+          </button>
+        </div>
+
         {/* ─────────────────────────────────────────────────────────────
             SECTION 1: VISITOR OVERVIEW (4 TILES)
         ───────────────────────────────────────────────────────────── */}
         <div>
-          <h2 className="text-sm font-serif font-bold uppercase tracking-wider text-[#A8875A] dark:text-[#C4A67B] mb-4">
+          <h2 className="text-xs font-serif font-bold uppercase tracking-wider text-[#A8875A] dark:text-[#C4A67B] mb-3">
             Visitor Overview
           </h2>
 
@@ -174,7 +222,9 @@ export default function OwnerVisitorsPage() {
                 {loading ? '—' : data?.overview?.totalVisitors || 0}
               </div>
               <p className="mt-1 text-[11px] text-[#7D736A] dark:text-[#9E9389] font-serif">
-                Total unique visitors
+                {data?.overview?.returningVisitors > 0
+                  ? `${data.overview.returningVisitors} returning visits`
+                  : 'Total unique visitors'}
               </p>
             </div>
 
@@ -190,7 +240,7 @@ export default function OwnerVisitorsPage() {
                 {loading ? '—' : data?.overview?.visitorsToday || 0}
               </div>
               <p className="mt-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-serif">
-                Recorded today
+                Active today
               </p>
             </div>
 
@@ -229,18 +279,122 @@ export default function OwnerVisitorsPage() {
         </div>
 
         {/* ─────────────────────────────────────────────────────────────
-            SECTION 2: RECENT VISITOR DETAILS (EXACT REQUESTED TABLE)
+            SECTION 5: RECRUITER INTEREST (WHEN RECRUITERS TAB SELECTED)
+        ───────────────────────────────────────────────────────────── */}
+        {activeTab === 'recruiters' && (
+          <div className="space-y-6 animate-in fade-in">
+            {/* Recruiter Summary Card */}
+            <div className="p-6 sm:p-8 rounded-[24px] bg-[#FFFCF7] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] shadow-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-600 flex items-center justify-center">
+                  <LinkedinIcon className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-[#292522] dark:text-[#F5EFEB]">
+                    LinkedIn & Recruiter Interest Overview
+                  </h3>
+                  <p className="text-xs text-[#7D736A] dark:text-[#9E9389]">
+                    Visits originating from LinkedIn and voluntary hiring inquiries.
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+                <div className="p-4 rounded-xl bg-[#EDE4D8]/50 dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E]">
+                  <span className="text-xs font-serif text-[#7D736A] dark:text-[#9E9389] block">
+                    Total LinkedIn Visits
+                  </span>
+                  <span className="text-2xl font-bold text-[#292522] dark:text-[#F5EFEB] mt-1 block">
+                    {data?.recruiterInterest?.totalLinkedInVisits || 0}
+                  </span>
+                </div>
+
+                <div className="p-4 rounded-xl bg-[#EDE4D8]/50 dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E]">
+                  <span className="text-xs font-serif text-[#7D736A] dark:text-[#9E9389] block">
+                    Voluntary Contact Submissions
+                  </span>
+                  <span className="text-2xl font-bold text-[#292522] dark:text-[#F5EFEB] mt-1 block">
+                    {data?.recruiterInterest?.voluntaryInquiries?.length || 0}
+                  </span>
+                </div>
+
+                <div className="p-4 rounded-xl bg-[#EDE4D8]/50 dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E]">
+                  <span className="text-xs font-serif text-[#7D736A] dark:text-[#9E9389] block">
+                    Top Projects Evaluated
+                  </span>
+                  <span className="text-xs font-bold text-[#A8875A] dark:text-[#C4A67B] mt-1 block truncate">
+                    {data?.recruiterInterest?.topRecruiterPages?.[0]?.name || 'Projects Section'}
+                  </span>
+                </div>
+              </div>
+
+              {/* Privacy Notice */}
+              <div className="mt-6 p-3.5 rounded-xl bg-[#EDE4D8]/30 dark:bg-[#1C1917]/60 border border-[#DED3C5] dark:border-[#38332E] text-xs text-[#7D736A] dark:text-[#9E9389] flex items-center gap-2">
+                <Shield className="w-4 h-4 text-[#A8875A] dark:text-[#C4A67B] flex-shrink-0" />
+                <span>
+                  Privacy guarantee: Anonymous LinkedIn visitors are presented using non-identifying telemetry (Location, Device, Timestamp). Visitor real names and employer identities are only displayed if they voluntarily provide them with consent.
+                </span>
+              </div>
+            </div>
+
+            {/* Voluntary Recruiter Contact Submissions */}
+            {data?.recruiterInterest?.voluntaryInquiries?.length > 0 && (
+              <div className="p-6 sm:p-8 rounded-[24px] bg-[#FFFCF7] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] shadow-sm">
+                <h3 className="text-sm font-serif font-bold uppercase tracking-wider text-[#A8875A] dark:text-[#C4A67B] mb-4 flex items-center gap-2">
+                  <UserCheck className="w-4 h-4" />
+                  <span>Voluntary Inquiries from Recruiters & Companies</span>
+                </h3>
+
+                <div className="space-y-3">
+                  {data.recruiterInterest.voluntaryInquiries.map((inq) => (
+                    <div
+                      key={inq.id}
+                      className="p-4 rounded-xl bg-[#EDE4D8]/40 dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] text-xs font-serif flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                    >
+                      <div>
+                        <div className="flex items-center gap-2 font-bold text-sm text-[#292522] dark:text-[#F5EFEB]">
+                          <span>{inq.name}</span>
+                          {inq.company && (
+                            <span className="px-2 py-0.5 rounded-md text-[11px] bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+                              {inq.company}
+                            </span>
+                          )}
+                        </div>
+                        <div className="text-[#5F5750] dark:text-[#D1C8C0] mt-1">
+                          {inq.message || 'Expressed hiring interest in full-stack / AI engineering.'}
+                        </div>
+                      </div>
+
+                      <a
+                        href={`mailto:${inq.email}`}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#292522] dark:bg-[#C4A67B] text-[#F7F3ED] dark:text-[#141210] font-bold text-[11px] self-start sm:self-auto"
+                      >
+                        <Mail className="w-3.5 h-3.5" />
+                        <span>Email {inq.name.split(' ')[0]}</span>
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ─────────────────────────────────────────────────────────────
+            SECTION 2: RECENT VISITOR DETAILS (REQUESTED TABLE)
         ───────────────────────────────────────────────────────────── */}
         <div className="p-6 sm:p-8 rounded-[24px] bg-[#FFFCF7] dark:bg-[#24201D] border border-[#DED3C5] dark:border-[#38332E] shadow-sm space-y-6">
           
           {/* Header & Date Filters */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <h2 className="text-lg font-bold tracking-tight text-[#292522] dark:text-[#F5EFEB]">
-                Recent Visitor Details
+              <h2 className="text-base sm:text-lg font-bold tracking-tight text-[#292522] dark:text-[#F5EFEB]">
+                {activeTab === 'recruiters' ? 'LinkedIn Recruiter Visits' : 'Recent Visitor Details'}
               </h2>
               <p className="text-xs text-[#7D736A] dark:text-[#9E9389] mt-0.5">
-                Real live visits to your portfolio website.
+                {activeTab === 'recruiters'
+                  ? 'Visits arriving directly from LinkedIn referrals.'
+                  : 'Live tracked visits across all referral channels.'}
               </p>
             </div>
 
@@ -300,17 +454,19 @@ export default function OwnerVisitorsPage() {
                       Loading real visitor data...
                     </td>
                   </tr>
-                ) : displayedVisits.length === 0 ? (
+                ) : (activeTab === 'recruiters' ? recruiterVisits : displayedVisits).length === 0 ? (
                   <tr>
                     <td colSpan={5} className="py-12 text-center text-xs text-[#7D736A] leading-relaxed">
-                      No visits recorded yet for this date selection.
+                      {activeTab === 'recruiters'
+                        ? 'No LinkedIn recruiter visits recorded for this timeframe yet.'
+                        : 'No visits recorded yet for this date selection.'}
                       <span className="block text-[11px] text-[#9E9389] mt-1">
-                        When people open your portfolio, their visits will appear here live.
+                        When someone opens your portfolio, their session will appear here live.
                       </span>
                     </td>
                   </tr>
                 ) : (
-                  displayedVisits.map((visit) => {
+                  (activeTab === 'recruiters' ? recruiterVisits : displayedVisits).map((visit) => {
                     const visitDate = new Date(visit.timestamp);
                     const timeStr = visitDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                     const dateStr = visitDate.toLocaleDateString([], { month: 'short', day: 'numeric' });
@@ -367,7 +523,13 @@ export default function OwnerVisitorsPage() {
 
                         {/* Source */}
                         <td className="py-3.5 px-3 whitespace-nowrap">
-                          <span className="inline-block px-2.5 py-1 rounded-lg text-xs font-medium bg-[#EDE4D8] dark:bg-[#1C1917] border border-[#DED3C5] dark:border-[#38332E] text-[#A8875A] dark:text-[#C4A67B]">
+                          <span
+                            className={`inline-block px-2.5 py-1 rounded-lg text-xs font-medium border ${
+                              (visit.source || '').toLowerCase().includes('linkedin')
+                                ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20 font-bold'
+                                : 'bg-[#EDE4D8] dark:bg-[#1C1917] border-[#DED3C5] dark:border-[#38332E] text-[#A8875A] dark:text-[#C4A67B]'
+                            }`}
+                          >
                             {visit.source || 'Direct Link'}
                           </span>
                         </td>

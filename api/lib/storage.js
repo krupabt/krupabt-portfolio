@@ -85,7 +85,7 @@ async function saveToSupabase(visit) {
         page: visit.page,
         page_title: visit.pageTitle || visit.page,
         referrer: visit.referrer || '',
-        source: visit.source || 'Direct',
+        source: visit.source || 'Direct Link',
         country: visit.country || 'Unknown',
         region: visit.region || '',
         city: visit.city || '',
@@ -153,22 +153,64 @@ async function getFromSupabase(sinceDate) {
   }
 }
 
-// Record Voluntary Contact Inquiry (with explicit user consent)
+// Vercel KV / Upstash Redis REST client
+async function saveToKV(visit) {
+  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token) return false;
+
+  try {
+    await fetch(`${url}/pipeline`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify([
+        ['LPUSH', 'portfolio:visits', JSON.stringify(visit)],
+        ['LTRIM', 'portfolio:visits', 0, 2999]
+      ])
+    });
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+async function getFromKV() {
+  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token) return null;
+
+  try {
+    const res = await fetch(`${url}/LRANGE/portfolio:visits/0/2999`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    if (!res.ok) return null;
+    const json = await res.json();
+    if (Array.isArray(json.result)) {
+      return json.result.map((item) => (typeof item === 'string' ? JSON.parse(item) : item));
+    }
+  } catch (e) {}
+  return null;
+}
+
+// Record Voluntary Contact Inquiry (with explicit consent from visitor/recruiter)
 export async function recordContactInquiry(inquiry) {
-  const inquiries = loadLocalInquiries();
-  inquiries.unshift({
+  const item = {
     id: `inq_${Date.now()}`,
     name: inquiry.name,
     email: inquiry.email,
-    company: inquiry.company || '',
+    company: inquiry.company || 'Not Specified',
+    role: inquiry.role || 'Recruiter / Hiring Team',
     message: inquiry.message || '',
     sessionId: inquiry.sessionId,
     visitorHash: inquiry.visitorHash,
     createdAt: new Date().toISOString()
-  });
+  };
+
+  const inquiries = loadLocalInquiries();
+  inquiries.unshift(item);
   saveLocalInquiries(inquiries);
 
-  // Link to existing visit records if present
+  // Link to existing visits
   const visits = loadLocalVisits();
   for (const v of visits) {
     if (v.sessionId === inquiry.sessionId || v.visitorHash === inquiry.visitorHash) {
@@ -192,8 +234,9 @@ export async function recordVisit(visit) {
     visit.visitorCompany = match.company;
   }
 
-  // Save to Supabase if configured
+  // Save to persistent cloud database if configured
   await saveToSupabase(visit);
+  await saveToKV(visit);
 
   // Save to local / serverless store
   const list = loadLocalVisits();
@@ -215,9 +258,12 @@ export async function getAnalyticsData(timeRange = 'all') {
     since = new Date(now.getTime() - 30 * 24 * 3600 * 1000);
   }
 
-  // Try Supabase first, fallback to local store
+  // Try Supabase first, then KV, fallback to local store
   let visits = await getFromSupabase(since);
-  if (!visits) {
+  if (!visits || visits.length === 0) {
+    visits = await getFromKV();
+  }
+  if (!visits || visits.length === 0) {
     visits = loadLocalVisits();
   }
 
@@ -230,6 +276,7 @@ export async function getAnalyticsData(timeRange = 'all') {
   const weekVisitors = new Set();
   const monthVisitors = new Set();
   const activeVisitors = new Set();
+  let returningVisitorsCount = 0;
 
   const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
   const startOfWeek = now.getTime() - 7 * 24 * 3600 * 1000;
@@ -244,9 +291,17 @@ export async function getAnalyticsData(timeRange = 'all') {
   const sourceCounts = {};
   const dailyTimelineMap = {};
 
+  // Recruiter Interest Metrics
+  const recruiterVisits = [];
+  const recruiterProjectCounts = {};
+
   for (const v of filtered) {
     const vTime = new Date(v.createdAt).getTime();
     uniqueVisitors.add(v.visitorHash);
+
+    if (v.isNewVisitor === false) {
+      returningVisitorsCount++;
+    }
 
     if (vTime >= startOfToday) todayVisitors.add(v.visitorHash);
     if (vTime >= startOfWeek) weekVisitors.add(v.visitorHash);
@@ -267,11 +322,21 @@ export async function getAnalyticsData(timeRange = 'all') {
     const b = v.browser || 'Other';
     browserCounts[b] = (browserCounts[b] || 0) + 1;
 
-    const p = v.pageTitle || v.page || 'Home';
+    const p = v.pageTitle || formatPageTitle(v.page) || 'Home';
     pageCounts[p] = (pageCounts[p] || 0) + 1;
 
-    const s = v.source || 'Direct';
+    const s = v.source || 'Direct Link';
     sourceCounts[s] = (sourceCounts[s] || 0) + 1;
+
+    // Check Recruiter / LinkedIn interest
+    const isLinkedIn =
+      (v.source && v.source.toLowerCase().includes('linkedin')) ||
+      (v.referrer && v.referrer.toLowerCase().includes('linkedin'));
+
+    if (isLinkedIn) {
+      recruiterVisits.push(v);
+      recruiterProjectCounts[p] = (recruiterProjectCounts[p] || 0) + 1;
+    }
 
     const dateKey = new Date(v.createdAt).toISOString().split('T')[0];
     if (!dailyTimelineMap[dateKey]) {
@@ -295,6 +360,9 @@ export async function getAnalyticsData(timeRange = 'all') {
       .sort((a, b) => b.count - a.count)
       .slice(0, limit);
 
+  // Load any voluntary recruiter/company contact inquiries
+  const voluntaryInquiries = loadLocalInquiries();
+
   return {
     overview: {
       totalVisitors: uniqueVisitors.size,
@@ -303,7 +371,30 @@ export async function getAnalyticsData(timeRange = 'all') {
       visitorsThisWeek: weekVisitors.size,
       visitorsThisMonth: monthVisitors.size,
       activeVisitors: activeVisitors.size,
-      databaseType: process.env.SUPABASE_URL ? 'Supabase (PostgreSQL)' : 'Integrated Real-Time Tracking Engine'
+      returningVisitors: returningVisitorsCount,
+      databaseType: process.env.SUPABASE_URL
+        ? 'Supabase (PostgreSQL)'
+        : (process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL)
+        ? 'Vercel KV / Upstash Redis'
+        : 'Integrated Serverless Tracking Engine'
+    },
+    // Dedicated Recruiter Interest Analytics
+    recruiterInterest: {
+      totalLinkedInVisits: recruiterVisits.length,
+      topRecruiterPages: formatTop(recruiterProjectCounts, 5),
+      recruiterVisits: recruiterVisits.slice(0, 50).map((v) => ({
+        id: v.id,
+        timestamp: v.createdAt,
+        location: v.city && v.city !== 'Unknown' ? `${v.city}, ${v.country}` : (v.country || 'Unknown'),
+        device: v.device || 'Laptop',
+        browser: v.browser || 'Other',
+        page: v.pageTitle || formatPageTitle(v.page),
+        duration: v.durationSeconds || 0,
+        contactName: v.visitorName || null,
+        contactEmail: v.visitorEmail || null,
+        contactCompany: v.visitorCompany || null
+      })),
+      voluntaryInquiries: voluntaryInquiries.slice(0, 20)
     },
     timeline,
     countries: formatTop(countryCounts, 10),
@@ -321,7 +412,7 @@ export async function getAnalyticsData(timeRange = 'all') {
       city: v.city || 'Unknown',
       page: v.page || '/',
       pageTitle: v.pageTitle || formatPageTitle(v.page),
-      source: v.source || 'Direct',
+      source: v.source || 'Direct Link',
       device: v.device || 'Laptop',
       browser: v.browser || 'Other',
       os: v.os || 'Other',
