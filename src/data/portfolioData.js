@@ -194,11 +194,10 @@ export const projectsData = [
     accentGlow: "rgba(168, 135, 90, 0.15)",
     githubUrl: "https://github.com/krupabt/Resume-Analyzer",
     github: "https://github.com/krupabt/Resume-Analyzer",
-    demoUrl: "",
+    demoUrl: "https://resume-analyzer-three-eta.vercel.app",
     demoVideo: "",
     images: [
-      "/projects/resume-analyzer/home.png",
-      "/projects/resume-analyzer/result.png"
+      "/projects/resume-analyzer/home.png"
     ],
     schematicType: "nlp-vector"
   },
@@ -337,3 +336,4 @@ export const certificationsData = [
 ];
 
 export const certifications = certificationsData;
+export const projects = projectsData;
