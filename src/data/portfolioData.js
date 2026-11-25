@@ -148,8 +148,7 @@ export const projectsData = [
     demoUrl: "https://merchantpilot-ai.vercel.app",
     demoVideo: "",
     images: [
-      "/projects/merchantpilot/home.png",
-      "/projects/merchantpilot/dashboard.png"
+      "/projects/merchantpilot/home.png"
     ],
     schematicType: "market-basket"
   },
