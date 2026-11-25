@@ -124,8 +124,7 @@ export const projectsData = [
     demoUrl: "https://smartsupport-ai-gamma.vercel.app",
     demoVideo: "",
     images: [
-      "/projects/smartsupport/home.png",
-      "/projects/smartsupport/dashboard.png"
+      "/projects/smartsupport/home.png"
     ],
     schematicType: "rag-retrieval"
   },
